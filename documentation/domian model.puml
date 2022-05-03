@@ -1,0 +1,23 @@
+@startuml
+skinparam style strictuml
+class Profile
+
+class User
+
+class Order
+class Carport
+class ToolShed
+class Materials
+class RoofType
+class ListContents
+
+User "1" -- "1.." Profile
+Profile"1" -- "1.."Order
+Order"1" -- "1"Carport
+Order"1" -- "0..1"ToolShed
+ToolShed"0..1" -- "1"Carport
+Order"1" -- "1"ListContents
+ListContents"1" -- "1..*"Materials
+Carport"1" -- "1"RoofType
+
+@enduml
