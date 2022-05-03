@@ -7,7 +7,6 @@ public class User
     private String username;
     private String password;
     private String role;
-    private String test;
 
     public User(String username, String password, String role)
     {
