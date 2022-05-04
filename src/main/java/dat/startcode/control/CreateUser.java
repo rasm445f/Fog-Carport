@@ -30,12 +30,14 @@ public class CreateUser extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        request.getRequestDispatcher("createUser.jsp").forward(request, response);
           
           
     }
 
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         response.setContentType("text/html");
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
@@ -62,7 +64,7 @@ public class CreateUser extends HttpServlet {
             session.setAttribute("role",role);
             session.setAttribute("user", user);
 
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
 
 
         } catch (DatabaseException e) {

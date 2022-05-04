@@ -34,8 +34,15 @@ public class UserMapper implements IUserMapper
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
+                    String name = rs.getString("name");
+                    String address = rs.getString("address");
+                    String city = rs.getString("city");
+                    int zipcode = rs.getInt("zipcode");
+                    int phone_number = rs.getInt("phone_number");
                     String role = rs.getString("role");
-                    user = new User(email, password, role);
+                    int balance = rs.getInt("balance");
+
+                    user = new User(email,password,role,balance,name,address,city,zipcode,phone_number);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");
@@ -53,7 +60,9 @@ public class UserMapper implements IUserMapper
     {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
-        String sql = "insert into user (email, password,name,address,city,zipcode,phone_number) values (?,?,?,?,?,?,?)";
+        String sql = "insert into user (email,password,name,address,city,zipcode,phone_number) values (?,?,?,?,?,?,?)";
+
+
         try (Connection connection = connectionPool.getConnection())
         {
             try (PreparedStatement ps = connection.prepareStatement(sql))
@@ -67,11 +76,11 @@ public class UserMapper implements IUserMapper
                 ps.setInt(7,phoneNumber);
 
                 int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
-                {
-                    user = new User(email, password,name,address,city,zipcode,phoneNumber);
-                } else
-                {
+                if (rowsAffected == 1) {
+
+                    user = new User(email,password,name,address,city,zipcode,phoneNumber);
+
+                } else {
                     throw new DatabaseException("The user with email = " + email + " could not be inserted into the database");
                 }
             }

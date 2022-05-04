@@ -15,7 +15,7 @@
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+        <h3>You can create an account here:</h3>
 
         <form action="createUser" method="post">
 
@@ -28,23 +28,23 @@
             <br>
             <br>
             <label for="name">Name: </label>
-            <input type="name" id="name" name="name"/>
+            <input type="text" id="name" name="name"/>
             <br>
             <br>
             <label for="address">Address: </label>
-            <input type="address" id="address" name="address"/>
+            <input type="text" id="address" name="address"/>
             <br>
             <br>
             <label for="city">City: </label>
-            <input type="city" id="city" name="city"/>
+            <input type="text" id="city" name="city"/>
             <br>
             <br>
             <label for="zipcode">Zipcode: </label>
-            <input type="zipcode" id="zipcode" name="zipcode"/>
+            <input type="number" id="zipcode" name="zipcode"/>
             <br>
             <br>
             <label for="phone_number">Phone number: </label>
-            <input type="phone_number" id="phone_number" name="phone_number"/>
+            <input type="number" id="phone_number" name="phone_number"/>
             <br>
             <br>
             <input type="submit"  value="Create user"/>
