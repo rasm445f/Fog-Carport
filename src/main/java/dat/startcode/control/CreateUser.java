@@ -62,7 +62,7 @@ public class CreateUser extends HttpServlet {
             session.setAttribute("zipcode", zipcode);
             session.setAttribute("phone_number", phone_number);
             session.setAttribute("role",role);
-            session.setAttribute("user", user);
+            
 
             request.getRequestDispatcher("login.jsp").forward(request, response);
 

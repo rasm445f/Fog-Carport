@@ -31,6 +31,7 @@
             </c:if>
 
             <c:if test="${sessionScope.user != null }">
+                <li><a>${sessionScope.user.email}</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </c:if>
 

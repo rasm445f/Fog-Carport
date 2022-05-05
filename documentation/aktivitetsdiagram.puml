@@ -1,0 +1,31 @@
+@startuml
+|User|
+start
+
+
+
+
+|#AntiqueWhite|System|
+|User|
+:Create user;
+:Log in;
+:Request carport;
+
+|System|
+:Register request;
+|Admin|
+:Read request;
+|Admin|
+:Make bill of materials;
+|User|
+:Pay for carport;
+|System|
+:Recieve payment;
+|System|
+:Send "bom" to user;
+
+
+|User|
+:Retrieve carport;
+stop
+@enduml
