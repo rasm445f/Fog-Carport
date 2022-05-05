@@ -5,4 +5,8 @@ public class CarportWidth {
     public CarportWidth(int carportWidthCM) {
         this.carportWidthCM = carportWidthCM;
     }
+
+    public int getCarportWidthCM() {
+        return carportWidthCM;
+    }
 }

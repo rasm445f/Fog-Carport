@@ -23,7 +23,10 @@
             <label for="carport_width">Choose your preferred width</label>
             <br>
             <select name="carport_width" id="carport_width">
-                <option disabled selected value> Choose width </option>
+                <option disabled selected value> Choose width</option>
+                <c:forEach items="${sessionScope.carportWidthList}" var="items">
+                    <option value="Clength"> ${items.carportWidthCM} </option>
+                </c:forEach>
             </select>
             <br>
             <br>
@@ -54,7 +57,10 @@
             <label for="toolshed_length">Choose your preferred length of the toolshed</label>
             <br>
             <select name="toolshed_length" id="toolshed_length">
-                <option> I don't wish a toolshed </option>
+                <option value="Tlength"> I don't wish a toolshed</option>
+                <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
+                    <option value="Tlength"> ${items.toolshedLength} </option>
+                </c:forEach>
             </select>
             <br>
             <br>

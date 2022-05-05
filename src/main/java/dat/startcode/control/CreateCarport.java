@@ -1,11 +1,11 @@
 package dat.startcode.control;
 
+import dat.startcode.model.entities.CarportLength;
+import dat.startcode.model.entities.CarportWidth;
 import dat.startcode.model.entities.ToolshedLength;
 import dat.startcode.model.entities.ToolshedWidth;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.ToolshedLengthMapper;
-import dat.startcode.model.persistence.ToolshedWidthMapper;
+import dat.startcode.model.persistence.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,23 +31,26 @@ public class CreateCarport extends HttpServlet {
 
        ToolshedWidthMapper toolshedWidthMapper = new ToolshedWidthMapper(connectionPool);
        ToolshedLengthMapper toolshedLengthMapper = new ToolshedLengthMapper(connectionPool);
+       CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
+        CarportLengthMapper carportLengthMapper = new CarportLengthMapper(connectionPool);
 
+       ArrayList<CarportWidth> carportWidthList = null;
+       ArrayList<CarportLength> carportLengthList = null;
        ArrayList<ToolshedWidth> toolshedWidthList = null;
        ArrayList<ToolshedLength> toolshedLengthList = null;
 
-       try{
-           toolshedWidthList = toolshedWidthMapper.GetToolshedWidth();
 
+       try{
+           carportWidthList = carportWidthMapper.createCarportwidth();
+           carportLengthList = carportLengthMapper.createCarportLength();
+           toolshedWidthList = toolshedWidthMapper.GetToolshedWidth();
+           toolshedLengthList = toolshedLengthMapper.GetToolshedLength();
        } catch (DatabaseException e) {
            e.printStackTrace();
        }
-        try{
-            toolshedLengthList = toolshedLengthMapper.GetToolshedLength();
 
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
-
+       session.setAttribute("carportWidthList",carportWidthList);
+       session.setAttribute("carportLengthList",carportLengthList);
        session.setAttribute("toolshedWidthList",toolshedWidthList);
        session.setAttribute("toolshedLengthList",toolshedLengthList);
        request.getRequestDispatcher("createCarport.jsp").forward(request, response);
