@@ -44,7 +44,10 @@
             <label for="toolshed_width">Choose your preferred width of the toolshed</label>
             <br>
             <select name="toolshed_width" id="toolshed_width">
-                <option> I don't wish a toolshed </option>
+                <option value="Twidth"> I don't wish a toolshed</option>
+                <c:forEach items="${sessionScope.toolshedWidthList}" var="items">
+                <option value="Twidth"> ${items.toolshedWidth} </option>
+                </c:forEach>
             </select>
             <br>
             <br>

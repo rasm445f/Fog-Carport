@@ -34,7 +34,7 @@
                 <li><a>${sessionScope.user.email}</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
             </c:if>
-
+            <li><a href="${pageContext.request.contextPath}/createCarport">Create carport</a></li>
         </ul>
     </nav>
 </header>
