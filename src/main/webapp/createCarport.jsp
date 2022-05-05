@@ -21,27 +21,37 @@
         <h5>Fill in the form below carefully and click on "Send request".</h5>
         <form method="post">
             <label for="carport_width">Choose your preferred width</label>
+            <br>
             <select name="carport_width" id="carport_width">
+                <option disabled selected value> Choose width </option>
             </select>
             <br>
             <br>
             <label for="carport_length">Choose your preferred length</label>
+            <br>
             <select name="carport_length" id="carport_length">
+                <option disabled selected value> Choose length </option>
             </select>
             <br>
             <br>
             <label for="rooftype">Choose your preferred type of roof</label>
+            <br>
             <select name="rooftype" id="rooftype">
+                <option disabled selected value> Choose roof </option>
             </select>
             <br>
             <br>
             <label for="toolshed_width">Choose your preferred width of the toolshed</label>
+            <br>
             <select name="toolshed_width" id="toolshed_width">
+                <option> I don't wish a toolshed </option>
             </select>
             <br>
             <br>
             <label for="toolshed_length">Choose your preferred length of the toolshed</label>
+            <br>
             <select name="toolshed_length" id="toolshed_length">
+                <option> I don't wish a toolshed </option>
             </select>
             <br>
             <br>
