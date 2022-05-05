@@ -6,14 +6,18 @@ public class Order {
     int userID;
     Date orderDate;
     int orderPrice;
-    boolean orderStatus;
+    int orderStatusNumbers;
     int bomID;
-
-    public Order(int userID, Date orderDate, int orderPrice, boolean orderStatus, int bomID) {
+    boolean orderStatus;
+    public Order(int userID, Date orderDate, int orderPrice, int orderStatusNumbers, int bomID) {
         this.userID = userID;
         this.orderDate = orderDate;
         this.orderPrice = orderPrice;
-        this.orderStatus = orderStatus;
+        this.orderStatusNumbers = orderStatusNumbers;
         this.bomID = bomID;
+        if (orderStatusNumbers == 0){
+            orderStatus = false;
+        }
+        else{ orderStatus = true;}
     }
 }
