@@ -6,4 +6,8 @@ public class Rooftype {
     public Rooftype(String roofName) {
         this.roofName = roofName;
     }
+
+    public String getRoofName() {
+        return roofName;
+    }
 }

@@ -8,4 +8,12 @@ public class BillOfMaterials {
         this.materialAmount = materialAmount;
         this.materialID = materialID;
     }
+
+    public int getMaterialAmount() {
+        return materialAmount;
+    }
+
+    public int getMaterialID() {
+        return materialID;
+    }
 }

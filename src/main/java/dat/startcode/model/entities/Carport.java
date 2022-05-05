@@ -13,4 +13,24 @@ public class Carport {
         this.toolshedID = toolshedID;
         this.orderID = orderID;
     }
+
+    public int getCarportWidthID() {
+        return carportWidthID;
+    }
+
+    public int getCarportLengthID() {
+        return carportLengthID;
+    }
+
+    public int getRooftypeID() {
+        return rooftypeID;
+    }
+
+    public int getToolshedID() {
+        return toolshedID;
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
 }
