@@ -25,7 +25,7 @@
             <select name="carport_width" id="carport_width">
                 <option disabled selected value> Choose width</option>
                 <c:forEach items="${sessionScope.carportWidthList}" var="items">
-                    <option value="Cwidth"> ${items.carportWidthCM} </option>
+                    <option value="Cwidth"> ${items.carportWidthCM} cm </option>
                 </c:forEach>
             </select>
             <br>
@@ -35,7 +35,7 @@
             <select name="carport_length" id="carport_length">
                 <option disabled selected value> Choose length</option>
                 <c:forEach items="${sessionScope.carportLengthList}" var="items">
-                    <option value="Clength"> ${items.carportLengthCM} </option>
+                    <option value="Clength"> ${items.carportLengthCM} cm </option>
                 </c:forEach>
             </select>
             <br>
@@ -52,7 +52,7 @@
             <select name="toolshed_width" id="toolshed_width">
                 <option value="Twidth"> I don't wish a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedWidthList}" var="items">
-                <option value="Twidth"> ${items.toolshedWidth} </option>
+                <option value="Twidth"> ${items.toolshedWidth} cm </option>
                 </c:forEach>
             </select>
             <br>
@@ -62,7 +62,7 @@
             <select name="toolshed_length" id="toolshed_length">
                 <option value="Tlength"> I don't wish a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
-                    <option value="Tlength"> ${items.toolshedLength} </option>
+                    <option value="Tlength"> ${items.toolshedLength} cm </option>
                 </c:forEach>
             </select>
             <br>
