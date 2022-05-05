@@ -8,6 +8,14 @@
     background-color: #ffd26d;
 }
 */
+.col{
+    background-color: steelblue;
+}
+.logo{
+    float: left;
+    cursor: pointer;
+
+}
 
 li, a{
     font-family: "Montserrat", sans-serif;
@@ -56,19 +64,19 @@ header{
     background-color: rgba(0,0,100);
 }
 
-.logo{
-    cursor:pointer;
-}
+
 .nav_links{
     list-style: square;
+
 }
 
 .nav_links li{
     display: inline-block;
     padding: 0px 20px;
+
 }
 .nav_links li a{
-    color: #533228;
+    color: white;
     transition: all 0.3s ease 0s;
 
 }

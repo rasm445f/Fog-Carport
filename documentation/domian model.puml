@@ -1,23 +1,30 @@
 @startuml
 skinparam style strictuml
-class Profile
+
 
 class User
-
 class Order
 class Carport
+class CarportLength
+class CarportWidth
 class ToolShed
+class ToolshedLength
+class ToolshedWidth
 class Materials
 class RoofType
-class ListContents
+class BillofMaterials
 
-User "1" -- "1.." Profile
-Profile"1" -- "1.."Order
-Order"1" -- "1"Carport
-Order"1" -- "0..1"ToolShed
-ToolShed"0..1" -- "1"Carport
-Order"1" -- "1"ListContents
-ListContents"1" -- "1..*"Materials
+User "1" -- "1.."Order
+Order"1" -- "1"BillofMaterials
+Order"1" -- "1..*"Carport
+CarportLength"1" -- "1"Carport
+CarportWidth"1" -- "1"Carport
+Carport"1" -- "0..1"ToolShed
+
+ToolshedLength"1" -- "1"ToolShed
+ToolshedWidth"1" -- "1"ToolShed
+
+BillofMaterials"1" -- "1..*"Materials
 Carport"1" -- "1"RoofType
 
 @enduml

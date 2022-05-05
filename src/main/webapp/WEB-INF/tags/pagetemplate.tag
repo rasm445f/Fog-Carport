@@ -19,7 +19,7 @@
 </head>
 <body>
 <header>
-    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo">
+    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo" >
     <nav>
         <ul class="nav_links">
             <c:if test="${sessionScope.user == null }">
@@ -49,16 +49,14 @@
     <hr/>
     <div class="row mt-4">
         <div class="col">
-            Nørgaardsvej 30<br/>
-            2800 Lyngby
+            Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby
         </div>
         <div class="col">
-            <jsp:invoke fragment="footer"/><br/>
+            <jsp:invoke fragment="footer"/>
             <p>&copy; 2022 Cphbusiness</p>
         </div>
         <div class="col">
-            Datamatikeruddannelsen<br/>
-            2. semester forår 2022
+            All prices include VAT
         </div>
     </div>
 
