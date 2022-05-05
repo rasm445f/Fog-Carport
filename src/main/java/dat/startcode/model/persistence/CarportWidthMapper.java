@@ -14,6 +14,8 @@ import java.util.List;
 import static dat.startcode.model.config.ApplicationStart.connectionPool;
 
 public class CarportWidthMapper {
+    ConnectionPool connectionPool;
+    public CarportWidthMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
 public ArrayList<CarportWidth> createCarportwidth(){
     String sql = "SELECT * FROM carport_width;";
     ArrayList<CarportWidth> carportWidthsList = new ArrayList<>();

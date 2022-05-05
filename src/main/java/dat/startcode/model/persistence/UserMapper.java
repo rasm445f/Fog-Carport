@@ -11,10 +11,7 @@ public class UserMapper implements IUserMapper
 {
     ConnectionPool connectionPool;
 
-    public UserMapper(ConnectionPool connectionPool)
-    {
-        this.connectionPool = connectionPool;
-    }
+    public UserMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
 
     @Override
     public User login(String email, String password) throws DatabaseException
