@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static dat.startcode.model.config.ApplicationStart.connectionPool;
-
-public class carportMapper {
+public class CarportMapper {
+    ConnectionPool connectionPool;
+    public CarportMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
     public ArrayList<Carport> createCarport(){
         String sql = "SELECT * FROM carport_;";
         ArrayList<Carport> carportsList = new ArrayList<>();
