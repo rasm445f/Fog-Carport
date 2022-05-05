@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 @WebListener
 public class ApplicationStart implements ServletContextListener
 {
-    private static ConnectionPool connectionPool;
+    public static ConnectionPool connectionPool;
 
     public ApplicationStart()
     {
