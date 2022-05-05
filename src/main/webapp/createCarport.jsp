@@ -14,9 +14,11 @@
     </jsp:attribute>
 
     <jsp:body>
-
+        <br>
         <h3>Quick-build offer - Carport with a flat roof</h3>
         <br>
+        <h5>With a specially developed computer program, we can quickly calculate the price and print a sketch on a carport within our standard program, which is adapted to your specific wishes.</h5>
+        <h5>Fill in the form below carefully and click on "Send request".</h5>
         <form method="post">
             <label for="carport_width">Choose your preferred width</label>
             <select name="carport_width" id="carport_width">
