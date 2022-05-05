@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public class CarportMapper {
     ConnectionPool connectionPool;
-    public CarportMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
+    public CarportMapper(ConnectionPool connectionPool){
+        this.connectionPool = connectionPool;
+    }
     public ArrayList<Carport> createCarport(){
         String sql = "SELECT * FROM carport_;";
         ArrayList<Carport> carportsList = new ArrayList<>();

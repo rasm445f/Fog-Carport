@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public class MaterialsMapper {
     ConnectionPool connectionPool;
-    public MaterialsMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
+    public MaterialsMapper(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
     public ArrayList<Materials> creatematerials(){
         String sql = "SELECT * FROM carport_Length;";
         ArrayList<Materials> materialssList = new ArrayList<>();
