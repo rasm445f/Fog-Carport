@@ -20,4 +20,28 @@ public class Order {
         }
         else{ orderStatus = true;}
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
+
+    public int getOrderStatusNumbers() {
+        return orderStatusNumbers;
+    }
+
+    public int getBomID() {
+        return bomID;
+    }
+
+    public boolean isOrderStatus() {
+        return orderStatus;
+    }
 }
