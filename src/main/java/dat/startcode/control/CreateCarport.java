@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet(name = "createCarport", value = "/createCarport")
@@ -23,40 +25,47 @@ public class CreateCarport extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        session = request.getSession();
-        ToolshedWidthMapper toolshedWidthMapper = new ToolshedWidthMapper(connectionPool);
-        ToolshedLengthMapper toolshedLengthMapper = new ToolshedLengthMapper(connectionPool);
-        CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
-        CarportLengthMapper carportLengthMapper = new CarportLengthMapper(connectionPool);
-        RooftypeMapper rooftypeMapper = new RooftypeMapper(connectionPool);
-
-        ArrayList<CarportWidth> carportWidthList = null;
-        ArrayList<CarportLength> carportLengthList = null;
-        ArrayList<ToolshedWidth> toolshedWidthList = null;
-        ArrayList<ToolshedLength> toolshedLengthList = null;
-        ArrayList<Rooftype> rooftypeList = null;
-
-
         try {
 
-            carportWidthList = carportWidthMapper.createCarportwidth();
-            carportLengthList = carportLengthMapper.createCarportLength();
-            toolshedWidthList = toolshedWidthMapper.GetToolshedWidth();
-            toolshedLengthList = toolshedLengthMapper.GetToolshedLength();
-            rooftypeList = rooftypeMapper.getRooftype();
 
-        } catch (DatabaseException e) {
-            e.printStackTrace();
+            Connection connection = connectionPool.getConnection();
+            session = request.getSession();
+            ToolshedWidthMapper toolshedWidthMapper = new ToolshedWidthMapper(connectionPool);
+            ToolshedLengthMapper toolshedLengthMapper = new ToolshedLengthMapper(connectionPool);
+            CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
+            CarportLengthMapper carportLengthMapper = new CarportLengthMapper(connectionPool);
+            RooftypeMapper rooftypeMapper = new RooftypeMapper(connectionPool);
+
+            ArrayList<CarportWidth> carportWidthList = null;
+            ArrayList<CarportLength> carportLengthList = null;
+            ArrayList<ToolshedWidth> toolshedWidthList = null;
+            ArrayList<ToolshedLength> toolshedLengthList = null;
+            ArrayList<Rooftype> rooftypeList = null;
+
+
+            try {
+
+                carportWidthList = carportWidthMapper.createCarportwidth();
+                carportLengthList = carportLengthMapper.createCarportLength();
+                toolshedWidthList = toolshedWidthMapper.GetToolshedWidth();
+                toolshedLengthList = toolshedLengthMapper.GetToolshedLength();
+                rooftypeList = rooftypeMapper.getRooftype();
+
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            }
+
+            session.setAttribute("carportWidthList", carportWidthList);
+            session.setAttribute("carportLengthList", carportLengthList);
+            session.setAttribute("toolshedWidthList", toolshedWidthList);
+            session.setAttribute("toolshedLengthList", toolshedLengthList);
+            session.setAttribute("rooftypeList", rooftypeList);
+            request.getRequestDispatcher("createCarport.jsp").forward(request, response);
+            connection.close();
         }
-
-        session.setAttribute("carportWidthList", carportWidthList);
-        session.setAttribute("carportLengthList", carportLengthList);
-        session.setAttribute("toolshedWidthList", toolshedWidthList);
-        session.setAttribute("toolshedLengthList", toolshedLengthList);
-        session.setAttribute("rooftypeList",rooftypeList);
-        request.getRequestDispatcher("createCarport.jsp").forward(request, response);
-
+        catch (SQLException e){
+            System.out.println(e);
+        }
     }
 
     @Override
