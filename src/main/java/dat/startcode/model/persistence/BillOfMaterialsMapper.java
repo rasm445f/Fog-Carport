@@ -23,7 +23,8 @@ public class BillOfMaterialsMapper {
                 while (rs.next()){
                     int materialAmount = rs.getInt("material_amount");
                     int materialID = rs.getInt("material_id");
-                    BillOfMaterials billOfMaterials = new BillOfMaterials(materialAmount,materialID);
+                    String materialGuidance = rs.getString("material_guidance");
+                    BillOfMaterials billOfMaterials = new BillOfMaterials(materialAmount,materialID,materialGuidance);
                     billOfMaterialssList.add(billOfMaterials);
                 }
             }

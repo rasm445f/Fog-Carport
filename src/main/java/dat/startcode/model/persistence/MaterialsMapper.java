@@ -22,12 +22,11 @@ public class MaterialsMapper {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
                     String materialDescription = rs.getString("material_description");
-                    String materialGuidance = rs.getString("material_guidance");
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
                     int materialLength = rs.getInt("material_length");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialDescription,materialGuidance,materialCategory,materialUnit,materialLength,materialPrice);
+                    Materials materials = new Materials(materialDescription,materialCategory,materialUnit,materialLength,materialPrice);
                     materialssList.add(materials);
                 }
             }

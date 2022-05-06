@@ -3,10 +3,12 @@ package dat.startcode.model.entities;
 public class BillOfMaterials {
     int materialAmount;
     int materialID;
+    String materialGuidance;
 
-    public BillOfMaterials(int materialAmount, int materialID) {
+    public BillOfMaterials(int materialAmount, int materialID, String materialGuidance) {
         this.materialAmount = materialAmount;
         this.materialID = materialID;
+        this.materialGuidance = materialGuidance;
     }
 
     public int getMaterialAmount() {
@@ -15,5 +17,8 @@ public class BillOfMaterials {
 
     public int getMaterialID() {
         return materialID;
+    }
+    public String getMaterialGuidance(){
+        return materialGuidance;
     }
 }
