@@ -19,7 +19,7 @@
 </head>
 <body>
 <header>
-    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo" >
+    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo">
     <nav>
         <ul class="nav_links">
             <c:if test="${sessionScope.user == null }">
