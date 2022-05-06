@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `fogcarport` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `fogcarport`;
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for macos11 (x86_64)
 --
 -- Host: localhost    Database: fogcarport
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,6 +25,7 @@ DROP TABLE IF EXISTS `bill_of_materials`;
 CREATE TABLE `bill_of_materials` (
                                      `bom_id` int NOT NULL AUTO_INCREMENT,
                                      `material_amount` int NOT NULL,
+                                     `material_guidance` varchar(45) NOT NULL,
                                      `material_id` int NOT NULL,
                                      PRIMARY KEY (`bom_id`),
                                      KEY `fk_bill_of_materials_materials1_idx` (`material_id`),
@@ -138,10 +137,10 @@ DROP TABLE IF EXISTS `materials`;
 CREATE TABLE `materials` (
                              `material_id` int NOT NULL,
                              `material_description` varchar(45) NOT NULL,
-                             `material_guidance` varchar(45) NOT NULL,
                              `material_category` varchar(45) NOT NULL,
                              `material_unit` varchar(45) NOT NULL,
                              `material_length` int NOT NULL,
+                             `material_dimension` varchar(45) NOT NULL,
                              `material_price` int NOT NULL,
                              PRIMARY KEY (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -328,4 +327,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-05 18:46:34
+-- Dump completed on 2022-05-06 10:57:27
