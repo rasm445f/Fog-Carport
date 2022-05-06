@@ -56,7 +56,7 @@
             <label for="toolshed_width"><h5>Toolshed width</h5></label>
             <br>
             <select name="toolshed_width" id="toolshed_width">
-                <option value="Twidth"> I don't want a toolshed</option>
+                <option  disabled selected value> I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedWidthList}" var="items">
                 <option value="Twidth"> ${items.toolshedWidth} cm </option>
                 </c:forEach>
@@ -65,7 +65,7 @@
             <label for="toolshed_length"><h5>Toolshed length</h5></label>
             <br>
             <select name="toolshed_length" id="toolshed_length">
-                <option value="Tlength"> I don't want a toolshed</option>
+                <option  disabled selected value> I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
                     <option value="Tlength"> ${items.toolshedLength} cm </option>
                 </c:forEach>

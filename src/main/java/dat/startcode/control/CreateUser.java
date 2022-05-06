@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +55,7 @@ public class CreateUser extends HttpServlet {
         int phone_number = Integer.parseInt(request.getParameter("phone_number"));
 
         try {
+            Connection connection = connectionPool.getConnection();
             user = userMapper.createUser(email, password, name, address, city, zipcode, phone_number);
             session.setAttribute("email", email);
             session.setAttribute("password", password);
@@ -65,12 +68,16 @@ public class CreateUser extends HttpServlet {
             
 
             request.getRequestDispatcher("login.jsp").forward(request, response);
+            connection.close();
 
 
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
+        catch (SQLException e){
+            System.out.println(e);
         }
 
 
