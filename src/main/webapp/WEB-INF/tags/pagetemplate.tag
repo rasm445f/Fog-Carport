@@ -19,7 +19,9 @@
 </head>
 <body>
 <header>
-    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo" >
+    <a href="${pageContext.request.contextPath}/index.jsp">
+    <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo">
+    </a>
     <nav>
         <ul class="nav_links">
             <c:if test="${sessionScope.user == null }">
