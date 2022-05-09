@@ -21,13 +21,13 @@
         <h5>A proposition and sketch of the carport will be sent as fast as possible.</h5>
         <h5>When ordering, standard construction instructions are included.</h5>
         <h5>Fill in the form below carefully and click on "Send request".</h5> <br>
-        <form method="post">
+        <form action="createCarport" method="post">
             <label for="carport_width"><h5>Carport width</h5></label>
             <br>
             <select name="carport_width" id="carport_width">
                 <option disabled selected value> Choose width</option>
                 <c:forEach items="${sessionScope.carportWidthList}" var="items">
-                    <option value="Cwidth"> ${items.carportWidthCM} cm </option>
+                    <option value="${items.carportWidthCM}"> ${items.carportWidthCM} cm </option>
                 </c:forEach>
             </select><br><br>
 
@@ -37,7 +37,7 @@
             <select name="carport_length" id="carport_length">
                 <option disabled selected value> Choose length</option>
                 <c:forEach items="${sessionScope.carportLengthList}" var="items">
-                    <option value="Clength"> ${items.carportLengthCM} cm </option>
+                    <option value="${items.carportLengthCM}"> ${items.carportLengthCM} cm </option>
                 </c:forEach>
             </select> <br><br>
 
@@ -46,7 +46,7 @@
             <select name="rooftype" id="rooftype">
                 <option disabled selected value> Choose roof</option>
                 <c:forEach items="${sessionScope.rooftypeList}" var="items">
-                    <option value="rooftype"> ${items.roofName} </option>
+                    <option value="${items.roofName}"> ${items.roofName} </option>
                 </c:forEach>
             </select>
             <br>
@@ -56,18 +56,18 @@
             <label for="toolshed_width"><h5>Toolshed width</h5></label>
             <br>
             <select name="toolshed_width" id="toolshed_width">
-                <option  disabled selected value> I don't want a toolshed</option>
+                <option>I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedWidthList}" var="items">
-                <option value="Twidth"> ${items.toolshedWidth} cm </option>
+                <option value="${items.toolshedWidth}"> ${items.toolshedWidth} cm </option>
                 </c:forEach>
             </select><br><br>
 
             <label for="toolshed_length"><h5>Toolshed length</h5></label>
             <br>
             <select name="toolshed_length" id="toolshed_length">
-                <option  disabled selected value> I don't want a toolshed</option>
+                <option>I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
-                    <option value="Tlength"> ${items.toolshedLength} cm </option>
+                    <option value="${items.toolshedLength}"> ${items.toolshedLength} cm </option>
                 </c:forEach>
             </select><br><br>
 

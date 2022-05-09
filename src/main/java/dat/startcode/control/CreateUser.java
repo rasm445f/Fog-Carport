@@ -31,9 +31,13 @@ public class CreateUser extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            Connection connection = connectionPool.getConnection();
+            request.getRequestDispatcher("createUser.jsp").forward(request, response);
+            connection.close();
+        }  catch (SQLException e){
 
-        request.getRequestDispatcher("createUser.jsp").forward(request, response);
-          
+        }
           
     }
 
