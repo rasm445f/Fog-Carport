@@ -10,12 +10,13 @@ import java.util.ArrayList;
 
 public class MaterialsMapper {
     ConnectionPool connectionPool;
+
     public MaterialsMapper(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
-    public ArrayList<Materials> creatematerials(){
-        String sql = "SELECT * FROM carport_Length;";
-        ArrayList<Materials> materialssList = new ArrayList<>();
+    public ArrayList<Materials> createMaterials(){
+        String sql = "SELECT * FROM fogcarport.materials;";
+        ArrayList<Materials> materialList = new ArrayList<>();
         try{
             Connection connection = connectionPool.getConnection();
             try(PreparedStatement ps = connection.prepareStatement(sql)){
@@ -25,15 +26,16 @@ public class MaterialsMapper {
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
                     int materialLength = rs.getInt("material_length");
+                    String materialDimension = rs.getString("material_dimension");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialDescription,materialCategory,materialUnit,materialLength,materialPrice);
-                    materialssList.add(materials);
+                    Materials materials = new Materials(materialDescription,materialCategory,materialUnit,materialLength, materialDimension,materialPrice);
+                    materialList.add(materials);
                 }
             }
         }catch (SQLException e){
-            System.out.println("couldn't find carport length");
+            System.out.println("couldn't find the materials in the database");
         }
-        return materialssList;
+        return materialList;
 
     }
 }

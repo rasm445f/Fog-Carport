@@ -5,13 +5,15 @@ public class Materials {
     String materialCategory;
     String materialUnit;
     int materialLength;
+    String materialDimension;
     int materialPrice;
 
-    public Materials(String materialDescription, String materialCategory, String materialUnit, int materialLength, int materialPrice) {
+    public Materials(String materialDescription, String materialCategory, String materialUnit, int materialLength, String materialDimension, int materialPrice) {
         this.materialDescription = materialDescription;
         this.materialCategory = materialCategory;
         this.materialUnit = materialUnit;
         this.materialLength = materialLength;
+        this.materialDimension = materialDimension;
         this.materialPrice = materialPrice;
     }
 
@@ -25,6 +27,10 @@ public class Materials {
 
     public String getMaterialUnit() {
         return materialUnit;
+    }
+
+    public String getMaterialDimension() {
+        return materialDimension;
     }
 
     public int getMaterialLength() {
