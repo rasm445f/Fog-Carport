@@ -98,7 +98,7 @@ public class CreateCarport extends HttpServlet {
                 carportAtributes.add(toolshedLength);
             }
             session.setAttribute("carportAtributes", carportAtributes);
-            request.getRequestDispatcher("Calculator");
+            request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
             connection.close();
         }
         catch (SQLException e){
