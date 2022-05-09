@@ -21,11 +21,10 @@ public class Main {
         MaterialsMapper materialsMapper = new MaterialsMapper(connectionPool);
 
 
-        ArrayList<Materials> materialList = materialsMapper.createMaterials();
+        ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
 
 
         for (Materials materials : materialList) {
-            System.out.println(materials.getMaterialLength());
 
         }
 
