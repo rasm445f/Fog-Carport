@@ -9,6 +9,7 @@ public class Order {
     int orderStatusNumbers;
     int bomID;
     boolean orderStatus;
+
     public Order(int userID, Date orderDate, int orderPrice, int orderStatusNumbers, int bomID) {
         this.userID = userID;
         this.orderDate = orderDate;

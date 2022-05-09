@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static dat.startcode.model.config.ApplicationStart.connectionPool;
 
 public class BillOfMaterialsMapper {
+
     ConnectionPool connectionPool;
     public BillOfMaterialsMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
     public ArrayList<BillOfMaterials> createbillOfMaterials(){

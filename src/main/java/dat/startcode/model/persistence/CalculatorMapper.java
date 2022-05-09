@@ -8,34 +8,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalculatorMapper {
-    List<Object> carportAtributes;
-    public CalculatorMapper(List<Object> carportAtributes){
-        this.carportAtributes = carportAtributes;
-    }
-    int cwidth = (int) carportAtributes.get(0);
-    int clength = (int) carportAtributes.get(1);
-    String rooftype = (String) carportAtributes.get(2);
+    ConnectionPool connectionPool;
+     MaterialsMapper materialsMapper;
+     ArrayList<Materials> materialList;
+     ArrayList<Materials> materialsUsedInCarport = new ArrayList<>();
 
-    MaterialsMapper materialsMapper;
-    ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
-    ArrayList<BillOfMaterials> BOMList = new ArrayList<>();
 
     public void calculateEverything(){
-        calculateUndersternBraederForBackAndFront();
-        calculateSpaer();
-    }
 
-    public void calculateUndersternBraederForBackAndFront(){
 
     }
-    public void calculateSpaer(){
 
+    public void calculateUndersternForOgBag(){
+
+
+    }
+    public int calculateSpærTilRem(int carportW, int carportL) {
+        materialList = materialsMapper.CreateMaterials();
+
+        int result = 0;
         int spaceBetween = 55;
 
         for (Materials materials : materialList) {
+            if (materials.getMaterialID() == 8) {
+                 {
 
+                    result = (int) Math.ceil(carportL / spaceBetween);
+
+                    materialsUsedInCarport.add(new Materials(8, materials.getMaterialDescription(), materials.getMaterialCategory(), materials.getMaterialUnit(), materials.getMaterialLength(), materials.getMaterialPrice()));
+
+                    break;
+                }
+            }
         }
-       int amountOfSpaer = (int) Math.ceil(clength/spaceBetween);
-
+        return result;
     }
+
+
 }
+

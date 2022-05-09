@@ -7,13 +7,12 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserMapper implements IUserMapper
-{
+public class UserMapper {
     ConnectionPool connectionPool;
 
     public UserMapper(ConnectionPool connectionPool){this.connectionPool = connectionPool;}
 
-    @Override
+
     public User login(String email, String password) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
@@ -31,6 +30,7 @@ public class UserMapper implements IUserMapper
                 ResultSet rs = ps.executeQuery();
                 if (rs.next())
                 {
+                    int user_id = rs.getInt("user_id");
                     String name = rs.getString("name");
                     String address = rs.getString("address");
                     String city = rs.getString("city");
@@ -39,7 +39,7 @@ public class UserMapper implements IUserMapper
                     String role = rs.getString("role");
                     int balance = rs.getInt("balance");
 
-                    user = new User(email,password,role,balance,name,address,city,zipcode,phone_number);
+                    user = new User(user_id,email,password,role,balance,name,address,city,zipcode,phone_number);
                 } else
                 {
                     throw new DatabaseException("Wrong username or password");
@@ -52,7 +52,7 @@ public class UserMapper implements IUserMapper
         return user;
     }
 
-    @Override
+
     public User createUser(String email, String password, String name, String address, String city, int zipcode, int phoneNumber) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");

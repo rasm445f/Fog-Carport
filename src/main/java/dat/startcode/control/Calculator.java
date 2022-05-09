@@ -1,6 +1,6 @@
 package dat.startcode.control;
 
-import dat.startcode.model.persistence.CalculatorMapper;
+
 import dat.startcode.model.persistence.ConnectionPool;
 
 import javax.servlet.*;
@@ -12,18 +12,20 @@ import java.util.List;
 
 @WebServlet(name = "Calculator", value = "/Calculator")
 public class Calculator extends HttpServlet {
+
     HttpSession session;
     ConnectionPool connectionPool;
+
     @Override
     public void init() throws ServletException {
         connectionPool = new ConnectionPool();
 
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
-        List<Object> carportAtributes = (List<Object>) session.getAttribute("carportAtributes");
-        CalculatorMapper calculatorMapper = new CalculatorMapper(carportAtributes);
+
     }
 
     @Override

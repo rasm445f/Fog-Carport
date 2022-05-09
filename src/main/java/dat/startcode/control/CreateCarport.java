@@ -63,14 +63,14 @@ public class CreateCarport extends HttpServlet {
             session.setAttribute("rooftypeList", rooftypeList);
             request.getRequestDispatcher("createCarport.jsp").forward(request, response);
             connection.close();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.setContentType("text/html");
         try {
             Connection connection = connectionPool.getConnection();
@@ -103,15 +103,13 @@ public class CreateCarport extends HttpServlet {
                 session.setAttribute("carportAtributes", carportAtributes);
                 request.getRequestDispatcher("Calculator");
                 connection.close();
-            }catch (NumberFormatException e){
-                session.setAttribute("error","Remember to fill out all the required choices");
-                request.getRequestDispatcher("createCarport.jsp").forward(request,response);
+            } catch (NumberFormatException e) {
+                session.setAttribute("error", "Remember to fill out all the required choices");
+                request.getRequestDispatcher("createCarport.jsp").forward(request, response);
                 connection.close();
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
 
         }
     }
-
-    }
+}

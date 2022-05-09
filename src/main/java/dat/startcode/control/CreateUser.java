@@ -35,10 +35,10 @@ public class CreateUser extends HttpServlet {
             Connection connection = connectionPool.getConnection();
             request.getRequestDispatcher("createUser.jsp").forward(request, response);
             connection.close();
-        }  catch (SQLException e){
+        } catch (SQLException e) {
 
         }
-          
+
     }
 
 
@@ -68,8 +68,8 @@ public class CreateUser extends HttpServlet {
             session.setAttribute("city", city);
             session.setAttribute("zipcode", zipcode);
             session.setAttribute("phone_number", phone_number);
-            session.setAttribute("role",role);
-            
+            session.setAttribute("role", role);
+
 
             request.getRequestDispatcher("login.jsp").forward(request, response);
             connection.close();
@@ -79,8 +79,7 @@ public class CreateUser extends HttpServlet {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
 

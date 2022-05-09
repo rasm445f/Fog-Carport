@@ -6,6 +6,7 @@ public class Carport {
     int rooftypeID;
     int toolshedID;
     int orderID;
+
     public Carport(int carportWidthID, int carportLengthID, int rooftypeID, int toolshedID, int orderID) {
         this.carportWidthID = carportWidthID;
         this.carportLengthID = carportLengthID;

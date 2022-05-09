@@ -15,7 +15,8 @@ public class MaterialsMapper {
         this.connectionPool = connectionPool;
     }
     public ArrayList<Materials> CreateMaterials(){
-        String sql = "SELECT * FROM fogcarport.materials;";
+
+        String sql = "SELECT * FROM fogcarport.materials";
         ArrayList<Materials> materialList = new ArrayList<>();
         try{
             Connection connection = connectionPool.getConnection();
@@ -26,8 +27,9 @@ public class MaterialsMapper {
                     String materialDescription = rs.getString("material_description");
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
+                    int materialLength = rs.getInt("material_length");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit,materialPrice);
+                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit, materialLength,materialPrice);
                     materialList.add(materials);
                 }
             }

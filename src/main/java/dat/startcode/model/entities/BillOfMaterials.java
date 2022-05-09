@@ -1,6 +1,7 @@
 package dat.startcode.model.entities;
 
 public class BillOfMaterials {
+
     int materialAmount;
     int materialID;
     String materialGuidance;
@@ -18,6 +19,7 @@ public class BillOfMaterials {
     public int getMaterialID() {
         return materialID;
     }
+
     public String getMaterialGuidance(){
         return materialGuidance;
     }
