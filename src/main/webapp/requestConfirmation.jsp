@@ -5,16 +5,14 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-
+        Thank you for the request!
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+
     </jsp:attribute>
 
     <jsp:body>
-
-        <p>Thank you for your request we'll get back to you soon! </p>
 
 
 
