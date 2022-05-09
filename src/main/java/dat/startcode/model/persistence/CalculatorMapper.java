@@ -2,6 +2,7 @@ package dat.startcode.model.persistence;
 
 import dat.startcode.control.Calculator;
 import dat.startcode.model.entities.BillOfMaterials;
+import dat.startcode.model.entities.Materials;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +17,25 @@ public class CalculatorMapper {
     String rooftype = (String) carportAtributes.get(2);
 
     MaterialsMapper materialsMapper;
+    ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
     ArrayList<BillOfMaterials> BOMList = new ArrayList<>();
+
     public void calculateEverything(){
         calculateUndersternBraederForBackAndFront();
         calculateSpaer();
     }
+
     public void calculateUndersternBraederForBackAndFront(){
 
     }
     public void calculateSpaer(){
-       int amountOfSpaer = (int) Math.ceil(clength/55);
+
+        int spaceBetween = 55;
+
+        for (Materials materials : materialList) {
+
+        }
+       int amountOfSpaer = (int) Math.ceil(clength/spaceBetween);
 
     }
 }
