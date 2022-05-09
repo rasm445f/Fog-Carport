@@ -75,5 +75,6 @@
             <h6>Important info: if you have chosen a carport with the dimensions 240x360 cm, the toolshed can measure a maximum of 210x330 cm.</h6>
         </form>
 
+        <h4>${sessionScope.error}</h4>
     </jsp:body>
 </t:pagetemplate>

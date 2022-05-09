@@ -75,31 +75,39 @@ public class CreateCarport extends HttpServlet {
         try {
             Connection connection = connectionPool.getConnection();
             session = request.getSession();
-            List<Object> carportAtributes = new ArrayList<>();
-            int cwidth = Integer.parseInt(request.getParameter("carport_width"));
-            carportAtributes.add(cwidth);
-            int clength = Integer.parseInt(request.getParameter("carport_length"));
-            carportAtributes.add(clength);
-            String rooftype = request.getParameter("rooftype");
-            carportAtributes.add(rooftype);
-            String toolshedWidth = request.getParameter("toolshed_width");
-            String[] list;
-            if (toolshedWidth != "I don't want a toolshed") {
-                list = toolshedWidth.split(" ");
-                carportAtributes.add(list[0]);
-            } else {
-                carportAtributes.add(toolshedWidth);
+            try {
+
+
+                List<Object> carportAtributes = new ArrayList<>();
+                int cwidth = Integer.parseInt(request.getParameter("carport_width"));
+                carportAtributes.add(cwidth);
+                int clength = Integer.parseInt(request.getParameter("carport_length"));
+                carportAtributes.add(clength);
+                String rooftype = request.getParameter("rooftype");
+                carportAtributes.add(rooftype);
+                String toolshedWidth = request.getParameter("toolshed_width");
+                String[] list;
+                if (toolshedWidth != "I don't want a toolshed") {
+                    list = toolshedWidth.split(" ");
+                    carportAtributes.add(list[0]);
+                } else {
+                    carportAtributes.add(toolshedWidth);
+                }
+                String toolshedLength = request.getParameter("toolshed_length");
+                if (toolshedLength != "I don't want a toolshed") {
+                    list = toolshedLength.split(" ");
+                    carportAtributes.add(list[0]);
+                } else {
+                    carportAtributes.add(toolshedLength);
+                }
+                session.setAttribute("carportAtributes", carportAtributes);
+                request.getRequestDispatcher("Calculator");
+                connection.close();
+            }catch (NumberFormatException e){
+                session.setAttribute("error","Remember to fill out all the required choices");
+                request.getRequestDispatcher("createCarport.jsp").forward(request,response);
+                connection.close();
             }
-            String toolshedLength = request.getParameter("toolshed_length");
-            if (toolshedLength != "I don't want a toolshed") {
-                list = toolshedLength.split(" ");
-                carportAtributes.add(list[0]);
-            } else {
-                carportAtributes.add(toolshedLength);
-            }
-            session.setAttribute("carportAtributes", carportAtributes);
-            request.getRequestDispatcher("Calculator");
-            connection.close();
         }
         catch (SQLException e){
 
