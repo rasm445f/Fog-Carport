@@ -24,18 +24,25 @@ public class CalculatorMapper {
         calculateUndersternBraederForBackAndFront();
         calculateSpaer();
     }
+    public void calculateStolper(){
 
+    }
     public void calculateUndersternBraederForBackAndFront(){
 
     }
     public void calculateSpaer(){
 
         int spaceBetween = 55;
-
+        String prerequesitOne = "spærtræ ubh.";
+        int prerequesitTwo = 600;
+        int amountOfSpaer = (int) Math.ceil(clength/spaceBetween);
         for (Materials materials : materialList) {
-
+            if(materials.getMaterialDescription() == prerequesitOne && materials.getMaterialLength() == prerequesitTwo){
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfSpaer,materials.getMaterialID(),"Spær,monteres på rem");
+                BOMList.add(billOfMaterials);
+                break;
+            }
         }
-       int amountOfSpaer = (int) Math.ceil(clength/spaceBetween);
 
     }
 }
