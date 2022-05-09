@@ -26,9 +26,8 @@ public class MaterialsMapper {
                     String materialDescription = rs.getString("material_description");
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
-                    String materialDimension = rs.getString("material_dimension");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit,materialDimension,materialPrice);
+                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit,materialPrice);
                     materialList.add(materials);
                 }
             }
