@@ -22,12 +22,13 @@ public class MaterialsMapper {
             try(PreparedStatement ps = connection.prepareStatement(sql)){
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
+                    int materialID = rs.getInt("material_id");
                     String materialDescription = rs.getString("material_description");
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
                     String materialDimension = rs.getString("material_dimension");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialDescription,materialCategory,materialUnit,materialDimension,materialPrice);
+                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit,materialDimension,materialPrice);
                     materialList.add(materials);
                 }
             }
