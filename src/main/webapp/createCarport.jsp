@@ -21,7 +21,7 @@
         <h5>A proposition and sketch of the carport will be sent as fast as possible.</h5>
         <h5>When ordering, standard construction instructions are included.</h5>
         <h5>Fill in the form below carefully and click on "Send request".</h5> <br>
-        <form action="createCarport" method="post">
+        <form method="post">
             <label for="carport_width"><h5>Carport width</h5></label>
             <br>
             <select name="carport_width" id="carport_width">
