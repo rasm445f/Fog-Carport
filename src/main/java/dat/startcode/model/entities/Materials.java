@@ -4,14 +4,14 @@ public class Materials {
     String materialDescription;
     String materialCategory;
     String materialUnit;
-    int materialLength;
+    String materialDimension;
     int materialPrice;
 
-    public Materials(String materialDescription, String materialCategory, String materialUnit, int materialLength, int materialPrice) {
+    public Materials(String materialDescription, String materialCategory, String materialUnit, String materialDimension, int materialPrice) {
         this.materialDescription = materialDescription;
         this.materialCategory = materialCategory;
         this.materialUnit = materialUnit;
-        this.materialLength = materialLength;
+        this.materialDimension = materialDimension;
         this.materialPrice = materialPrice;
     }
 
@@ -27,8 +27,8 @@ public class Materials {
         return materialUnit;
     }
 
-    public int getMaterialLength() {
-        return materialLength;
+    public String getMaterialDimension() {
+        return materialDimension;
     }
 
     public int getMaterialPrice() {
