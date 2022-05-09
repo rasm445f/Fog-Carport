@@ -14,7 +14,7 @@ public class MaterialsMapper {
     public MaterialsMapper(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
-    public ArrayList<Materials> createMaterials(){
+    public ArrayList<Materials> CreateMaterials(){
         String sql = "SELECT * FROM fogcarport.materials;";
         ArrayList<Materials> materialList = new ArrayList<>();
         try{
@@ -22,13 +22,12 @@ public class MaterialsMapper {
             try(PreparedStatement ps = connection.prepareStatement(sql)){
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
+                    int materialID = rs.getInt("material_id");
                     String materialDescription = rs.getString("material_description");
                     String materialCategory = rs.getString("material_category");
                     String materialUnit = rs.getString("material_unit");
-                    int materialLength = rs.getInt("material_length");
-                    String materialDimension = rs.getString("material_dimension");
                     int materialPrice = rs.getInt("material_price");
-                    Materials materials = new Materials(materialDescription,materialCategory,materialUnit,materialLength, materialDimension,materialPrice);
+                    Materials materials = new Materials(materialID,materialDescription,materialCategory,materialUnit,materialPrice);
                     materialList.add(materials);
                 }
             }
@@ -36,6 +35,5 @@ public class MaterialsMapper {
             System.out.println("couldn't find the materials in the database");
         }
         return materialList;
-
     }
 }
