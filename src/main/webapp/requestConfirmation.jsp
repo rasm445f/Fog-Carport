@@ -5,16 +5,30 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-
+        Thank you for your request, we'll get back to you as soon as possible!
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+
     </jsp:attribute>
 
     <jsp:body>
 
-        <p>Thank you for your request we'll get back to you soon! </p>
+        <table>
+            <tr>
+                <th> Carport length:</th>
+                <th> Carport width:</th>
+                <th> Rooftype:</th>
+                <th> Toolshed length:</th>
+                <th> Toolshed width:</th>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+            </tr>
+
+        </table>
 
 
 
