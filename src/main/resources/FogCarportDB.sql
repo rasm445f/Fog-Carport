@@ -27,9 +27,12 @@ CREATE TABLE `bill_of_materials` (
                                      `material_amount` int NOT NULL,
                                      `material_guidance` varchar(45) NOT NULL,
                                      `material_id` int NOT NULL,
+                                     `order_id` int NOT NULL,
                                      PRIMARY KEY (`bom_id`),
                                      KEY `fk_bill_of_materials_materials1_idx` (`material_id`),
-                                     CONSTRAINT `fk_bill_of_materials_materials1` FOREIGN KEY (`material_id`) REFERENCES `materials` (`material_id`)
+                                     KEY `fk_bill_of_materials_order1_idx` (`order_id`),
+                                     CONSTRAINT `fk_bill_of_materials_materials1` FOREIGN KEY (`material_id`) REFERENCES `materials` (`material_id`),
+                                     CONSTRAINT `fk_bill_of_materials_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -99,7 +102,7 @@ CREATE TABLE `carport_length` (
 
 LOCK TABLES `carport_length` WRITE;
 /*!40000 ALTER TABLE `carport_length` DISABLE KEYS */;
-INSERT INTO `carport_length` VALUES (1,240),(2,270),(3,300),(4,330),(5,360),(6,390),(7,420),(8,450),(9,480),(10,510),(11,540),(12,570),(13,600);
+INSERT INTO `carport_length` VALUES (1,240),(2,270),(3,300),(4,330),(5,360),(6,390),(7,420),(8,450),(9,480),(10,510),(11,540),(12,570),(13,600),(14,630),(15,660),(16,690),(17,720),(18,750),(19,780);
 /*!40000 ALTER TABLE `carport_length` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,11 +172,8 @@ CREATE TABLE `order` (
                          `order_date` datetime NOT NULL,
                          `order_price` int NOT NULL,
                          `order_status` tinyint NOT NULL,
-                         `bom_id` int NOT NULL,
                          PRIMARY KEY (`order_id`),
                          KEY `fk_order_user_idx` (`user_id`),
-                         KEY `fk_order_bill_of_materials1_idx` (`bom_id`),
-                         CONSTRAINT `fk_order_bill_of_materials1` FOREIGN KEY (`bom_id`) REFERENCES `bill_of_materials` (`bom_id`),
                          CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -328,4 +328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-09  9:45:34
+-- Dump completed on 2022-05-09 11:57:39
