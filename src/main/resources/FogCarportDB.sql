@@ -139,8 +139,8 @@ CREATE TABLE `materials` (
                              `material_description` varchar(45) NOT NULL,
                              `material_category` varchar(45) NOT NULL,
                              `material_unit` varchar(45) NOT NULL,
-                             `material_length` int NOT NULL,
-                             `material_dimension` varchar(45) NOT NULL,
+                             `material_length` int DEFAULT NULL,
+                             `material_dimension` varchar(45) DEFAULT NULL,
                              `material_price` int NOT NULL,
                              PRIMARY KEY (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -152,6 +152,7 @@ CREATE TABLE `materials` (
 
 LOCK TABLES `materials` WRITE;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
+INSERT INTO `materials` VALUES (1,'trykimp. Brædt ','Træ og tagplader','Stk',360,'25x200mm',1),(2,'trykimp. Brædt','Træ og tagplader','Stk',540,'25x200mm',1),(3,'trykimp. Brædt','Træ og tagplader','Stk',360,'25x125mm',1),(4,'trykimp. Brædt','Træ og tagplader','Stk',540,'25x125mm',1),(5,'Lægte ubh.','Træ og tagplader','Stk',420,'38x73mm',1),(6,'Reglar ubh.','Træ og tagplader','Stk',270,'45x95mm',1),(7,'Reglar ubh.','Træ og tagplader','Stk',240,'45x95mm',1),(8,'spærtræ ubh.','Træ og tagplader','Stk',600,'45x195mm',1),(9,'spærtræ ubh.','Træ og tagplader','Stk',480,'45x195mm',1),(10,'spærtræ ubh.','Træ og tagplader','Stk',600,'45x195mm',1),(11,'trykimp. Stolpe','Træ og tagplader','Stk',300,'97x97mm',1),(12,'trykimp. Brædt ','Træ og tagplader','Stk',210,'19x100mm',1),(13,'trykimp. Brædt','Træ og tagplader','Stk',540,'19x100mm',1),(14,'trykimp. Brædt','Træ og tagplader','Stk',360,'19x100mm',1),(15,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',600,'1',1),(16,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',360,'1',1),(17,'Plastmo bundskruer 200 stk.','Beslag og skruer','Pakke',0,'0',1),(18,'Hulbånd 1x20 mm. 10mtr.','Beslag og skruer','Rulle',0,'0',1),(19,'Universal 190 mm højre','Beslag og skruer','Stk',0,'0',1),(20,'Universal 190 mm venstre','Beslag og skruer','Stk',0,'0',1),(21,'4,5 x 60 mm. skruer 200 stk.','Beslag og skruer','Pakke',0,'0',1),(22,'4,0 x 50 mm. beslagskruer 250 stk.','Beslag og skruer','Pakke',0,'0',1),(23,'Bræddebolt 10x120 mm.','Beslag og skruer','Stk',0,'0',1),(24,'Firkantskiver 40x40x11mm.','Beslag og skruer','Stk',0,'0',1),(25,'4,5 x 70 mm. Skruer  400 stk.','Beslag og skruer','pk.',0,'0',1),(26,'4,5 x 50 mm. Skruer 300 stk.','Beslag og skruer','pk.',0,'0',1),(27,'Stalddørsgreb 50x75','Beslag og skruer','Sæt',0,'0',1),(28,'T hængsel 390 mm.','Beslag og skruer','Stk',0,'0',1),(29,'Vinkelbeslag','Beslag og skruer','Stk',0,'0',1);
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +306,7 @@ CREATE TABLE `user` (
                         `balance` int NOT NULL DEFAULT '50000',
                         `role` varchar(45) NOT NULL DEFAULT 'customer',
                         PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +315,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@admin.dk','admin','admin','admin','admin',123,123,50000,'admin');
+INSERT INTO `user` VALUES (1,'admin@admin.dk','admin','admin','admin','admin',123,123,50000,'admin'),(7,'test@test.dk','test','test','test','test',123,123,50000,'customer');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -327,4 +328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-06 10:57:27
+-- Dump completed on 2022-05-09  9:45:34
