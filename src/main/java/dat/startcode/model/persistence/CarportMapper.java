@@ -45,7 +45,7 @@ public class CarportMapper {
         return carport;
     }
 
-    public ArrayList<Carport> getCarport() {
+    public ArrayList<Carport> getCarportData() {
 
         String sql = "SELECT * FROM carport;";
         ArrayList<Carport> carportsList = new ArrayList<>();
