@@ -2,18 +2,18 @@ package dat.startcode.model.entities;
 
 public class CarportWidth {
     int carportWidthID;
-    int carportWidthCM;
+    int carportWidth;
 
-    public CarportWidth(int carportWidthID, int carportWidthCM) {
+    public CarportWidth(int carportWidthID, int carportWidth) {
         this.carportWidthID = carportWidthID;
-        this.carportWidthCM = carportWidthCM;
+        this.carportWidth = carportWidth;
     }
 
     public int getCarportWidthID() {
         return carportWidthID;
     }
 
-    public int getCarportWidthCM() {
-        return carportWidthCM;
+    public int getCarportWidth() {
+        return carportWidth;
     }
 }

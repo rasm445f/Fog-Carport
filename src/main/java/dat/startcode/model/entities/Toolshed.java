@@ -6,8 +6,7 @@ public class Toolshed {
     private int toolshedWidth;
     private int toolshedLength;
 
-    public Toolshed(int toolshedID, int toolshedWidth, int toolshedLength) {
-        this.toolshedID = toolshedID;
+    public Toolshed( int toolshedWidth, int toolshedLength) {
         this.toolshedWidth = toolshedWidth;
         this.toolshedLength = toolshedLength;
     }

@@ -18,11 +18,11 @@ public class Carport {
 
     }
 
-    public Carport(int carportWidthID, int carportLengthID, int rooftypeID, int toolshedID) {
+    public Carport(int carportWidthID, int carportLengthID, int rooftypeID) {
         this.carportWidthID = carportWidthID;
         this.carportLengthID = carportLengthID;
         this.rooftypeID = rooftypeID;
-        this.toolshedID = toolshedID;
+
     }
 
     public int getCarportID() {

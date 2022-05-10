@@ -1,6 +1,7 @@
 package dat.startcode.model.entities;
 
 public class ToolshedLength {
+
     private int toolshedLengthID;
     private int toolshedLength;
 

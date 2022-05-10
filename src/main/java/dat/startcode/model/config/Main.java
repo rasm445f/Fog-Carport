@@ -1,9 +1,6 @@
 package dat.startcode.model.config;
 
-import dat.startcode.model.entities.CarportLength;
 import dat.startcode.model.entities.CarportWidth;
-import dat.startcode.model.entities.Materials;
-import dat.startcode.model.entities.ToolshedWidth;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
 
@@ -18,10 +15,11 @@ public class Main {
 
         CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
 
-        ArrayList<CarportWidth> widthList = carportWidthMapper.createCarportwidth();
+        ArrayList<CarportWidth> widthList = carportWidthMapper.getCarportWidth();
 
         for (CarportWidth carportWidth : widthList) {
             System.out.println(carportWidth.getCarportWidthID());
+            System.out.println(carportWidth.getCarportWidth());
         }
 
     }

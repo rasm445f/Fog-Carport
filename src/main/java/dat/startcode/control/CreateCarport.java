@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "createCarport", value = "/createCarport")
 public class CreateCarport extends HttpServlet {
@@ -45,7 +44,7 @@ public class CreateCarport extends HttpServlet {
 
             try {
 
-                carportWidthList = carportWidthMapper.createCarportwidth();
+                carportWidthList = carportWidthMapper.getCarportWidth();
                 carportLengthList = carportLengthMapper.createCarportLength();
                 toolshedWidthList = toolshedWidthMapper.GetToolshedWidth();
                 toolshedLengthList = toolshedLengthMapper.GetToolshedLength();
@@ -70,26 +69,32 @@ public class CreateCarport extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       /* response.setContentType("text/html");
+        response.setContentType("text/html");
         CarportMapper carportMapper = new CarportMapper(connectionPool);
+        ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
         session = request.getSession();
-        int width_id = Integer.parseInt(request.getParameter("carport_width_id"));
-        int length_id = Integer.parseInt(request.getParameter("carport_length_id"));
-        int rooftype_id = Integer.parseInt(request.getParameter("rooftype_id"));
-        int toolshed_id = Integer.parseInt(request.getParameter("toolshed_id"));
+        int carport_width_id = Integer.parseInt(request.getParameter("CarportWidthID"));
+        int carport_length_id = Integer.parseInt(request.getParameter("CarportLengthID"));
+        int rooftype_id = Integer.parseInt(request.getParameter("RooftypeID"));
+        int toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
+        int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
+
 
         try {
 
             Connection connection = connectionPool.getConnection();
-
-
-            //session.setAttribute("carportAttributes", carportAttributes);
-            request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
+            toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
+            carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id);
             connection.close();
+
         }
         catch (SQLException e){
 
-        } */
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+            request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
+
     }
 
 }

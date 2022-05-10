@@ -2,16 +2,11 @@ package dat.startcode.model.persistence;
 
 import dat.startcode.model.entities.CarportWidth;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static dat.startcode.model.config.ApplicationStart.connectionPool;
 
 public class CarportWidthMapper {
     ConnectionPool connectionPool;
@@ -20,7 +15,7 @@ public class CarportWidthMapper {
         this.connectionPool = connectionPool;
     }
 
-    public ArrayList<CarportWidth> createCarportwidth(){
+    public ArrayList<CarportWidth> getCarportWidth(){
     String sql = "SELECT * FROM carport_width;";
     ArrayList<CarportWidth> carportWidthsList = new ArrayList<>();
     try{
@@ -29,8 +24,8 @@ public class CarportWidthMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 int carport_width_id = rs.getInt("carport_width_id");
-                int carportWidthCM = rs.getInt("carport_width_cm");
-                CarportWidth carportWidth = new CarportWidth(carport_width_id,carportWidthCM);
+                int carport_width_cm = rs.getInt("carport_width_cm");
+                CarportWidth carportWidth = new CarportWidth(carport_width_id,carport_width_cm);
                 carportWidthsList.add(carportWidth);
             }
         }

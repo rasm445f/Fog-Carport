@@ -1,6 +1,7 @@
 package dat.startcode.model.persistence;
 
 import dat.startcode.model.entities.Carport;
+import dat.startcode.model.entities.Toolshed;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
@@ -17,22 +18,22 @@ public class CarportMapper {
         this.connectionPool = connectionPool;
     }
 
-    public Carport createCarport(int width_id, int length_id, int rooftype_id, int toolshed_id) throws DatabaseException {
+    public Carport createCarport(int width_id, int length_id, int rooftype_id) throws DatabaseException {
         Carport carport;
-        String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`, `toolshed_id`) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`) VALUES (?,?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, width_id);
                 ps.setInt(2, length_id);
                 ps.setInt(3, rooftype_id);
-                ps.setInt(4, toolshed_id);
+
 
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1) {
 
-                    carport = new Carport(width_id, length_id, rooftype_id, toolshed_id);
+                    carport = new Carport(width_id, length_id, rooftype_id);
 
                 } else {
                     throw new DatabaseException("The carport couldn't be inserted into the database");
@@ -43,6 +44,26 @@ public class CarportMapper {
         }
         return carport;
     }
+
+    public int getToolshedID (){
+        int toolshed_id = 0;
+        String sql ="SELECT MAX(toolshed_id) as max_id FROM toolshed;";
+
+        try {
+            Connection connection = connectionPool.getConnection();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    toolshed_id = rs.getInt("max_id");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("couldn't find the max id");
+        }
+        return toolshed_id;
+
+    }
+
 
     public ArrayList<Carport> getCarport() {
 
