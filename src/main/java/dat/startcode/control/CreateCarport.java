@@ -77,29 +77,29 @@ public class CreateCarport extends HttpServlet {
             ServletContext context =getServletContext();
             Connection connection = connectionPool.getConnection();
             session = request.getSession();
-            List<Object> carportAtributes = new ArrayList<>();
+            List<Object> carportAttributes = new ArrayList<>();
             int cwidth = Integer.parseInt(request.getParameter("carport_width"));
-            carportAtributes.add(cwidth);
+            carportAttributes.add(cwidth);
             int clength = Integer.parseInt(request.getParameter("carport_length"));
-            carportAtributes.add(clength);
+            carportAttributes.add(clength);
             String rooftype = request.getParameter("rooftype");
-            carportAtributes.add(rooftype);
+            carportAttributes.add(rooftype);
             String toolshedWidth = request.getParameter("toolshed_width");
             String[] list;
             if (toolshedWidth != "I don't want a toolshed") {
                 list = toolshedWidth.split(" ");
-                carportAtributes.add(list[0]);
+                carportAttributes.add(list[0]);
             } else {
-                carportAtributes.add(toolshedWidth);
+                carportAttributes.add(toolshedWidth);
             }
             String toolshedLength = request.getParameter("toolshed_length");
             if (toolshedLength != "I don't want a toolshed") {
                 list = toolshedLength.split(" ");
-                carportAtributes.add(list[0]);
+                carportAttributes.add(list[0]);
             } else {
-                carportAtributes.add(toolshedLength);
+                carportAttributes.add(toolshedLength);
             }
-            context.setAttribute("carportAtributes", carportAtributes);
+            context.setAttribute("carportAttributes", carportAttributes);
             request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
             connection.close();
         }
