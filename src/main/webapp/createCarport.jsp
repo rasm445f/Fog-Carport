@@ -22,52 +22,52 @@
         <h5>When ordering, standard construction instructions are included.</h5>
         <h5>Fill in the form below carefully and click on "Send request".</h5> <br>
         <form method="post">
-            <label for="carport_width"><h5>Carport width</h5></label>
+            <label for="carport_width_id"><h5>Carport width</h5></label>
             <br>
-            <select name="carport_width" id="carport_width">
+            <select name="carport_width_id" id="carport_width_id">
                 <option disabled selected value> Choose width</option>
                 <c:forEach items="${sessionScope.carportWidthList}" var="items">
-                    <option value="${items.carport_width_id}"> ${items} cm </option>
+                    <option value="${items.carport_width_id}"> ${items.carportWidthCM} cm </option>
                 </c:forEach>
             </select><br><br>
 
 
-            <label for="carport_length"><h5>Carport length</h5></label><br>
+            <label for="carport_length_id"><h5>Carport length</h5></label><br>
 
-            <select name="carport_length" id="carport_length">
+            <select name="carport_length_id" id="carport_length_id">
                 <option disabled selected value> Choose length</option>
                 <c:forEach items="${sessionScope.carportLengthList}" var="items">
                     <option value="${items.carport_length_id}"> ${items.carportLengthCM} cm </option>
                 </c:forEach>
             </select> <br><br>
 
-            <label for="rooftype"><h5>Roof</h5></label>
+            <label for="rooftype_id"><h5>Roof</h5></label>
             <br>
-            <select name="rooftype" id="rooftype">
+            <select name="rooftype_id" id="rooftype_id">
                 <option disabled selected value> Choose roof</option>
                 <c:forEach items="${sessionScope.rooftypeList}" var="items">
-                    <option value="${items.rooftype_id}"> ${items.roofName} </option>
+                    <option value="${items.rooftype_id}"> ${items.rooftypeName} </option>
                 </c:forEach>
             </select>
             <br>
             <br>
             <h5>Toolshed:</h5>
             <h6>NB! A 15 cm roof overhang must be calculated on each side of the tool room </h6><br>
-            <label for="toolshed_width"><h5>Toolshed width</h5></label>
+            <label for="toolshed_width_id"><h5>Toolshed width</h5></label>
             <br>
-            <select name="toolshed_width" id="toolshed_width">
+            <select name="toolshed_width_id" id="toolshed_width_id">
                 <option>I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedWidthList}" var="items">
-                <option value="${items.toolshed_width_id}"> ${items.toolshedWidth} cm </option>
+                <option value="${items.toolshed_width_id}"> ${items.toolshed_width_cm} cm </option>
                 </c:forEach>
             </select><br><br>
 
-            <label for="toolshed_length"><h5>Toolshed length</h5></label>
+            <label for="toolshed_length_id"><h5>Toolshed length</h5></label>
             <br>
-            <select name="toolshed_length" id="toolshed_length">
+            <select name="toolshed_length_id" id="toolshed_length_id">
                 <option>I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
-                    <option value="${items.toolshed_length_id}"> ${items.toolshedLength} cm </option>
+                    <option value="${items.toolshed_length_id}"> ${items.toolshed_length_cm} cm </option>
                 </c:forEach>
             </select><br><br>
 
