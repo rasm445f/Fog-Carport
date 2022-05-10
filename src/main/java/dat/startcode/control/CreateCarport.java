@@ -27,6 +27,7 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            ServletContext context =getServletContext();
 
 
             Connection connection = connectionPool.getConnection();
@@ -56,11 +57,11 @@ public class CreateCarport extends HttpServlet {
                 e.printStackTrace();
             }
 
-            session.setAttribute("carportWidthList", carportWidthList);
-            session.setAttribute("carportLengthList", carportLengthList);
-            session.setAttribute("toolshedWidthList", toolshedWidthList);
-            session.setAttribute("toolshedLengthList", toolshedLengthList);
-            session.setAttribute("rooftypeList", rooftypeList);
+            context.setAttribute("carportWidthList", carportWidthList);
+            context.setAttribute("carportLengthList", carportLengthList);
+            context.setAttribute("toolshedWidthList", toolshedWidthList);
+            context.setAttribute("toolshedLengthList", toolshedLengthList);
+            context.setAttribute("rooftypeList", rooftypeList);
             request.getRequestDispatcher("createCarport.jsp").forward(request, response);
             connection.close();
         }
@@ -73,6 +74,7 @@ public class CreateCarport extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         try {
+            ServletContext context =getServletContext();
             Connection connection = connectionPool.getConnection();
             session = request.getSession();
             List<Object> carportAtributes = new ArrayList<>();
@@ -97,7 +99,7 @@ public class CreateCarport extends HttpServlet {
             } else {
                 carportAtributes.add(toolshedLength);
             }
-            session.setAttribute("carportAtributes", carportAtributes);
+            context.setAttribute("carportAtributes", carportAtributes);
             request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
             connection.close();
         }
