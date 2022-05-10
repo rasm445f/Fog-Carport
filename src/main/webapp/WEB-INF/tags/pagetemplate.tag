@@ -32,7 +32,7 @@
                 <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
             </c:if>
 
-            <c:if test="${sessionScope.user == null }">
+            <c:if test="${sessionScope.user != null }">
                 <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
             </c:if>
 

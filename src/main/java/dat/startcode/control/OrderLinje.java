@@ -31,7 +31,6 @@ public class OrderLinje extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        ServletContext context = getServletContext();
         HttpSession session = request.getSession();
         String sqlorder = "SELECT * FROM fogcarport.order;";
         List<Order> orderList = new ArrayList<>();
@@ -47,27 +46,10 @@ public class OrderLinje extends HttpServlet {
                     int orderPrice = rs.getInt("order_price");
                     int orderStatus = rs.getInt("order_status");
                     int bomID = rs.getInt("bom_id");
-                    //List<Tops> toplist = (ArrayList<Tops>) context.getAttribute("toplist");
-                    //List<Bottoms> bottomlist = (ArrayList<Bottoms>) context.getAttribute("bottomlist");
+
 
                     //Optional<Tops> topsOptional = toplist.stream().filter(item -> item.getTopID() == topID).findFirst();
                     // Tops top = topsOptional.orElseThrow(() -> new RuntimeException("Toppen ekistere ikke!") );
-
-
-//                    Tops top = null;
-//                    Bottoms bottom = null;
-//                    for (int i = 0; i < toplist.size(); i++) {
-//                        if (toplist.get(i).getTopID() == topID) {
-//                            top = toplist.get(i);
-//                        }
-//
-//                    }
-//                    for (int i = 0; i < bottomlist.size(); i++) {
-//                        if (bottomlist.get(i).getBottomID() == bottomID) {
-//                            bottom = bottomlist.get(i);
-//                        }
-//
-//                    }
 
 
                     Order order = new Order(userID, orderDate, orderPrice, orderStatus, bomID);
