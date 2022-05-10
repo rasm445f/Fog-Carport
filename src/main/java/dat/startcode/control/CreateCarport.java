@@ -27,7 +27,6 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            ServletContext context =getServletContext();
 
 
             Connection connection = connectionPool.getConnection();
@@ -57,11 +56,11 @@ public class CreateCarport extends HttpServlet {
                 e.printStackTrace();
             }
 
-            context.setAttribute("carportWidthList", carportWidthList);
-            context.setAttribute("carportLengthList", carportLengthList);
-            context.setAttribute("toolshedWidthList", toolshedWidthList);
-            context.setAttribute("toolshedLengthList", toolshedLengthList);
-            context.setAttribute("rooftypeList", rooftypeList);
+            session.setAttribute("carportWidthList", carportWidthList);
+            session.setAttribute("carportLengthList", carportLengthList);
+            session.setAttribute("toolshedWidthList", toolshedWidthList);
+            session.setAttribute("toolshedLengthList", toolshedLengthList);
+            session.setAttribute("rooftypeList", rooftypeList);
             request.getRequestDispatcher("createCarport.jsp").forward(request, response);
             connection.close();
         }
@@ -74,32 +73,21 @@ public class CreateCarport extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         try {
-            ServletContext context =getServletContext();
             Connection connection = connectionPool.getConnection();
             session = request.getSession();
-            List<Object> carportAttributes = new ArrayList<>();
+            ArrayList<Object> carportAttributes = new ArrayList<>();
             int cwidth = Integer.parseInt(request.getParameter("carport_width"));
-            carportAttributes.add(cwidth);
             int clength = Integer.parseInt(request.getParameter("carport_length"));
-            carportAttributes.add(clength);
             String rooftype = request.getParameter("rooftype");
-            carportAttributes.add(rooftype);
             String toolshedWidth = request.getParameter("toolshed_width");
-            String[] list;
-            if (toolshedWidth != "I don't want a toolshed") {
-                list = toolshedWidth.split(" ");
-                carportAttributes.add(list[0]);
-            } else {
-                carportAttributes.add(toolshedWidth);
-            }
             String toolshedLength = request.getParameter("toolshed_length");
-            if (toolshedLength != "I don't want a toolshed") {
-                list = toolshedLength.split(" ");
-                carportAttributes.add(list[0]);
-            } else {
-                carportAttributes.add(toolshedLength);
-            }
-            context.setAttribute("carportAttributes", carportAttributes);
+            carportAttributes.add(cwidth);
+            carportAttributes.add(clength);
+            carportAttributes.add(rooftype);
+            carportAttributes.add(toolshedWidth);
+            carportAttributes.add(toolshedLength);
+
+            session.setAttribute("carportAttributes", carportAttributes);
             request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
             connection.close();
         }
