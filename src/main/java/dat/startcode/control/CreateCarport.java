@@ -57,11 +57,11 @@ public class CreateCarport extends HttpServlet {
                 e.printStackTrace();
             }
 
-            context.setAttribute("carportWidthList", carportWidthList);
-            context.setAttribute("carportLengthList", carportLengthList);
-            context.setAttribute("toolshedWidthList", toolshedWidthList);
-            context.setAttribute("toolshedLengthList", toolshedLengthList);
-            context.setAttribute("rooftypeList", rooftypeList);
+            session.setAttribute("carportWidthList", carportWidthList);
+            session.setAttribute("carportLengthList", carportLengthList);
+            session.setAttribute("toolshedWidthList", toolshedWidthList);
+            session.setAttribute("toolshedLengthList", toolshedLengthList);
+            session.setAttribute("rooftypeList", rooftypeList);
             request.getRequestDispatcher("createCarport.jsp").forward(request, response);
             connection.close();
         }

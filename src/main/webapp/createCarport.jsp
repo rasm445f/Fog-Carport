@@ -27,7 +27,7 @@
             <select name="carport_width" id="carport_width">
                 <option disabled selected value> Choose width</option>
                 <c:forEach items="${sessionScope.carportWidthList}" var="items">
-                    <option value="${items.carport_width_id}"> ${items} cm </option>
+                    <option value="${items.carport_width_id}"> ${items.carportWidthCM} cm </option>
                 </c:forEach>
             </select><br><br>
 
