@@ -27,8 +27,6 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            ServletContext context =getServletContext();
-
 
             Connection connection = connectionPool.getConnection();
             session = request.getSession();
@@ -72,7 +70,7 @@ public class CreateCarport extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+       /* response.setContentType("text/html");
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         session = request.getSession();
         int width_id = Integer.parseInt(request.getParameter("carport_width_id"));
@@ -91,7 +89,7 @@ public class CreateCarport extends HttpServlet {
         }
         catch (SQLException e){
 
-        }
+        } */
     }
 
-    }
+}
