@@ -73,33 +73,19 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        CarportMapper carportMapper = new CarportMapper(connectionPool);
+        session = request.getSession();
+        int width_id = Integer.parseInt(request.getParameter("carport_width_id"));
+        int length_id = Integer.parseInt(request.getParameter("carport_length_id"));
+        int rooftype_id = Integer.parseInt(request.getParameter("rooftype_id"));
+        int toolshed_id = Integer.parseInt(request.getParameter("toolshed_id"));
+
         try {
-            ServletContext context =getServletContext();
+
             Connection connection = connectionPool.getConnection();
-            session = request.getSession();
-            List<Object> carportAttributes = new ArrayList<>();
-            int cwidth = Integer.parseInt(request.getParameter("carport_width"));
-            carportAttributes.add(cwidth);
-            int clength = Integer.parseInt(request.getParameter("carport_length"));
-            carportAttributes.add(clength);
-            String rooftype = request.getParameter("rooftype");
-            carportAttributes.add(rooftype);
-            String toolshedWidth = request.getParameter("toolshed_width");
-            String[] list;
-            if (toolshedWidth != "I don't want a toolshed") {
-                list = toolshedWidth.split(" ");
-                carportAttributes.add(list[0]);
-            } else {
-                carportAttributes.add(toolshedWidth);
-            }
-            String toolshedLength = request.getParameter("toolshed_length");
-            if (toolshedLength != "I don't want a toolshed") {
-                list = toolshedLength.split(" ");
-                carportAttributes.add(list[0]);
-            } else {
-                carportAttributes.add(toolshedLength);
-            }
-            context.setAttribute("carportAttributes", carportAttributes);
+
+
+            //session.setAttribute("carportAttributes", carportAttributes);
             request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
             connection.close();
         }

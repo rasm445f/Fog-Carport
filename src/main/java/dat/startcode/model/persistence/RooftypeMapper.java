@@ -30,8 +30,9 @@ public class RooftypeMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
+                    int rooftype_id = rs.getInt("rooftype_id");
                     String rooftypeName = rs.getString("roof_name");
-                    Rooftype rooftype = new Rooftype(rooftypeName);
+                    Rooftype rooftype = new Rooftype(rooftype_id,rooftypeName);
                     rooftypeList.add(rooftype);
                 }
             }

@@ -31,8 +31,9 @@ public class ToolshedWidthMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-                    int width_cm = rs.getInt("toolshed_width_cm");
-                    ToolshedWidth toolshedWidth = new ToolshedWidth(width_cm);
+                    int toolshed_width_id = rs.getInt("toolshed_width_id");
+                    int toolshed_width_cm = rs.getInt("toolshed_width_cm");
+                    ToolshedWidth toolshedWidth = new ToolshedWidth(toolshed_width_id,toolshed_width_cm);
                     toolshedWidthList.add(toolshedWidth);
                 }
             }

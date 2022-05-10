@@ -30,8 +30,9 @@ public class ToolshedLengthMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
-                    int length_cm = rs.getInt("toolshed_length_cm");
-                    ToolshedLength toolshedLength = new ToolshedLength(length_cm);
+                    int toolshed_length_id = rs.getInt("toolshed_length_id");
+                    int toolshed_length_cm = rs.getInt("toolshed_length_cm");
+                    ToolshedLength toolshedLength = new ToolshedLength(toolshed_length_id,toolshed_length_cm);
                     toolshedLengthList.add(toolshedLength);
                 }
             }
