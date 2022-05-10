@@ -85,6 +85,7 @@ public class CreateCarport extends HttpServlet {
             Connection connection = connectionPool.getConnection();
             toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
             carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id);
+            session.setAttribute("CarportWidthID",carport_width_id);
             connection.close();
 
         }

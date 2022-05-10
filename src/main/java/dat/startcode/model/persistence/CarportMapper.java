@@ -45,26 +45,6 @@ public class CarportMapper {
         return carport;
     }
 
-    public int getToolshedID (){
-        int toolshed_id = 0;
-        String sql ="SELECT MAX(toolshed_id) as max_id FROM toolshed;";
-
-        try {
-            Connection connection = connectionPool.getConnection();
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    toolshed_id = rs.getInt("max_id");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("couldn't find the max id");
-        }
-        return toolshed_id;
-
-    }
-
-
     public ArrayList<Carport> getCarport() {
 
         String sql = "SELECT * FROM carport;";
