@@ -1,15 +1,15 @@
-package dat.startcode.model.persistence;
+package dat.startcode.model.services;
 
-import dat.startcode.control.Calculator;
 import dat.startcode.model.entities.BillOfMaterials;
 import dat.startcode.model.entities.Materials;
+import dat.startcode.model.persistence.MaterialsMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorMapper {
+public class Calculator {
     List<Object> carportAttributes;
-    public CalculatorMapper(List<Object> carportAttributes){
+    public Calculator(List<Object> carportAttributes){
         this.carportAttributes = carportAttributes;
     }
     int cwidth = (int) carportAttributes.get(0);
