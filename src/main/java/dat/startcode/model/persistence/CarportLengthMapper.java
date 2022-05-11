@@ -25,8 +25,9 @@ public class CarportLengthMapper {
             try(PreparedStatement ps = connection.prepareStatement(sql)){
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
-                    int carportLengthCM = rs.getInt("carport_length_cm");
-                    CarportLength carportLength = new CarportLength(carportLengthCM);
+                    int carport_length_id = rs.getInt("carport_length_id");
+                    int carport_length_cm = rs.getInt("carport_length_cm");
+                    CarportLength carportLength = new CarportLength(carport_length_id,carport_length_cm);
                     carportLengthsList.add(carportLength);
                 }
             }

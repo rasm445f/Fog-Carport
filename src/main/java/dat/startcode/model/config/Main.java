@@ -1,13 +1,8 @@
 package dat.startcode.model.config;
 
-import dat.startcode.model.entities.CarportLength;
-import dat.startcode.model.entities.Materials;
-import dat.startcode.model.entities.ToolshedWidth;
+import dat.startcode.model.entities.CarportWidth;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.persistence.CarportLengthMapper;
-import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.MaterialsMapper;
-import dat.startcode.model.persistence.ToolshedWidthMapper;
+import dat.startcode.model.persistence.*;
 
 import java.util.ArrayList;
 
@@ -18,14 +13,13 @@ public class Main {
     public static void main(String[] args) throws DatabaseException {
         ConnectionPool connectionPool = new ConnectionPool();
 
-        MaterialsMapper materialsMapper = new MaterialsMapper(connectionPool);
+        CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
 
+        ArrayList<CarportWidth> widthList = carportWidthMapper.getCarportWidth();
 
-        ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
-
-
-        for (Materials materials : materialList) {
-
+        for (CarportWidth carportWidth : widthList) {
+            System.out.println(carportWidth.getCarportWidthID());
+            System.out.println(carportWidth.getCarportWidth());
         }
 
     }
