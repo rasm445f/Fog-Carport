@@ -27,6 +27,9 @@ public class CalculatorMapper {
         calculateOversternBraederForFront();
         calculateOversternbraederforSides();
         calculateSpaer();
+        calculateVandbraetForSides();
+        calculateVandbraetForFront();
+        calculateRoofPlates();
     }
     public void calculateStolper(){
         int length = clength;
@@ -80,6 +83,23 @@ public class CalculatorMapper {
         }
         amountofOversternSider = amountofOversternSider * 2;
     }
+    public void calculateVandbraetForSides(){
+        int amountofVandbraetSider = 1;
+        int length = clength;
+        while (length > 540){
+            amountofVandbraetSider++;
+            length = length-540;
+        }
+        amountofVandbraetSider = amountofVandbraetSider * 2;
+    }
+    public void calculateVandbraetForFront(){
+        int amountofVandbraetFront = 1;
+        int width = cwidth;
+        while (width > 360){
+            amountofVandbraetFront++;
+            width = width-360;
+        }
+    }
     public void calculateSpaer(){
 
         int spaceBetween = 55;
@@ -94,6 +114,19 @@ public class CalculatorMapper {
             }
         }
 
+    }
+    public void calculateRoofPlates(){
+        int amountOfRoofPlates = 1;
+        int width = cwidth;
+        int length = clength;
+        int amountOfSmallRoofPlates = 0;
+        while (width > 109){
+            amountOfRoofPlates++;
+            width = width-109;
+        }
+        if(length > 600){
+            amountOfSmallRoofPlates = amountOfRoofPlates;
+        }
     }
 
 }
