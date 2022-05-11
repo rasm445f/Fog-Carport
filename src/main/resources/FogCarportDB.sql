@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.28, for macos11 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `fogcarport` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `fogcarport`;
+-- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: fogcarport
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +25,7 @@ DROP TABLE IF EXISTS `bill_of_materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bill_of_materials` (
-                                     `bom_id` int NOT NULL AUTO_INCREMENT,
+                                     `bom_id` int NOT NULL,
                                      `material_amount` int NOT NULL,
                                      `material_guidance` varchar(45) NOT NULL,
                                      `material_id` int NOT NULL,
@@ -58,7 +60,7 @@ CREATE TABLE `carport` (
                            `length_id` int NOT NULL,
                            `rooftype_id` int NOT NULL,
                            `toolshed_id` int DEFAULT NULL,
-                           `order_id` int NOT NULL,
+                           `order_id` int DEFAULT NULL,
                            PRIMARY KEY (`carport_id`),
                            KEY `fk_carport_carport_width1_idx` (`width_id`),
                            KEY `fk_carport_carport_length1_idx` (`length_id`),
@@ -70,7 +72,7 @@ CREATE TABLE `carport` (
                            CONSTRAINT `fk_carport_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
                            CONSTRAINT `fk_carport_rooftype1` FOREIGN KEY (`rooftype_id`) REFERENCES `rooftype` (`rooftype_id`),
                            CONSTRAINT `fk_carport_toolshed1` FOREIGN KEY (`toolshed_id`) REFERENCES `toolshed` (`toolshed_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,6 +81,7 @@ CREATE TABLE `carport` (
 
 LOCK TABLES `carport` WRITE;
 /*!40000 ALTER TABLE `carport` DISABLE KEYS */;
+INSERT INTO `carport` VALUES (1,2,2,1,1,1);
 /*!40000 ALTER TABLE `carport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +146,6 @@ CREATE TABLE `materials` (
                              `material_category` varchar(45) NOT NULL,
                              `material_unit` varchar(45) NOT NULL,
                              `material_length` int DEFAULT NULL,
-                             `material_dimension` varchar(45) DEFAULT NULL,
                              `material_price` int NOT NULL,
                              PRIMARY KEY (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -155,7 +157,7 @@ CREATE TABLE `materials` (
 
 LOCK TABLES `materials` WRITE;
 /*!40000 ALTER TABLE `materials` DISABLE KEYS */;
-INSERT INTO `materials` VALUES (1,'trykimp. Brædt ','Træ og tagplader','Stk',360,'25x200mm',1),(2,'trykimp. Brædt','Træ og tagplader','Stk',540,'25x200mm',1),(3,'trykimp. Brædt','Træ og tagplader','Stk',360,'25x125mm',1),(4,'trykimp. Brædt','Træ og tagplader','Stk',540,'25x125mm',1),(5,'Lægte ubh.','Træ og tagplader','Stk',420,'38x73mm',1),(6,'Reglar ubh.','Træ og tagplader','Stk',270,'45x95mm',1),(7,'Reglar ubh.','Træ og tagplader','Stk',240,'45x95mm',1),(8,'spærtræ ubh.','Træ og tagplader','Stk',600,'45x195mm',1),(9,'spærtræ ubh.','Træ og tagplader','Stk',480,'45x195mm',1),(10,'spærtræ ubh.','Træ og tagplader','Stk',600,'45x195mm',1),(11,'trykimp. Stolpe','Træ og tagplader','Stk',300,'97x97mm',1),(12,'trykimp. Brædt ','Træ og tagplader','Stk',210,'19x100mm',1),(13,'trykimp. Brædt','Træ og tagplader','Stk',540,'19x100mm',1),(14,'trykimp. Brædt','Træ og tagplader','Stk',360,'19x100mm',1),(15,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',600,'1',1),(16,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',360,'1',1),(17,'Plastmo bundskruer 200 stk.','Beslag og skruer','Pakke',0,'0',1),(18,'Hulbånd 1x20 mm. 10mtr.','Beslag og skruer','Rulle',0,'0',1),(19,'Universal 190 mm højre','Beslag og skruer','Stk',0,'0',1),(20,'Universal 190 mm venstre','Beslag og skruer','Stk',0,'0',1),(21,'4,5 x 60 mm. skruer 200 stk.','Beslag og skruer','Pakke',0,'0',1),(22,'4,0 x 50 mm. beslagskruer 250 stk.','Beslag og skruer','Pakke',0,'0',1),(23,'Bræddebolt 10x120 mm.','Beslag og skruer','Stk',0,'0',1),(24,'Firkantskiver 40x40x11mm.','Beslag og skruer','Stk',0,'0',1),(25,'4,5 x 70 mm. Skruer  400 stk.','Beslag og skruer','pk.',0,'0',1),(26,'4,5 x 50 mm. Skruer 300 stk.','Beslag og skruer','pk.',0,'0',1),(27,'Stalddørsgreb 50x75','Beslag og skruer','Sæt',0,'0',1),(28,'T hængsel 390 mm.','Beslag og skruer','Stk',0,'0',1),(29,'Vinkelbeslag','Beslag og skruer','Stk',0,'0',1);
+INSERT INTO `materials` VALUES (1,'25x200 mm. trykimp. Brædt ','Træ og tagplader','Stk',360,1),(2,'25x200 mm. trykimp. Brædt','Træ og tagplader','Stk',540,1),(3,'25x125 mm. trykimp. Brædt','Træ og tagplader','Stk',360,1),(4,'25x125 mm. trykimp. Brædt','Træ og tagplader','Stk',540,1),(5,'38x73 mm. Lægte ubh.','Træ og tagplader','Stk',420,1),(6,'45x95 mm. Reglar ubh.','Træ og tagplader','Stk',270,1),(7,'45x95 mm. Reglar ubh.','Træ og tagplader','Stk',240,1),(8,'45x195 mm. spærtræ ubh.','Træ og tagplader','Stk',600,1),(9,'45x195 mm. spærtræ ubh.','Træ og tagplader','Stk',480,1),(10,'45x195 mm. spærtræ ubh.','Træ og tagplader','Stk',600,1),(11,'97x97 mm. trykimp. Stolpe','Træ og tagplader','Stk',300,1),(12,'19x100 mm. trykimp. Brædt ','Træ og tagplader','Stk',210,1),(13,'19x100 mm. trykimp. Brædt','Træ og tagplader','Stk',540,1),(14,'19x100 mm. trykimp. Brædt','Træ og tagplader','Stk',360,1),(15,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',600,1),(16,'Plastmo Ecolite blåtonet','Træ og tagplader','Stk',360,1),(17,'Plastmo bundskruer 200 stk.','Beslag og skruer','Pakke',0,1),(18,'Hulbånd 1x20 mm. 10mtr.','Beslag og skruer','Rulle',0,1),(19,'Universal 190 mm højre','Beslag og skruer','Stk',0,1),(20,'Universal 190 mm venstre','Beslag og skruer','Stk',0,1),(21,'4,5 x 60 mm. skruer 200 stk.','Beslag og skruer','Pakke',0,1),(22,'4,0 x 50 mm. beslagskruer 250 stk.','Beslag og skruer','Pakke',0,1),(23,'Bræddebolt 10x120 mm.','Beslag og skruer','Stk',0,1),(24,'Firkantskiver 40x40x11mm.','Beslag og skruer','Stk',0,1),(25,'4,5 x 70 mm. Skruer  400 stk.','Beslag og skruer','Pakke',0,1),(26,'4,5 x 50 mm. Skruer 300 stk.','Beslag og skruer','Pakke',0,1),(27,'Stalddørsgreb 50x75','Beslag og skruer','Sæt',0,1),(28,'T hængsel 390 mm.','Beslag og skruer','Stk',0,1),(29,'Vinkelbeslag','Beslag og skruer','Stk',0,1);
 /*!40000 ALTER TABLE `materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,13 +171,13 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
                          `order_id` int NOT NULL AUTO_INCREMENT,
                          `user_id` int NOT NULL,
-                         `order_date` datetime NOT NULL,
+                         `order_date` datetime DEFAULT NULL,
                          `order_price` int NOT NULL,
-                         `order_status` tinyint NOT NULL,
+                         `order_status` tinyint DEFAULT '0',
                          PRIMARY KEY (`order_id`),
                          KEY `fk_order_user_idx` (`user_id`),
                          CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,6 +186,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,1,'1999-10-10 00:00:00',1,1),(2,1,NULL,1,1);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +230,7 @@ CREATE TABLE `toolshed` (
                             KEY `fk_toolshed_toolshed_width1_idx` (`toolshed_width_id`),
                             CONSTRAINT `fk_toolshed_toolshed_length1` FOREIGN KEY (`toolshed_length_id`) REFERENCES `toolshed_length` (`toolshed_length_id`),
                             CONSTRAINT `fk_toolshed_toolshed_width1` FOREIGN KEY (`toolshed_width_id`) REFERENCES `toolshed_width` (`toolshed_width_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,6 +239,7 @@ CREATE TABLE `toolshed` (
 
 LOCK TABLES `toolshed` WRITE;
 /*!40000 ALTER TABLE `toolshed` DISABLE KEYS */;
+INSERT INTO `toolshed` VALUES (1,16,15),(2,12,11),(3,15,16),(4,15,16),(5,15,13),(6,17,17),(7,16,17),(8,17,16),(9,14,15),(10,14,15),(11,14,15),(12,16,17),(13,16,17),(14,18,19),(15,16,16),(16,15,17),(17,17,17),(18,17,17),(19,17,18),(20,17,15),(21,16,17),(22,17,17),(23,17,18),(24,17,17),(25,17,18);
 /*!40000 ALTER TABLE `toolshed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +310,7 @@ CREATE TABLE `user` (
                         `balance` int NOT NULL DEFAULT '50000',
                         `role` varchar(45) NOT NULL DEFAULT 'customer',
                         PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +319,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@admin.dk','admin','admin','admin','admin',123,123,50000,'admin'),(7,'test@test.dk','test','test','test','test',123,123,50000,'customer');
+INSERT INTO `user` VALUES (1,'admin@admin.dk','admin','admin','admin','admin',123,123,50000,'admin'),(8,'testid@test.dk','test','test','test','test',123,123,50000,'customer');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -328,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-09 11:57:39
+-- Dump completed on 2022-05-11 15:13:04
