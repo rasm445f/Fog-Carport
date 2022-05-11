@@ -14,7 +14,7 @@
 
     <jsp:body>
 
-       <h2>You selected a carport with the width: ${sessionScope.CarportWidthID}</h2>
+       <h2>You selected a carport with the measurements: </h2>
 
 
     </jsp:body>
