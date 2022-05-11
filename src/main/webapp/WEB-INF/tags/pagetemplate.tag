@@ -24,6 +24,8 @@
     </a>
     <nav>
         <ul class="nav_links">
+            <li><a href="${pageContext.request.contextPath}/createCarport">Create carport</a></li>
+            <li><a href="${pageContext.request.contextPath}/carportInfoCustomer.jsp">Your carport</a></li>
             <c:if test="${sessionScope.user == null }">
             <li><a href="${pageContext.request.contextPath}/createUser">Create account</a></li>
             </c:if>
@@ -37,10 +39,10 @@
             </c:if>
 
             <c:if test="${sessionScope.user != null }">
-                <li><a>${sessionScope.user.email}</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                <li><a>${sessionScope.user.email}</a></li>
             </c:if>
-            <li><a href="${pageContext.request.contextPath}/createCarport">Create carport</a></li>
+
         </ul>
     </nav>
 </header>
