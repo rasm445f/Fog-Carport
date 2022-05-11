@@ -1,18 +1,24 @@
 package dat.startcode.model.entities;
 
 public class Materials {
+    int materialID;
     String materialDescription;
     String materialCategory;
+    int materialLength;
     String materialUnit;
-    String materialDimension;
     int materialPrice;
 
-    public Materials(String materialDescription, String materialCategory, String materialUnit, String materialDimension, int materialPrice) {
+    public Materials(int materialID,String materialDescription, String materialCategory,int materialLength, String materialUnit, int materialPrice) {
+        this.materialID = materialID;
         this.materialDescription = materialDescription;
         this.materialCategory = materialCategory;
+        this.materialLength = materialLength;
         this.materialUnit = materialUnit;
-        this.materialDimension = materialDimension;
         this.materialPrice = materialPrice;
+    }
+
+    public int getMaterialID() {
+        return materialID;
     }
 
     public String getMaterialDescription() {
@@ -23,12 +29,12 @@ public class Materials {
         return materialCategory;
     }
 
-    public String getMaterialUnit() {
-        return materialUnit;
+    public int getMaterialLength() {
+        return materialLength;
     }
 
-    public String getMaterialDimension() {
-        return materialDimension;
+    public String getMaterialUnit() {
+        return materialUnit;
     }
 
     public int getMaterialPrice() {
