@@ -45,6 +45,7 @@ public class CalculatorMapper {
             spaceFromBeginningToFirstStolpe = 0;
         }
         else{
+            amountOfStolper = amountOfStolper * 2;
             spaceFromBeginningToFirstStolpe = length/2;
         }
     }
