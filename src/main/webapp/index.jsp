@@ -17,7 +17,7 @@
         <p>Startcode for 2nd semester </p>
 
         <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
+            <p>You are logged in with the role of "${sessionScope.user.role}" ID: ${sessionScope.user.user_id}.</p>
         </c:if>
 
         <c:if test="${sessionScope.user == null}">

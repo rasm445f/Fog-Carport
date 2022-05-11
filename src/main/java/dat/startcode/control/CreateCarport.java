@@ -35,6 +35,7 @@ public class CreateCarport extends HttpServlet {
             CarportLengthMapper carportLengthMapper = new CarportLengthMapper(connectionPool);
             RooftypeMapper rooftypeMapper = new RooftypeMapper(connectionPool);
 
+
             ArrayList<CarportWidth> carportWidthList = null;
             ArrayList<CarportLength> carportLengthList = null;
             ArrayList<ToolshedWidth> toolshedWidthList = null;
@@ -72,6 +73,7 @@ public class CreateCarport extends HttpServlet {
         response.setContentType("text/html");
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
         session = request.getSession();
         int carport_width_id = Integer.parseInt(request.getParameter("CarportWidthID"));
         int carport_length_id = Integer.parseInt(request.getParameter("CarportLengthID"));
@@ -80,12 +82,14 @@ public class CreateCarport extends HttpServlet {
         int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
 
 
+
         try {
 
             Connection connection = connectionPool.getConnection();
+            User user = (User)session.getAttribute("user");
+            orderMapper.createOrder(user.getUser_id(),1);
             toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
             carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id);
-            session.setAttribute("CarportWidthID",carport_width_id);
             connection.close();
 
         }

@@ -3,22 +3,21 @@ package dat.startcode.model.entities;
 import java.util.Date;
 
 public class Order {
+    int order_id;
     int userID;
     Date orderDate;
     int orderPrice;
-    int orderStatusNumbers;
-    int bomID;
-    boolean orderStatus;
-    public Order(int userID, Date orderDate, int orderPrice, int orderStatusNumbers, int bomID) {
+    int orderStatus;
+
+
+    public Order(int userID, int orderPrice) {
         this.userID = userID;
-        this.orderDate = orderDate;
         this.orderPrice = orderPrice;
-        this.orderStatusNumbers = orderStatusNumbers;
-        this.bomID = bomID;
-        if (orderStatusNumbers == 0){
-            orderStatus = false;
-        }
-        else{ orderStatus = true;}
+
+    }
+
+    public int getOrder_id() {
+        return order_id;
     }
 
     public int getUserID() {
@@ -33,15 +32,7 @@ public class Order {
         return orderPrice;
     }
 
-    public int getOrderStatusNumbers() {
-        return orderStatusNumbers;
-    }
-
-    public int getBomID() {
-        return bomID;
-    }
-
-    public boolean isOrderStatus() {
+    public int getOrderStatus() {
         return orderStatus;
     }
 }
