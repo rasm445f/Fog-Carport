@@ -30,6 +30,8 @@ public class Main {
         Calculator calculator = new Calculator(objects);
         ArrayList<BillOfMaterials> Bomlist = calculator.calculateEverything();
         System.out.println(Bomlist.size());
-        System.out.println(Bomlist.get(0).getMaterialAmount());
+        for (BillOfMaterials bill : Bomlist){
+            System.out.println(bill.getMaterialGuidance());
+        }
     }
 }
