@@ -1,4 +1,4 @@
-package dat.startcode.control;
+/*package dat.startcode.control;
 
 import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Order;
@@ -67,3 +67,4 @@ public class OrderLinje extends HttpServlet {
 
     }
 }
+*/

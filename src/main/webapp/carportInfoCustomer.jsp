@@ -18,34 +18,31 @@
         <h2>Overview of your carport: </h2> <br>
 
         <table>
-            <tbody>
 
             <tr>
-            <th> Carport Length:</th>
-            <td> test</td>
-            </tr>
-
-            <tr>
+                <th> Carport Length:</th>
                 <th> Carport Width:</th>
-                <td> test</td>
-            </tr>
-
-            <tr>
                 <th> Rooftype:</th>
-                <td> test</td>
-            </tr>
-
-            <tr>
                 <th> Toolshed Length:</th>
-                <td> test</td>
-            </tr>
-
-            <tr>
                 <th> Toolshed Width:</th>
-                <td> test</td>
+
+            </tr>
+            <tr>
+                <c:forEach items="${sessionScope.carportDataList}" var="items">
+
+                   <td> ${items.carportLengthCM}</td>
+                    <td> ${items.carportWidthCM}</td>
+                    <td>${items.roofName}</td>
+                    <td>${items.toolshedLengthCM}</td>
+                    <td>${items.toolshedWidthCM}</td>
+
+                </c:forEach>
             </tr>
 
-            </tbody>
+
+
+
+
         </table>
              <br>
              <input type="submit"  value="See sketch"/>

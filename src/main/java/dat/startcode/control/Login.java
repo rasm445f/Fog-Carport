@@ -6,6 +6,7 @@ import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.UserMapper;
 import dat.startcode.model.persistence.ConnectionPool;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,7 @@ public class Login extends HttpServlet
         {
             user = userMapper.login(email, password);
             session = request.getSession();
+            session.setAttribute("user_id",user.getUser_id());
             session.setAttribute("user", user); // adding user object to session scope
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }

@@ -2,21 +2,14 @@ package dat.startcode.model.entities;
 
 public class Carport {
 
-    private int carportID;
     private int carportWidthID;
     private int carportLengthID;
-    private int  rooftypeID;
-    private int toolshedID;
-    private int orderID;
-
-    public Carport(int carportWidthID, int carportLengthID, int rooftypeID, int toolshedID, int orderID) {
-        this.carportWidthID = carportWidthID;
-        this.carportLengthID = carportLengthID;
-        this.rooftypeID = rooftypeID;
-        this.toolshedID = toolshedID;
-        this.orderID = orderID;
-
-    }
+    private int rooftypeID;
+    private int carportLengthCM;
+    private int carportWidthCM;
+    private String roofName;
+    private int toolshedLengthCM;
+    private int toolshedWidthCM;
 
     public Carport(int carportWidthID, int carportLengthID, int rooftypeID) {
         this.carportWidthID = carportWidthID;
@@ -25,8 +18,12 @@ public class Carport {
 
     }
 
-    public int getCarportID() {
-        return carportID;
+    public Carport(int carportLengthCM, int carportWidthCM, String roofName, int toolshedLengthCM, int toolshedWidthCM) {
+        this.carportLengthCM = carportLengthCM;
+        this.carportWidthCM = carportWidthCM;
+        this.roofName = roofName;
+        this.toolshedLengthCM = toolshedLengthCM;
+        this.toolshedWidthCM = toolshedWidthCM;
     }
 
     public int getCarportWidthID() {
@@ -41,11 +38,23 @@ public class Carport {
         return rooftypeID;
     }
 
-    public int getToolshedID() {
-        return toolshedID;
+    public int getCarportLengthCM() {
+        return carportLengthCM;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getCarportWidthCM() {
+        return carportWidthCM;
+    }
+
+    public String getRoofName() {
+        return roofName;
+    }
+
+    public int getToolshedLengthCM() {
+        return toolshedLengthCM;
+    }
+
+    public int getToolshedWidthCM() {
+        return toolshedWidthCM;
     }
 }
