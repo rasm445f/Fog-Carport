@@ -5,24 +5,28 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the frontpage
+         Welcome to Fog
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+        Welcome
     </jsp:attribute>
 
     <jsp:body>
 
-        <p>Startcode for 2nd semester </p>
+
 
         <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}" ID: ${sessionScope.user.user_id}.</p>
+            <p>Hello ${sessionScope.user.name}! <br> Head to the navigationbar to create a carport or view your carport.</p>
         </c:if>
 
         <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="login.jsp">Login</a></p>
+            <p>You are not logged in yet. <br><br>
+
+                <a href="login.jsp">Login</a> <br> <br>
+                <a href="createUser">Create user</a>
+
+            </p>
         </c:if>
 
     </jsp:body>
