@@ -20,6 +20,7 @@ public class RooftypeMapper {
     }
 
     public ArrayList<Rooftype> getRooftype() throws DatabaseException {
+
         Logger.getLogger("web").log(Level.INFO, "");
         ArrayList<Rooftype> rooftypeList = new ArrayList<>();
         String sql = "SELECT * FROM fogcarport.rooftype";
@@ -39,6 +40,7 @@ public class RooftypeMapper {
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Rooftype name could not be found");
         }
+
         return rooftypeList;
     }
 }

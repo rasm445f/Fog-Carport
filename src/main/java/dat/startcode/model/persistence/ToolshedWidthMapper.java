@@ -19,7 +19,7 @@ public class ToolshedWidthMapper {
         this.connectionPool = connectionPool;
     }
 
-    public ArrayList<ToolshedWidth> GetToolshedWidth () throws DatabaseException {
+    public ArrayList<ToolshedWidth> GetToolshedWidth() throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
         ArrayList<ToolshedWidth> toolshedWidthList = new ArrayList<>();
@@ -29,17 +29,18 @@ public class ToolshedWidthMapper {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
                 ResultSet rs = ps.executeQuery();
-
                 while (rs.next()) {
+
                     int toolshed_width_id = rs.getInt("toolshed_width_id");
                     int toolshed_width_cm = rs.getInt("toolshed_width_cm");
-                    ToolshedWidth toolshedWidth = new ToolshedWidth(toolshed_width_id,toolshed_width_cm);
+                    ToolshedWidth toolshedWidth = new ToolshedWidth(toolshed_width_id, toolshed_width_cm);
                     toolshedWidthList.add(toolshedWidth);
                 }
             }
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Toolshed width could not be found");
         }
+
         return toolshedWidthList;
     }
 }

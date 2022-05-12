@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CarportMapper {
     ConnectionPool connectionPool;
@@ -20,11 +22,13 @@ public class CarportMapper {
 
     public Carport createCarport(int width_id, int length_id, int rooftype_id, int order_id) throws DatabaseException {
 
+        Logger.getLogger("web").log(Level.INFO, "");
         Carport carport;
         String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`,`toolshed_id`,`order_id` ) VALUES (?,?,?,(SELECT MAX(toolshed_id) as toolshed_id FROM toolshed),?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
                 ps.setInt(1, width_id);
                 ps.setInt(2, length_id);
                 ps.setInt(3, rooftype_id);
@@ -42,13 +46,14 @@ public class CarportMapper {
                 }
             }
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Could not into carport into database");
+            throw new DatabaseException(ex, "Could not insert carport into database");
         }
         return carport;
     }
 
     public ArrayList<Carport> getCarportData(int order_id) throws DatabaseException {
 
+        Logger.getLogger("web").log(Level.INFO, "");
 
         String sql = "SELECT * FROM carport c\n" +
                 "inner join carport_length cl on c.length_id = cl.carport_length_id \n" +
@@ -75,7 +80,7 @@ public class CarportMapper {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("couldn't find carport");
+            System.out.println("Couldn't find carport");
         }
         return carportsList;
     }

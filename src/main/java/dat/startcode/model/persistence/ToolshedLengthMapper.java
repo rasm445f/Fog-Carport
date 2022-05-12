@@ -30,6 +30,7 @@ public class ToolshedLengthMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
+
                     int toolshed_length_id = rs.getInt("toolshed_length_id");
                     int toolshed_length_cm = rs.getInt("toolshed_length_cm");
                     ToolshedLength toolshedLength = new ToolshedLength(toolshed_length_id,toolshed_length_cm);
@@ -39,6 +40,7 @@ public class ToolshedLengthMapper {
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Toolshed length could not be found");
         }
+
         return toolshedLengthList;
     }
 }
