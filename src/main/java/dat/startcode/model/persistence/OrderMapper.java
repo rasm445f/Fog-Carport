@@ -26,17 +26,17 @@ public class OrderMapper {
         this.connectionPool = connectionPool;
     }
 
-    public void createOrder(int user_id, int order_price) throws DatabaseException {
+    public Order createOrder(int user_id, int order_price) throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
         Order order;
         
-        String sql = "INSERT INTO order (user_id,order_price) values (?,?)";
+        String sql = "INSERT INTO fogcarport.order (user_id,order_price) values (?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
-                ps.setInt(3, order_price);
+                ps.setInt(2, order_price);
 
 
                 int rowsAffected = ps.executeUpdate();
@@ -50,7 +50,7 @@ public class OrderMapper {
         } catch (SQLException ex) {
             throw new DatabaseException(ex, "Could not insert the order into database");
         }
-
+        return order;
     }
 
 }
