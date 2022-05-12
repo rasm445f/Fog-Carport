@@ -1,9 +1,11 @@
 package dat.startcode.control;
 
 import dat.startcode.model.entities.Carport;
+import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.CarportMapper;
 import dat.startcode.model.persistence.ConnectionPool;
+import dat.startcode.model.persistence.OrderMapper;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -30,13 +32,16 @@ public class CarportCustomer extends HttpServlet {
         try {
             connectionPool.getConnection();
             session = request.getSession();
-            int order_id = 1;
+            User user = (User)session.getAttribute("user");
+            OrderMapper orderMapper = new OrderMapper(connectionPool);
             CarportMapper carportMapper = new CarportMapper(connectionPool);
             ArrayList<Carport> carportDataList = null;
 
 
+
             try {
-                 carportDataList = carportMapper.getCarportData(1);
+                 int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
+                 carportDataList = carportMapper.getCarportData(order_id);
 
             } catch (DatabaseException e) {
                 e.printStackTrace();

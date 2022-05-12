@@ -87,9 +87,12 @@ public class CreateCarport extends HttpServlet {
 
             Connection connection = connectionPool.getConnection();
             User user = (User)session.getAttribute("user");
+            orderMapper.createOrder(user.getUser_id(), 1);
+            Order order = orderMapper.getNewestOrderID();
+            int order_id = order.getOrder_id();
             toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
-            carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id);
-            orderMapper.createOrder(1,1);
+            carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
+
 
 
         }

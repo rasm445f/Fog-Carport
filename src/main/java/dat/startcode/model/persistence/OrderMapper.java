@@ -1,6 +1,7 @@
 package dat.startcode.model.persistence;
 
 import dat.startcode.model.entities.Order;
+import dat.startcode.model.entities.ToolshedWidth;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
 
@@ -51,6 +52,50 @@ public class OrderMapper {
             throw new DatabaseException(ex, "Could not insert the order into database");
         }
         return order;
+    }
+
+    public Order getNewestOrderID () throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        Order order = null;
+
+        String sql = "SELECT MAX(order_id) FROM fogcarport.order";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    int order_id = rs.getInt("MAX(order_id)");
+                    order = new Order(order_id);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Toolshed width could not be found");
+        }
+
+        return order;
+    }
+
+    public int getOrderIDFromUserID(int user_id) throws DatabaseException{
+
+        int order_id = 0;
+        String sql ="SELECT order_id FROM fogcarport.order WHERE user_id ="+user_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    order_id = rs.getInt("order_id");
+
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Toolshed width could not be found");
+        }
+        return order_id;
     }
 
 }

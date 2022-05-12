@@ -16,6 +16,10 @@ public class Order {
 
     }
 
+    public Order(int order_id) {
+        this.order_id = order_id;
+    }
+
     public int getOrder_id() {
         return order_id;
     }
