@@ -2,6 +2,7 @@ package dat.startcode.model.services;
 
 import dat.startcode.model.entities.BillOfMaterials;
 import dat.startcode.model.entities.Materials;
+import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.MaterialsMapper;
 
 import java.util.ArrayList;
@@ -16,16 +17,16 @@ public class Calculator {
         clength = (int) carportAttributes.get(1);
         rooftype = (String) carportAttributes.get(2);
     }
-
+    ConnectionPool connectionPool = new ConnectionPool();
     int cwidth;
     int clength;
     String rooftype;
 
-    MaterialsMapper materialsMapper;
+    MaterialsMapper materialsMapper = new MaterialsMapper(connectionPool);
     ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
     ArrayList<BillOfMaterials> BOMList = new ArrayList<>();
 
-    public void calculateEverything() {
+    public ArrayList<BillOfMaterials> calculateEverything() {
         BOMList.add(calculateStolper());
         BOMList.add(calculateUndersternBraederForBackAndFront());
         BOMList.add(calculateUndersternbraederforSides());
@@ -36,6 +37,7 @@ public class Calculator {
         BOMList.add(calculateSpaer());
         BOMList.add(calculateRoofPlates());
         BOMList.add(calculateRoofPlatesSmall());
+        return BOMList;
     }
 
     public BillOfMaterials calculateStolper() {
