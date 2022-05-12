@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MaterialsMapper {
     ConnectionPool connectionPool;
@@ -14,12 +16,16 @@ public class MaterialsMapper {
     public MaterialsMapper(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
+
     public ArrayList<Materials> CreateMaterials(){
+        Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM fogcarport.materials;";
         ArrayList<Materials> materialList = new ArrayList<>();
+
         try{
             Connection connection = connectionPool.getConnection();
             try(PreparedStatement ps = connection.prepareStatement(sql)){
+
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
                     int materialID = rs.getInt("material_id");
@@ -33,7 +39,7 @@ public class MaterialsMapper {
                 }
             }
         }catch (SQLException e){
-            System.out.println("couldn't find the materials in the database");
+            System.out.println("Couldn't find the materials in the database");
         }
         return materialList;
     }

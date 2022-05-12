@@ -31,14 +31,13 @@ public class OrderMapper {
 
         Logger.getLogger("web").log(Level.INFO, "");
         Order order;
-        
         String sql = "INSERT INTO fogcarport.order (user_id,order_price) values (?,?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
                 ps.setInt(1, user_id);
                 ps.setInt(2, order_price);
-
 
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1) {
@@ -55,10 +54,10 @@ public class OrderMapper {
     }
 
     public Order getNewestOrderID () throws DatabaseException{
-        Logger.getLogger("web").log(Level.INFO, "");
-        Order order = null;
 
+        Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT MAX(order_id) FROM fogcarport.order";
+        Order order = null;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -66,12 +65,13 @@ public class OrderMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
+
                     int order_id = rs.getInt("MAX(order_id)");
                     order = new Order(order_id);
                 }
             }
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Toolshed width could not be found");
+            throw new DatabaseException(ex, "Newest order_id could not be found");
         }
 
         return order;
@@ -79,6 +79,7 @@ public class OrderMapper {
 
     public int getOrderIDFromUserID(int user_id) throws DatabaseException{
 
+        Logger.getLogger("web").log(Level.INFO, "");
         int order_id = 0;
         String sql ="SELECT order_id FROM fogcarport.order WHERE user_id ="+user_id;
 
@@ -88,13 +89,15 @@ public class OrderMapper {
                 ResultSet rs = ps.executeQuery();
 
                 while (rs.next()) {
+
                     order_id = rs.getInt("order_id");
 
                 }
             }
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Toolshed width could not be found");
+            throw new DatabaseException(ex, "Order_id could not be found");
         }
+
         return order_id;
     }
 

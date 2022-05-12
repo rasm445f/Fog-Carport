@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CarportWidthMapper {
     ConnectionPool connectionPool;
@@ -15,24 +17,27 @@ public class CarportWidthMapper {
         this.connectionPool = connectionPool;
     }
 
-    public ArrayList<CarportWidth> getCarportWidth(){
-    String sql = "SELECT * FROM carport_width;";
-    ArrayList<CarportWidth> carportWidthsList = new ArrayList<>();
-    try{
-        Connection connection = connectionPool.getConnection();
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                int carport_width_id = rs.getInt("carport_width_id");
-                int carport_width_cm = rs.getInt("carport_width_cm");
-                CarportWidth carportWidth = new CarportWidth(carport_width_id,carport_width_cm);
-                carportWidthsList.add(carportWidth);
-            }
-        }
-    }catch (SQLException e){
-        System.out.println("couldn't find carport width");
-    }
-    return carportWidthsList;
+    public ArrayList<CarportWidth> getCarportWidth() {
 
-}
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "SELECT * FROM carport_width;";
+        ArrayList<CarportWidth> carportWidthsList = new ArrayList<>();
+        try {
+            Connection connection = connectionPool.getConnection();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int carport_width_id = rs.getInt("carport_width_id");
+                    int carport_width_cm = rs.getInt("carport_width_cm");
+                    CarportWidth carportWidth = new CarportWidth(carport_width_id, carport_width_cm);
+                    carportWidthsList.add(carportWidth);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't find carport width");
+        }
+
+        return carportWidthsList;
+
+    }
 }
