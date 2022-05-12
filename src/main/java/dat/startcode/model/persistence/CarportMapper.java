@@ -18,15 +18,17 @@ public class CarportMapper {
         this.connectionPool = connectionPool;
     }
 
-    public Carport createCarport(int width_id, int length_id, int rooftype_id) throws DatabaseException {
+    public Carport createCarport(int width_id, int length_id, int rooftype_id, int order_id) throws DatabaseException {
+
         Carport carport;
-        String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`,`toolshed_id` ) VALUES (?,?,?,(SELECT MAX(toolshed_id) as toolshed_id FROM toolshed))";
+        String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`,`toolshed_id`,`order_id` ) VALUES (?,?,?,(SELECT MAX(toolshed_id) as toolshed_id FROM toolshed),?)";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, width_id);
                 ps.setInt(2, length_id);
                 ps.setInt(3, rooftype_id);
+                ps.setInt(4,order_id);
 
 
 
