@@ -23,7 +23,7 @@ public class Main {
         List<Object> objects = new ArrayList<>();
         int one = 600;
         int two = 780;
-        String three = "yes";
+        /*String three = "yes";
         objects.add(one);
         objects.add(two);
         objects.add(three);
@@ -31,7 +31,7 @@ public class Main {
         ArrayList<BillOfMaterials> Bomlist = calculator.calculateEverything();
         System.out.println(Bomlist.size());
         for (BillOfMaterials bill : Bomlist){
-            System.out.println(bill.getMaterialGuidance());
+            System.out.println(bill.getMaterialGuidance()); */
         }
     }
-}
+
