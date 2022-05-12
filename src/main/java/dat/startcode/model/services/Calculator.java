@@ -10,12 +10,14 @@ import java.util.List;
 
 public class Calculator {
     List<Object> carportAttributes;
+    int orderID;
 
-    public Calculator(List<Object> carportAttributes) {
+    public Calculator(List<Object> carportAttributes,int orderID) {
         this.carportAttributes = carportAttributes;
         cwidth = (int) carportAttributes.get(0);
         clength = (int) carportAttributes.get(1);
         rooftype = (String) carportAttributes.get(2);
+        this.orderID = orderID;
     }
     ConnectionPool connectionPool = new ConnectionPool();
     int cwidth;
@@ -60,7 +62,7 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfStolper, materials.getMaterialID(), "Stolper nedgraves 90cm. i jord");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfStolper, materials.getMaterialID(), "Stolper nedgraves 90cm. i jord",orderID);
                 return billOfMaterials;
             }
         }
@@ -79,7 +81,7 @@ public class Calculator {
         amountofUndersternBraeder = amountofUndersternBraeder * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternBraeder, materials.getMaterialID(), "understernbrædder til for og bag ende");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternBraeder, materials.getMaterialID(), "understernbrædder til for og bag ende",orderID);
                 return billOfMaterials;
             }
         }
@@ -98,7 +100,7 @@ public class Calculator {
         amountofUndersternSider = amountofUndersternSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternSider, materials.getMaterialID(), "understernbrædder til siderne");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternSider, materials.getMaterialID(), "understernbrædder til siderne",orderID);
                 return billOfMaterials;
             }
         }
@@ -116,7 +118,7 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne)  && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternFront, materials.getMaterialID(), "toversternsbrædder til forende");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternFront, materials.getMaterialID(), "toversternsbrædder til forende",orderID);
                 return billOfMaterials;
             }
         }
@@ -135,7 +137,7 @@ public class Calculator {
         amountofOversternSider = amountofOversternSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternSider, materials.getMaterialID(), "oversternbrædder til siderne");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternSider, materials.getMaterialID(), "oversternbrædder til siderne",orderID);
                 return billOfMaterials;
             }
         }
@@ -154,7 +156,7 @@ public class Calculator {
         amountofVandbraetSider = amountofVandbraetSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetSider, materials.getMaterialID(), "vandbræt på stern i sider");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetSider, materials.getMaterialID(), "vandbræt på stern i sider",orderID);
                 return billOfMaterials;
             }
         }
@@ -172,7 +174,7 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetFront, materials.getMaterialID(), "vandbræt på stern i forende");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetFront, materials.getMaterialID(), "vandbræt på stern i forende",orderID);
                 return billOfMaterials;
             }
         }
@@ -187,7 +189,7 @@ public class Calculator {
         int amountOfSpaer = (int) Math.ceil(clength / spaceBetween);
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfSpaer, materials.getMaterialID(), "Spær,monteres på rem");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfSpaer, materials.getMaterialID(), "Spær,monteres på rem",orderID);
                 return billOfMaterials;
             }
         }
@@ -206,7 +208,7 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær");
+                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
                 return billOfMaterials;
             }
         }
@@ -225,7 +227,7 @@ public class Calculator {
             }
             for (Materials materials : materialList) {
                 if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                    BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær");
+                    BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
                     return billOfMaterials;
                 }
             }

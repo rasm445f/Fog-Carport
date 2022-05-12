@@ -71,6 +71,7 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        ServletContext context =getServletContext();
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
         OrderMapper orderMapper = new OrderMapper(connectionPool);
@@ -90,6 +91,7 @@ public class CreateCarport extends HttpServlet {
             orderMapper.createOrder(user.getUser_id(), 1);
             Order order = orderMapper.getNewestOrderID();
             int order_id = order.getOrder_id();
+            context.setAttribute("order_id",order_id);
             toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
             carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
 

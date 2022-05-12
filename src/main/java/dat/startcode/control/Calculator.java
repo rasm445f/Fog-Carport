@@ -21,7 +21,9 @@ public class Calculator extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
         List<Object> carportAtributes = (List<Object>) session.getAttribute("carportAtributes");
-        dat.startcode.model.services.Calculator calculator = new dat.startcode.model.services.Calculator(carportAtributes);
+        ServletContext context = getServletContext();
+        int orderID = Integer.parseInt((String) context.getAttribute("order_id"));
+        dat.startcode.model.services.Calculator calculator = new dat.startcode.model.services.Calculator(carportAtributes,orderID);
     }
 
     @Override
