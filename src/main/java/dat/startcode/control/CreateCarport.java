@@ -71,17 +71,19 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        ServletContext context =getServletContext();
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
         OrderMapper orderMapper = new OrderMapper(connectionPool);
+        CarportWidthMapper carportWidthMapper = new CarportWidthMapper(connectionPool);
+        CarportLengthMapper carportLengthMapper = new CarportLengthMapper(connectionPool);
         session = request.getSession();
         int carport_width_id = Integer.parseInt(request.getParameter("CarportWidthID"));
         int carport_length_id = Integer.parseInt(request.getParameter("CarportLengthID"));
         int rooftype_id = Integer.parseInt(request.getParameter("RooftypeID"));
         int toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
         int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
-
+        CarportWidth carportWidth = carportWidthMapper.getSpecificCarportwidth(carport_width_id);
+        CarportLength carportLength = carportLengthMapper.getSpecificCarportLength(carport_length_id);
 
 
         try {
@@ -91,7 +93,10 @@ public class CreateCarport extends HttpServlet {
             orderMapper.createOrder(user.getUser_id(), 1);
             Order order = orderMapper.getNewestOrderID();
             int order_id = order.getOrder_id();
-            context.setAttribute("order_id",order_id);
+            session.setAttribute("order_id",order_id);
+            session.setAttribute("currentCarportWidth",carportWidth);
+            session.setAttribute("currentCarportLength",carportLength);
+            // TODO: 12-05-2022: make it so rooftypes actually gets inserted here;
             toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
             carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
 

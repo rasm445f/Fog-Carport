@@ -27,7 +27,7 @@ public class Main {
         objects.add(one);
         objects.add(two);
         objects.add(three);
-        Calculator calculator = new Calculator(objects);
+        Calculator calculator = new Calculator(objects,1);
         ArrayList<BillOfMaterials> Bomlist = calculator.calculateEverything();
         System.out.println(Bomlist.size());
         for (BillOfMaterials bill : Bomlist){
