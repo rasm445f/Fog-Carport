@@ -25,7 +25,9 @@
     <nav>
         <ul class="nav_links">
             <li><a href="${pageContext.request.contextPath}/createCarport">Create carport</a></li>
+            <c:if test="${sessionScope.user != null }">
             <li><a href="${pageContext.request.contextPath}/carportCustomer">Your carport</a></li>
+            </c:if>
             <c:if test="${sessionScope.user == null }">
             <li><a href="${pageContext.request.contextPath}/createUser">Create account</a></li>
             </c:if>
