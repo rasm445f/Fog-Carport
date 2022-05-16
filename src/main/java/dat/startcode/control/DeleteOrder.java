@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -16,13 +17,13 @@ import java.util.ArrayList;
 
 @WebServlet(name = "DeleteOrder", value = "/DeleteOrder")
 public class DeleteOrder extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
 
 
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
 

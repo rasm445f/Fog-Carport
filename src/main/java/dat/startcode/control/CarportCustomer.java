@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -16,32 +17,31 @@ import java.util.ArrayList;
 
 @WebServlet(name = "carportCustomer", value = "/carportCustomer")
 public class CarportCustomer extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
 
 
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try {
+        try{
             connectionPool.getConnection();
             session = request.getSession();
             User user = (User)session.getAttribute("user");
             OrderMapper orderMapper = new OrderMapper(connectionPool);
             CarportMapper carportMapper = new CarportMapper(connectionPool);
             ArrayList<Carport> carportDataList = null;
-
+            int userid = user.getUser_id();
 
 
             try {
-                 int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
-                 carportDataList = carportMapper.getCarportData(order_id);
+                 carportDataList = carportMapper.getCarportData(userid);
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
@@ -54,7 +54,6 @@ public class CarportCustomer extends HttpServlet {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
 
     }
 

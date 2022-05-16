@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.persistence.ConnectionPool;
 
 import javax.servlet.*;
@@ -10,11 +11,11 @@ import java.util.List;
 
 @WebServlet(name = "Calculator", value = "/Calculator")
 public class Calculator extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
     @Override

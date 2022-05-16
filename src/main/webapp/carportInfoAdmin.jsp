@@ -22,6 +22,8 @@
             <tr>
                 <th> Order ID:</th>
                 <th> Customer Name:</th>
+                <th> Order Price:</th>
+                <th> Order Status:</th>
                 <th> Carport Length:</th>
                 <th> Carport Width:</th>
                 <th> Rooftype:</th>
@@ -34,6 +36,14 @@
                     <tr>
                     <td> <c:out value="${items.order_id}"/></td>
                     <td> <c:out value="${items.customerName}"/></td>
+                        <td> <c:out value="${items.order_price}"/></td>
+                        <c:if test="${items.order_status == 0}">
+                            <td> <c:out value="Not autherized"/></td>
+                        </c:if>
+                        <c:if test="${items.order_status == 1}">
+                            <td> <c:out value="Autherized"/></td>
+                        </c:if>
+
                     <td> <c:out value="${items.carportLengthCM}"/></td>
                     <td> <c:out value="${items.carportWidthCM}"/></td>
                     <td> <c:out value="${items.roofName}"/></td>
@@ -42,12 +52,24 @@
             </tr>
                 </c:forEach>
 
-
-
-
-
-
         </table>
+
+        <form action="carportAdmin" method="post">
+
+            <label for="order_id">Order ID: </label>
+            <input type="number" id="order_id" name="order_id"/>
+            <br>
+            <br>
+            <label for="order_price">Order Price: </label>
+            <input type="number" id="order_price" name="order_price"/>
+            <br>
+            <br>
+            <label for="order_status">Order Status: </label>
+            <input type="number" id="order_status" name="order_status"/>
+            <br>
+            <br>
+            <input type="submit"  value="Update order"/>
+        </form>
 
 
     </jsp:body>

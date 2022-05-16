@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.Carport;
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -16,13 +17,13 @@ import java.util.ArrayList;
 
 @WebServlet(name = "carportAdmin", value = "/carportAdmin")
 public class CarportAdmin extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
 
 
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
     @Override
@@ -55,6 +56,27 @@ public class CarportAdmin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
+        session = request.getSession();
+        String order_id_String = request.getParameter("order_id");
+        String order_price_String = request.getParameter("order_price");
+        String order_status_String = request.getParameter("order_status");
+        try {
 
+
+        if(order_id_String != null|order_price_String != null|order_status_String != null) {
+            int order_id = Integer.parseInt(order_id_String);
+            int order_price = Integer.parseInt(order_price_String);
+            int order_status = Integer.parseInt(order_status_String);
+            orderMapper.updateOrderPrice(order_id,order_price);
+            orderMapper.updateOrderStatus(order_id,order_status);
+        }
+
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        doGet(request,response);
     }
 }
+

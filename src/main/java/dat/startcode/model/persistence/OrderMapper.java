@@ -133,4 +133,30 @@ public class OrderMapper {
             e.printStackTrace();
         }
     }
+
+    public void updateOrderStatus (int order_id, int order_status) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "UPDATE fogcarport.order SET order_status ="+order_status+" WHERE order_id =" + order_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderPrice (int order_id, int order_price) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "UPDATE fogcarport.order SET order_price ="+order_price+" WHERE order_id =" + order_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
