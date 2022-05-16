@@ -31,11 +31,11 @@
 
             </tr>
             </thead>
-                <c:forEach items="${sessionScope.carportDataList}" var="items">
-                    <tr>
+            <c:forEach items="${sessionScope.carportDataList}" var="items">
+                <tr>
                     <td> <c:out value="${items.order_id}"/></td>
 
-                            <td> <c:out value="${items.order_price}"/></td>
+                    <td> <c:out value="${items.order_price}"/></td>
 
 
                     <c:if test="${items.order_status == 0}">
@@ -50,8 +50,8 @@
                     <td> <c:out value="${items.roofName}"/></td>
                     <td> <c:out value="${items.toolshedLengthCM}"/></td>
                     <td> <c:out value="${items.toolshedWidthCM}"/></td>
-            </tr>
-                </c:forEach>
+                </tr>
+            </c:forEach>
 
 
 

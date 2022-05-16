@@ -2,6 +2,7 @@
 /* Nav bar */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+
 .content-table{
     border-collapse: collapse;
     margin: 25px 0;
@@ -36,8 +37,8 @@ input{
     box-sizing: border-box;
 }
 .logo{
-    float: left;
-    cursor: pointer;
+    display: block;
+    width: 75%;
 
 }
 
