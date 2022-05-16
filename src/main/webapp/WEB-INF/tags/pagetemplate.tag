@@ -56,22 +56,10 @@
 </div>
 
 <!-- Footer -->
-<div class="container mt-3">
-    <hr/>
-    <div class="row mt-4">
-        <div class="col">
-            Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby
-        </div>
-        <div class="col">
-            <jsp:invoke fragment="footer"/>
-            <p>&copy; 2022 Cphbusiness</p>
-        </div>
-        <div class="col">
-            All prices include VAT
-        </div>
-    </div>
+<footer>
+    <p>Johannes Fog A/S - Firskovvej 20 - 2800 Lyngby - All prices include VAT</p>
 
-</div>
+</footer>
 
 </div>
 

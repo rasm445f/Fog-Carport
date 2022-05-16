@@ -15,10 +15,10 @@
     <jsp:body>
 
 
-        <h2>Overview of your carport: </h2> <br>
+        <h2 class="h2">Overview of your carport: </h2> <br>
 
-        <table>
-
+        <table class="content-table">
+            <thead>
             <tr>
                 <th> Order ID:</th>
                 <th> Order Price:</th>
@@ -30,7 +30,7 @@
                 <th> Toolshed Width:</th>
 
             </tr>
-
+            </thead>
                 <c:forEach items="${sessionScope.carportDataList}" var="items">
                     <tr>
                     <td> <c:out value="${items.order_id}"/></td>

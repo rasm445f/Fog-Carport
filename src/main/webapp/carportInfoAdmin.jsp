@@ -17,8 +17,8 @@
 
         <h2>List of orders: </h2> <br>
 
-        <table>
-
+        <table class="content-table">
+            <thead>
             <tr>
                 <th> Order ID:</th>
                 <th> Customer Name:</th>
@@ -31,6 +31,7 @@
                 <th> Toolshed Width:</th>
 
             </tr>
+            </thead>
 
                 <c:forEach items="${sessionScope.carportDataListAdmin}" var="items">
                     <tr>
