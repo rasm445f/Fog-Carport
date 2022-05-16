@@ -84,4 +84,41 @@ public class CarportMapper {
         }
         return carportsList;
     }
+    public ArrayList<Carport> getCarportDataAdmin() throws DatabaseException {
+
+        Logger.getLogger("web").log(Level.INFO, "");
+
+        String sql = "SELECT * FROM carport c\n" +
+                "inner join carport_length cl on c.length_id = cl.carport_length_id\n" +
+                "inner join carport_width cw on c.width_id = cw.carport_width_id\n" +
+                "inner join rooftype rt on c.rooftype_id = rt.rooftype_id\n" +
+                "inner join toolshed ts on c.toolshed_id = ts.toolshed_id\n" +
+                "inner join toolshed_length tl on c.rooftype_id = tl.toolshed_length_id\n" +
+                "inner join toolshed_width tw on c.rooftype_id = tw.toolshed_width_id\n" +
+                "inner join fogcarport.order o on c.order_id = o.order_id\n" +
+                "inner join user u on o.user_id = u.user_id;\n";
+
+        ArrayList<Carport> carportsListAdmin = new ArrayList<>();
+        try {
+            Connection connection = connectionPool.getConnection();
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int order_id = rs.getInt("order_id");
+                    String customerName = rs.getString("name");
+                    int carportLengthCM = rs.getInt("carport_length_cm");
+                    int carportWidthCM = rs.getInt("carport_width_cm");
+                    String roofName = rs.getString("roof_name");
+                    int toolshedLengthCM = rs.getInt("toolshed_length_cm");
+                    int toolshedWidthCM = rs.getInt("toolshed_width_cm");
+
+                    Carport carport = new Carport(order_id,customerName,carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM);
+                    carportsListAdmin.add(carport);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't find carport");
+        }
+        return carportsListAdmin;
+    }
 }

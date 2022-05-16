@@ -40,6 +40,9 @@
             <c:if test="${sessionScope.user != null }">
                 <li><a href="${pageContext.request.contextPath}/cart.jsp">Cart</a></li>
             </c:if>
+            <c:if test="${sessionScope.user.role == 'admin' }">
+                <li><a href="${pageContext.request.contextPath}/carportAdmin">Admin</a></li>
+            </c:if>
 
             <c:if test="${sessionScope.user != null }">
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>

@@ -51,6 +51,7 @@
              <input type="submit"  value="See bill of materials"/>
         <br>
         <br>
+            
 
         <c:if test="${sessionScope.user.role =='admin' }">
             <a href="${pageContext.request.contextPath}/cart.jsp"><button>Admin room</button></a>
