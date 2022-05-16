@@ -3,7 +3,6 @@ package dat.startcode.model.config;
 import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
-import dat.startcode.model.services.Calculator;
 
 import java.util.ArrayList;
 import java.util.List;
