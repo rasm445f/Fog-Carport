@@ -15,12 +15,13 @@
     <jsp:body>
 
 
-        <h2>Overview of your carport: </h2> <br>
+        <h2>List of orders: </h2> <br>
 
         <table>
 
             <tr>
                 <th> Order ID:</th>
+                <th> Customer Name:</th>
                 <th> Order Price:</th>
                 <th> Order Status:</th>
                 <th> Carport Length:</th>
@@ -31,19 +32,17 @@
 
             </tr>
 
-                <c:forEach items="${sessionScope.carportDataList}" var="items">
+                <c:forEach items="${sessionScope.carportDataListAdmin}" var="items">
                     <tr>
                     <td> <c:out value="${items.order_id}"/></td>
-
-                            <td> <c:out value="${items.order_price}"/></td>
-
-
-                    <c:if test="${items.order_status == 0}">
-                        <td> <c:out value="Not autherized"/></td>
-                    </c:if>
-                    <c:if test="${items.order_status == 1}">
-                        <td> <c:out value="Autherized"/></td>
-                    </c:if>
+                    <td> <c:out value="${items.customerName}"/></td>
+                        <td> <c:out value="${items.order_price}"/></td>
+                        <c:if test="${items.order_status == 0}">
+                            <td> <c:out value="Not autherized"/></td>
+                        </c:if>
+                        <c:if test="${items.order_status == 1}">
+                            <td> <c:out value="Autherized"/></td>
+                        </c:if>
 
                     <td> <c:out value="${items.carportLengthCM}"/></td>
                     <td> <c:out value="${items.carportWidthCM}"/></td>
@@ -53,22 +52,24 @@
             </tr>
                 </c:forEach>
 
-
-
-
-
-
         </table>
-             <br>
-             <input type="submit"  value="See sketch"/>
-             <br>
-             <br>
-             <input type="submit"  value="See bill of materials"/>
-        <br>
-        <br>
-            
 
+        <form action="carportAdmin" method="post">
 
+            <label for="order_id">Order ID: </label>
+            <input type="number" id="order_id" name="order_id"/>
+            <br>
+            <br>
+            <label for="order_price">Order Price: </label>
+            <input type="number" id="order_price" name="order_price"/>
+            <br>
+            <br>
+            <label for="order_status">Order Status: </label>
+            <input type="number" id="order_status" name="order_status"/>
+            <br>
+            <br>
+            <input type="submit"  value="Update order"/>
+        </form>
 
 
     </jsp:body>

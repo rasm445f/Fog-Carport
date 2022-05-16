@@ -1,5 +1,6 @@
 package dat.startcode.control;
 
+import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 
 @WebServlet(name = "createCarport", value = "/createCarport")
 public class CreateCarport extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
 
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
 

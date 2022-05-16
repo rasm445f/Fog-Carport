@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "carportCustomer", value = "/carportCustomer")
-public class CarportCustomer extends HttpServlet {
+@WebServlet(name = "carportAdmin", value = "/carportAdmin")
+public class CarportAdmin extends HttpServlet {
     private HttpSession session;
     private ConnectionPool connectionPool;
 
@@ -26,29 +26,25 @@ public class CarportCustomer extends HttpServlet {
         this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        try{
+        try {
             connectionPool.getConnection();
             session = request.getSession();
-            User user = (User)session.getAttribute("user");
-            OrderMapper orderMapper = new OrderMapper(connectionPool);
             CarportMapper carportMapper = new CarportMapper(connectionPool);
-            ArrayList<Carport> carportDataList = null;
-            int userid = user.getUser_id();
+            ArrayList<Carport> carportDataListAdmin = null;
+
 
 
             try {
-                 carportDataList = carportMapper.getCarportData(userid);
+                carportDataListAdmin = carportMapper.getCarportDataAdmin();
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
             }
 
-            session.setAttribute("carportDataList",carportDataList);
-            request.getRequestDispatcher("carportInfoCustomer.jsp").forward(request, response);
+            session.setAttribute("carportDataListAdmin",carportDataListAdmin);
+            request.getRequestDispatcher("carportInfoAdmin.jsp").forward(request, response);
 
 
         } catch (SQLException e) {
@@ -57,8 +53,30 @@ public class CarportCustomer extends HttpServlet {
 
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
+        session = request.getSession();
+        String order_id_String = request.getParameter("order_id");
+        String order_price_String = request.getParameter("order_price");
+        String order_status_String = request.getParameter("order_status");
+        try {
 
+
+        if(order_id_String != null|order_price_String != null|order_status_String != null) {
+            int order_id = Integer.parseInt(order_id_String);
+            int order_price = Integer.parseInt(order_price_String);
+            int order_status = Integer.parseInt(order_status_String);
+            orderMapper.updateOrderPrice(order_id,order_price);
+            orderMapper.updateOrderStatus(order_id,order_status);
+        }
+
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        doGet(request,response);
     }
 }
+
