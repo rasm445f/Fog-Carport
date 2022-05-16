@@ -101,4 +101,37 @@ public class OrderMapper {
         return order_id;
     }
 
+    public void deleteOrder(int order_id) throws DatabaseException{
+
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sqlone ="delete from `order` where order_id = ?;";
+        String sqltwo ="delete from `bill_of_materials` where order_id = ?;";
+        String sqlthree ="delete from `carport` where order_id = ?;";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqlone)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqltwo)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqlthree)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
