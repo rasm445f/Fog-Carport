@@ -101,4 +101,62 @@ public class OrderMapper {
         return order_id;
     }
 
+    public void deleteOrder(int order_id) throws DatabaseException{
+
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sqlone ="delete from `order` where order_id = ?;";
+        String sqltwo ="delete from `bill_of_materials` where order_id = ?;";
+        String sqlthree ="delete from `carport` where order_id = ?;";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqlone)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqltwo)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sqlthree)) {
+                ps.setInt(1,order_id);
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderStatus (int order_id, int order_status) throws DatabaseException {
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "UPDATE fogcarport.order SET order_status ="+order_status+" WHERE order_id =" + order_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateOrderPrice (int order_id, int order_price) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "UPDATE fogcarport.order SET order_price ="+order_price+" WHERE order_id =" + order_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

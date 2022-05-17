@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "carportCustomer", value = "/carportCustomer")
-public class CarportCustomer extends HttpServlet {
+@WebServlet(name = "DeleteOrder", value = "/DeleteOrder")
+public class DeleteOrder extends HttpServlet {
     private HttpSession session;
     private ConnectionPool connectionPool;
 
@@ -30,18 +30,19 @@ public class CarportCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try{
+        try {
             connectionPool.getConnection();
             session = request.getSession();
             User user = (User)session.getAttribute("user");
             OrderMapper orderMapper = new OrderMapper(connectionPool);
             CarportMapper carportMapper = new CarportMapper(connectionPool);
             ArrayList<Carport> carportDataList = null;
-            int userid = user.getUser_id();
+
 
 
             try {
-                 carportDataList = carportMapper.getCarportData(userid);
+                int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
+                carportDataList = carportMapper.getCarportData(order_id);
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
@@ -55,10 +56,21 @@ public class CarportCustomer extends HttpServlet {
             System.out.println(e);
         }
 
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
+        User user = (User)session.getAttribute("user");
+        try {
+            int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
+            orderMapper.deleteOrder(order_id);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        request.getRequestDispatcher("carportInfoCustomer.jsp").forward(request, response);
 
     }
 }

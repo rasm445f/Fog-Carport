@@ -15,11 +15,14 @@
     <jsp:body>
 
 
-        <h2>Overview of your carport: </h2> <br>
+        <h2 class="h2">Overview of your carport: </h2> <br>
 
-        <table>
-
+        <table class="content-table">
+            <thead>
             <tr>
+                <th> Order ID:</th>
+                <th> Order Price:</th>
+                <th> Order Status:</th>
                 <th> Carport Length:</th>
                 <th> Carport Width:</th>
                 <th> Rooftype:</th>
@@ -27,17 +30,29 @@
                 <th> Toolshed Width:</th>
 
             </tr>
-            <tr>
-                <c:forEach items="${sessionScope.carportDataList}" var="items">
+            </thead>
+            <c:forEach items="${sessionScope.carportDataList}" var="items">
+                <tr>
+                    <td> <c:out value="${items.order_id}"/></td>
 
-                   <td> ${items.carportLengthCM}</td>
-                    <td> ${items.carportWidthCM}</td>
-                    <td>${items.roofName}</td>
-                    <td>${items.toolshedLengthCM}</td>
-                    <td>${items.toolshedWidthCM}</td>
+                    <td> <c:out value="${items.order_price}"/></td>
 
-                </c:forEach>
-            </tr>
+
+                    <c:if test="${items.order_status == 0}">
+                        <td> <c:out value="Not autherized"/></td>
+                    </c:if>
+                    <c:if test="${items.order_status == 1}">
+                        <td> <c:out value="Autherized"/></td>
+                    </c:if>
+
+                    <td> <c:out value="${items.carportLengthCM}"/></td>
+                    <td> <c:out value="${items.carportWidthCM}"/></td>
+                    <td> <c:out value="${items.roofName}"/></td>
+                    <td> <c:out value="${items.toolshedLengthCM}"/></td>
+                    <td> <c:out value="${items.toolshedWidthCM}"/></td>
+                </tr>
+            </c:forEach>
+
 
 
 
@@ -51,10 +66,9 @@
              <input type="submit"  value="See bill of materials"/>
         <br>
         <br>
+            
 
-        <c:if test="${sessionScope.user.role =='admin' }">
-            <a href="${pageContext.request.contextPath}/cart.jsp"><button>Admin room</button></a>
-        </c:if>
+
 
 
     </jsp:body>

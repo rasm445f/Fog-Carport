@@ -1,14 +1,8 @@
 package dat.startcode.model.config;
 
-import dat.startcode.model.entities.BillOfMaterials;
-import dat.startcode.model.entities.CarportLength;
-import dat.startcode.model.entities.Materials;
-import dat.startcode.model.entities.ToolshedWidth;
+import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
-import dat.startcode.model.persistence.CarportLengthMapper;
-import dat.startcode.model.persistence.ConnectionPool;
-import dat.startcode.model.persistence.MaterialsMapper;
-import dat.startcode.model.persistence.ToolshedWidthMapper;
+import dat.startcode.model.persistence.*;
 import dat.startcode.model.services.Calculator;
 
 import java.util.ArrayList;
@@ -32,6 +26,12 @@ public class Main {
         System.out.println(Bomlist.size());
         for (BillOfMaterials bill : Bomlist){
             System.out.println(bill.getMaterialGuidance()); */
+
+        CarportMapper carportMapper = new CarportMapper(connectionPool);
+        ArrayList<Carport> listAdmin = carportMapper.getCarportDataAdmin();
+        for (Carport carport : listAdmin) {
+            System.out.println(carport.getCustomerName());
+        }
         }
     }
 

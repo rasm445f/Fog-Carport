@@ -28,6 +28,7 @@
 
             </p>
         </c:if>
+        <img  width="50%" align="right" src="images/carport.png">
 
     </jsp:body>
 

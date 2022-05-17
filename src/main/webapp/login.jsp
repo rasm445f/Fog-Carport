@@ -15,16 +15,20 @@
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+
 
         <form action="login" method="post">
+            <div class="input">
             <label for="email">Email: </label>
-            <input type="text" id="email" name="email"/>
+            <input type="text" id="email" name="email" placeholder="Type your e-mail"/>
 
             <label for="password">Password: </label>
-            <input type="password" id="password" name="password"/>
+            <input type="password" id="password" name="password" placeholder="Type your password"/>
+            <br>
+            <br>
 
             <input type="submit"  value="Log in"/>
+            </div>
         </form>
 
     </jsp:body>
