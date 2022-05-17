@@ -1,31 +1,24 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page errorPage="error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
+
     <jsp:attribute name="header">
-             Picture
+         SVG - Sketch of carport
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-            Picture
+        <c:set var="addHomeLink" value="${false}" scope="request"/>
     </jsp:attribute>
 
     <jsp:body>
 
-        <h3>You can log in here</h3>
+        <div class="svg_img">
 
-        <form action="login" method="post">
-            <label for="email">Email: </label>
-            <input type="text" id="email" name="email"/>
+                ${requestScope.svgdrawing}
 
-            <label for="password">Password: </label>
-            <input type="password" id="password" name="password"/>
-
-            <input type="submit"  value="Log in"/>
-        </form>
+        </div>
 
     </jsp:body>
 </t:pagetemplate>
