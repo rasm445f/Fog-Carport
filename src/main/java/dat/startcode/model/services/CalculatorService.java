@@ -2,33 +2,40 @@ package dat.startcode.model.services;
 
 import dat.startcode.model.entities.BillOfMaterials;
 import dat.startcode.model.entities.Materials;
+import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.persistence.MaterialsMapper;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Calculator {
-    List<Object> carportAttributes;
-    int orderID;
-
-    public Calculator(List<Object> carportAttributes,int orderID) {
-        this.carportAttributes = carportAttributes;
-        cwidth = (int) carportAttributes.get(0);
-        clength = (int) carportAttributes.get(1);
-        rooftype = (String) carportAttributes.get(2);
-        this.orderID = orderID;
-    }
-    ConnectionPool connectionPool = new ConnectionPool();
-    int cwidth;
-    int clength;
-    String rooftype;
-
-    MaterialsMapper materialsMapper = new MaterialsMapper(connectionPool);
-    ArrayList<Materials> materialList = materialsMapper.CreateMaterials();
+public class CalculatorService {
+    private ConnectionPool connectionPool;
+    private int orderID;
+    private int cwidth;
+    private int clength;
+    private int bom_id;
+    private String rooftype;
     ArrayList<BillOfMaterials> BOMList = new ArrayList<>();
+    ArrayList<Materials> materialList;
+    MaterialsMapper materialsMapper;
 
-    public ArrayList<BillOfMaterials> calculateEverything() {
+    public CalculatorService(ConnectionPool connectionPool, int cwidth, int clength, int orderID) {
+        this.connectionPool = connectionPool;
+        this.materialsMapper = new MaterialsMapper(connectionPool);
+        this.materialList = materialsMapper.CreateMaterials();
+        this.cwidth = cwidth;
+        this.clength = clength;
+        this.orderID = orderID;
+
+    }
+
+    public ArrayList<BillOfMaterials> calculateEverything() throws DatabaseException {
         BOMList.add(calculateStolper());
         BOMList.add(calculateUndersternBraederForBackAndFront());
         BOMList.add(calculateUndersternbraederforSides());
@@ -42,7 +49,33 @@ public class Calculator {
         return BOMList;
     }
 
-    public BillOfMaterials calculateStolper() {
+    public int getNextBOMID() throws DatabaseException{
+
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "SELECT MAX(bom_id) FROM bill_of_materials";
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                    bom_id = rs.getInt("MAX(order_id)");
+                    this.bom_id = bom_id++;
+
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Newest order_id could not be found");
+        }
+        return bom_id;
+    }
+
+
+
+    public BillOfMaterials calculateStolper() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Stolpe";
         int length = clength;
         int materialLength = 300;
@@ -62,14 +95,15 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfStolper, materials.getMaterialID(), "Stolper nedgraves 90cm. i jord",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountOfStolper, materials.getMaterialID(), "Stolper nedgraves 90cm. i jord",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateUndersternBraederForBackAndFront() {
+    public BillOfMaterials calculateUndersternBraederForBackAndFront() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofUndersternBraeder = 1;
         int width = cwidth;
@@ -81,14 +115,15 @@ public class Calculator {
         amountofUndersternBraeder = amountofUndersternBraeder * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternBraeder, materials.getMaterialID(), "understernbrædder til for og bag ende",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofUndersternBraeder, materials.getMaterialID(), "understernbrædder til for og bag ende",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateUndersternbraederforSides() {
+    public BillOfMaterials calculateUndersternbraederforSides() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofUndersternSider = 1;
         int materialLength = 540;
@@ -100,14 +135,15 @@ public class Calculator {
         amountofUndersternSider = amountofUndersternSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofUndersternSider, materials.getMaterialID(), "understernbrædder til siderne",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofUndersternSider, materials.getMaterialID(), "understernbrædder til siderne",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateOversternBraederForFront() {
+    public BillOfMaterials calculateOversternBraederForFront() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofOversternFront = 1;
         int width = cwidth;
@@ -118,14 +154,15 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne)  && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternFront, materials.getMaterialID(), "toversternsbrædder til forende",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofOversternFront, materials.getMaterialID(), "toversternsbrædder til forende",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateOversternbraederforSides() {
+    public BillOfMaterials calculateOversternbraederforSides() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofOversternSider = 1;
         int materialLength = 540;
@@ -137,14 +174,15 @@ public class Calculator {
         amountofOversternSider = amountofOversternSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofOversternSider, materials.getMaterialID(), "oversternbrædder til siderne",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofOversternSider, materials.getMaterialID(), "oversternbrædder til siderne",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateVandbraetForSides() {
+    public BillOfMaterials calculateVandbraetForSides() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofVandbraetSider = 1;
         int materialLength = 540;
@@ -156,14 +194,15 @@ public class Calculator {
         amountofVandbraetSider = amountofVandbraetSider * 2;
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetSider, materials.getMaterialID(), "vandbræt på stern i sider",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofVandbraetSider, materials.getMaterialID(), "vandbræt på stern i sider",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateVandbraetForFront() {
+    public BillOfMaterials calculateVandbraetForFront() throws DatabaseException {
+
         String prerequesitOne = "trykimp. Brædt";
         int amountofVandbraetFront = 1;
         int materialLength = 360;
@@ -174,14 +213,14 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountofVandbraetFront, materials.getMaterialID(), "vandbræt på stern i forende",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountofVandbraetFront, materials.getMaterialID(), "vandbræt på stern i forende",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
 
-    public BillOfMaterials calculateSpaer() {
+    public BillOfMaterials calculateSpaer() throws DatabaseException {
 
         int spaceBetween = 55;
         String prerequesitOne = "spærtræ ubh.";
@@ -189,7 +228,7 @@ public class Calculator {
         int amountOfSpaer = (int) Math.ceil(clength / spaceBetween);
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfSpaer, materials.getMaterialID(), "Spær,monteres på rem",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountOfSpaer, materials.getMaterialID(), "Spær,monteres på rem",orderID);
                 return billOfMaterials;
             }
         }
@@ -197,7 +236,8 @@ public class Calculator {
         return null;
     }
 
-    public BillOfMaterials calculateRoofPlates() {
+    public BillOfMaterials calculateRoofPlates() throws DatabaseException {
+
         int amountOfRoofPlates = 1;
         String prerequesitOne = "Plastmo Ecolite blåtonet";
         int materialLength = 600;
@@ -208,13 +248,14 @@ public class Calculator {
         }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
+                BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
                 return billOfMaterials;
             }
         }
         return null;
     }
-    public BillOfMaterials calculateRoofPlatesSmall() {
+    public BillOfMaterials calculateRoofPlatesSmall() throws DatabaseException {
+
         int amountOfRoofPlates = 1;
         String prerequesitOne = "Plastmo Ecolite blåtonet";
         int materialLength = 360;
@@ -227,7 +268,7 @@ public class Calculator {
             }
             for (Materials materials : materialList) {
                 if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
-                    BillOfMaterials billOfMaterials = new BillOfMaterials(amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
+                    BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountOfRoofPlates, materials.getMaterialID(), "tagplader monteres på spær",orderID);
                     return billOfMaterials;
                 }
             }

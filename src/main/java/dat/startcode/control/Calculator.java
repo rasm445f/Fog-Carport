@@ -1,42 +1,76 @@
 package dat.startcode.control;
 
-import dat.startcode.model.entities.CarportLength;
-import dat.startcode.model.entities.CarportWidth;
+import dat.startcode.model.config.ApplicationStart;
+import dat.startcode.model.entities.BillOfMaterials;
+import dat.startcode.model.entities.Carport;
+import dat.startcode.model.exceptions.DatabaseException;
+import dat.startcode.model.persistence.BillOfMaterialsMapper;
+import dat.startcode.model.persistence.CarportMapper;
 import dat.startcode.model.persistence.ConnectionPool;
+import dat.startcode.model.services.CalculatorService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "Calculator", value = "/Calculator")
+@WebServlet(name = "calculator", value = "/calculator")
 public class Calculator extends HttpServlet {
-    HttpSession session;
-    ConnectionPool connectionPool;
+    private HttpSession session;
+    private ConnectionPool connectionPool;
     @Override
     public void init() throws ServletException {
-        connectionPool = new ConnectionPool();
+        this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        session = request.getSession();
-        int orderID = Integer.parseInt((String) session.getAttribute("order_id"));
-        CarportLength carportLength = (CarportLength) session.getAttribute("currentCarportLength");
-        CarportWidth carportWidth = (CarportWidth) session.getAttribute("currentCarportWidth");
-        List<Object> carportAttributes = new ArrayList<>();
-        carportAttributes.add(carportWidth.getCarportWidth());
-        carportAttributes.add(carportLength.getCarportLength());
-        String roofname = "Plasttrapezplader";
-        carportAttributes.add(roofname);
-        dat.startcode.model.services.Calculator calculator = new dat.startcode.model.services.Calculator(carportAttributes,orderID);
-        calculator.calculateEverything();
+
+        try {
+            connectionPool.getConnection();
+            session = request.getSession();
+            CarportMapper carportMapper = new CarportMapper(connectionPool);
+            ArrayList<Carport> carportDataListAdmin = null;
+
+
+
+            try {
+                carportDataListAdmin = carportMapper.getCarportDataAdmin();
+
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            }
+
+            session.setAttribute("carportDataListAdmin",carportDataListAdmin);
+            request.getRequestDispatcher("bomlist.jsp").forward(request, response);
+
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int carport_length = Integer.parseInt(request.getParameter("carportLengthCM"));
+        int carport_width = Integer.parseInt(request.getParameter("carportWidthCM"));
+        int order_id = Integer.parseInt(request.getParameter("order_id"));
+        CalculatorService calculatorService = new CalculatorService(connectionPool,carport_width,carport_length,order_id);
+        BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
+        try {
+            ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
+            billOfMaterialsMapper.createBOM(bomList);
 
+
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        doGet(request,response);
     }
 }
