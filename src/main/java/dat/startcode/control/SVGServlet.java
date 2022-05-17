@@ -21,12 +21,18 @@ public class SVGServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int carportLength = 780;
+        int carportWidth = 600;
+        int toolshedLength = 210;
+        int toolshedWidth = 600;
 
         SVG svg = new SVG(0, 0, "0 0 800 600", 100, 50);
 
         for (int x = 0; x < 14; x++) {
-            svg.addRect(100 + 50 * x, 0, 600, 4.5);
+            svg.addRect(100 + 50 * x, 0, carportWidth, 4.5);
         }
+
+
 
         request.setAttribute("svgdrawing", svg.toString());
 
