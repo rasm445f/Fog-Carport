@@ -52,9 +52,7 @@ public class BillOfMaterialsMapper {
     public ArrayList<BillOfMaterials> createBOM(ArrayList<BillOfMaterials> billOfMaterialsList) throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
-        ArrayList<BillOfMaterials> bomList = new ArrayList<>();
-        CalculatorService calculatorService = new CalculatorService(connectionPool,1,1,1);
-        bomList = calculatorService.calculateEverything();
+        ArrayList<BillOfMaterials> bomList = billOfMaterialsList;
         String sql = "INSERT INTO fogcarport.bill_of_materials (bom_id,material_amount,material_guidance,material_id,order_id) VALUES (?,?,?,?,?);";
 
         int bom_id = 0;
@@ -63,31 +61,24 @@ public class BillOfMaterialsMapper {
         String material_guidance ="";
         int order_id = 0;
 
-        for (BillOfMaterials bill : bomList) {
-            bom_id = bill.getBom_id();
-            material_amount = bill.getMaterialAmount();
-            material_id = bill.getMaterialID();
-            material_guidance  = bill.getMaterialGuidance();
-            order_id = bill.getOrderID();
-        }
 
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1,bom_id);
-                ps.setInt(2,material_amount);
-                ps.setString(3,material_guidance);
-                ps.setInt(4,material_id);
-                ps.setInt(5,order_id);
+                for (BillOfMaterials bill : bomList) {
+                    bom_id = bill.getBom_id();
+                    material_amount = bill.getMaterialAmount();
+                    material_id = bill.getMaterialID();
+                    material_guidance = bill.getMaterialGuidance();
+                    order_id = bill.getOrderID();
 
-                int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1) {
+                    ps.setInt(1, bom_id);
+                    ps.setInt(2, material_amount);
+                    ps.setString(3, material_guidance);
+                    ps.setInt(4, material_id);
+                    ps.setInt(5, order_id);
 
-                     BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,material_amount,material_id,material_guidance,order_id);
-                     bomList.add(billOfMaterials);
-
-                } else {
-                    throw new DatabaseException("The bom couldn't be inserted into the database");
+                    ps.executeUpdate();
                 }
             }
 

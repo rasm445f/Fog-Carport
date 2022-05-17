@@ -32,7 +32,7 @@ public class CalculatorService {
         this.cwidth = cwidth;
         this.clength = clength;
         this.orderID = orderID;
-
+        this.bom_id = orderID;
     }
 
     public ArrayList<BillOfMaterials> calculateEverything() throws DatabaseException {
@@ -76,7 +76,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateStolper() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Stolpe";
+        String prerequesitOne = "97x97 mm. trykimp. Stolpe";
         int length = clength;
         int materialLength = 300;
         int amountOfStolper = 1;
@@ -104,7 +104,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateUndersternBraederForBackAndFront() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "25x200 mm. trykimp. Brædt";
         int amountofUndersternBraeder = 1;
         int width = cwidth;
         int materialLength = 360;
@@ -124,7 +124,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateUndersternbraederforSides() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "25x200 mm. trykimp. Brædt";
         int amountofUndersternSider = 1;
         int materialLength = 540;
         int length = clength;
@@ -144,7 +144,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateOversternBraederForFront() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "25x125 mm. trykimp. Brædt";
         int amountofOversternFront = 1;
         int width = cwidth;
         int materialLength = 360;
@@ -163,7 +163,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateOversternbraederforSides() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "25x125 mm. trykimp. Brædt";
         int amountofOversternSider = 1;
         int materialLength = 540;
         int length = clength;
@@ -183,7 +183,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateVandbraetForSides() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "19x100 mm. trykimp. Brædt";
         int amountofVandbraetSider = 1;
         int materialLength = 540;
         int length = clength;
@@ -203,7 +203,7 @@ public class CalculatorService {
 
     public BillOfMaterials calculateVandbraetForFront() throws DatabaseException {
 
-        String prerequesitOne = "trykimp. Brædt";
+        String prerequesitOne = "19x100 mm. trykimp. Brædt";
         int amountofVandbraetFront = 1;
         int materialLength = 360;
         int width = cwidth;
@@ -223,7 +223,7 @@ public class CalculatorService {
     public BillOfMaterials calculateSpaer() throws DatabaseException {
 
         int spaceBetween = 55;
-        String prerequesitOne = "spærtræ ubh.";
+        String prerequesitOne = "45x195 mm. spærtræ ubh.";
         int materialLength = 600;
         int amountOfSpaer = (int) Math.ceil(clength / spaceBetween);
         for (Materials materials : materialList) {
