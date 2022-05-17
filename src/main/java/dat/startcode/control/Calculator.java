@@ -9,6 +9,7 @@ import dat.startcode.model.persistence.CarportMapper;
 import dat.startcode.model.persistence.ConnectionPool;
 import dat.startcode.model.services.CalculatorService;
 
+import javax.naming.Context;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -46,8 +47,6 @@ public class Calculator extends HttpServlet {
 
             session.setAttribute("carportDataListAdmin",carportDataListAdmin);
             request.getRequestDispatcher("bomlist.jsp").forward(request, response);
-
-
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -57,6 +56,7 @@ public class Calculator extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext context = getServletContext();
         int carport_length = Integer.parseInt(request.getParameter("carportLengthCM"));
         int carport_width = Integer.parseInt(request.getParameter("carportWidthCM"));
         int order_id = Integer.parseInt(request.getParameter("order_id"));
@@ -65,12 +65,13 @@ public class Calculator extends HttpServlet {
         try {
             ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
             billOfMaterialsMapper.createBOM(bomList);
-
+            context.setAttribute("bomList",bomList);
 
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
-
         doGet(request,response);
+
+
     }
 }

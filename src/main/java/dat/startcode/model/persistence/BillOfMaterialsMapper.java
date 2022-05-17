@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,5 +88,36 @@ public class BillOfMaterialsMapper {
         }
         return bomList;
     }
+    public ArrayList<BillOfMaterials>  selectSpecificBOM(int bomID){
+        String sql = "SELECT * FROM bill_of_materials b\n" +
+                "inner join materials m on b.material_id = m.material_id where bom_id = ?;";
+        ArrayList<BillOfMaterials> bomSpecifications = new ArrayList<>();
+        int bom_id;
+        int materialAmount;
+        String materialGuiance;
+        String materialDescription;
+        String materialUnit;
+        int materialLength;
+        try {
+           Connection connection = connectionPool.getConnection();
+            try (PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setInt(1,bomID);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    bom_id = rs.getInt("bom_id");
+                    materialDescription = rs.getString("material_description");
+                    materialLength = rs.getInt("material_length");
+                    materialAmount = rs.getInt("material_amount");
+                    materialUnit = rs.getString("material_unit");
+                    materialGuiance = rs.getString("material_guidance");
+                    BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,materialAmount,materialGuiance,materialDescription,materialUnit,materialLength);
+                    bomSpecifications.add(billOfMaterials);
+                }
+            }
+        }catch (SQLException e)
+        {
 
+        }
+        return bomSpecifications;
+    }
 }

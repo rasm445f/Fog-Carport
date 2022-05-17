@@ -8,13 +8,26 @@ public class BillOfMaterials {
     String materialGuidance = "";
     int orderID = 0;
 
+    String materialGuiance;
+    String materialDescription;
+    String materialUnit;
+    int materialLength;
+
     public BillOfMaterials(int bom_id, int materialAmount, int materialID, String materialGuidance, int orderID) {
         this.bom_id = bom_id;
         this.materialAmount = materialAmount;
         this.materialID = materialID;
         this.materialGuidance = materialGuidance;
         this.orderID = orderID;
+    }
 
+    public BillOfMaterials(int bom_id, int materialAmount, String materialGuiance, String materialDescription, String materialUnit, int materialLength) {
+        this.bom_id = bom_id;
+        this.materialAmount = materialAmount;
+        this.materialGuiance = materialGuiance;
+        this.materialDescription = materialDescription;
+        this.materialUnit = materialUnit;
+        this.materialLength = materialLength;
     }
 
     public int getBom_id() {
@@ -35,5 +48,21 @@ public class BillOfMaterials {
 
     public int getOrderID() {
         return orderID;
+    }
+
+    public String getMaterialGuiance() {
+        return materialGuiance;
+    }
+
+    public String getMaterialDescription() {
+        return materialDescription;
+    }
+
+    public String getMaterialUnit() {
+        return materialUnit;
+    }
+
+    public int getMaterialLength() {
+        return materialLength;
     }
 }
