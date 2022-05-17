@@ -32,6 +32,7 @@ public class Calculator extends HttpServlet {
         String roofname = "Plasttrapezplader";
         carportAttributes.add(roofname);
         dat.startcode.model.services.Calculator calculator = new dat.startcode.model.services.Calculator(carportAttributes,orderID);
+        calculator.calculateEverything();
     }
 
     @Override
