@@ -32,7 +32,7 @@
 
             </tr>
             </thead>
-            <form action="deleteOrder" method="post">
+
             <c:forEach items="${sessionScope.carportDataList}" var="items">
                 <tr>
                     <td> <c:out value="${items.order_id}"/></td>
@@ -52,14 +52,14 @@
                     <td> <c:out value="${items.roofName}"/></td>
                     <td> <c:out value="${items.toolshedLengthCM}"/></td>
                     <td> <c:out value="${items.toolshedWidthCM}"/></td>
-
+                    <form action="deleteOrder" method="post">
                     <td><button type="submit" formaction="deleteOrder" name="delete" value="${items.order_id}">Delete order</button></td>
-
+                    </form>
                 </tr>
 
             </c:forEach>
 
-            </form>
+
 
 
 
