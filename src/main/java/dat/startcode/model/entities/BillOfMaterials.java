@@ -8,7 +8,6 @@ public class BillOfMaterials {
     String materialGuidance = "";
     int orderID = 0;
 
-    String materialGuiance;
     String materialDescription;
     String materialUnit;
     int materialLength;
@@ -21,10 +20,10 @@ public class BillOfMaterials {
         this.orderID = orderID;
     }
 
-    public BillOfMaterials(int bom_id, int materialAmount, String materialGuiance, String materialDescription, String materialUnit, int materialLength) {
+    public BillOfMaterials(int bom_id, int materialAmount, String materialGuidance, String materialDescription, String materialUnit, int materialLength) {
         this.bom_id = bom_id;
         this.materialAmount = materialAmount;
-        this.materialGuiance = materialGuiance;
+        this.materialGuidance = materialGuidance;
         this.materialDescription = materialDescription;
         this.materialUnit = materialUnit;
         this.materialLength = materialLength;
@@ -48,10 +47,6 @@ public class BillOfMaterials {
 
     public int getOrderID() {
         return orderID;
-    }
-
-    public String getMaterialGuiance() {
-        return materialGuiance;
     }
 
     public String getMaterialDescription() {

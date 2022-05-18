@@ -89,8 +89,7 @@ public class BillOfMaterialsMapper {
         return bomList;
     }
     public ArrayList<BillOfMaterials>  selectSpecificBOM(int bomID){
-        String sql = "SELECT * FROM bill_of_materials b\n" +
-                "inner join materials m on b.material_id = m.material_id where bom_id = ?;";
+        String sql = "SELECT * FROM bill_of_materials b inner join materials m on b.material_id = m.material_id where bom_id = ?;";
         ArrayList<BillOfMaterials> bomSpecifications = new ArrayList<>();
         int bom_id;
         int materialAmount;

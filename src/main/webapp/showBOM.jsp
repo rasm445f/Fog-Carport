@@ -28,7 +28,7 @@
 
             </tr>
 
-            <c:forEach items="${sessionScope.carportDataListAdmin}" var="items">
+            <c:forEach items="${sessionScope.bomSpecification}" var="items">
                 <tr>
                     <td> <c:out value="${items.materialDescription}"/></td>
                     <td> <c:out value="${items.materialLength}"/></td>
