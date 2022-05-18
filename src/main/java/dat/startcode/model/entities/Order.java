@@ -18,6 +18,12 @@ public class Order {
         this.order_id = order_id;
     }
 
+    public Order(int userID, int orderPrice, int orderStatus) {
+        this.userID = userID;
+        this.orderPrice = orderPrice;
+        this.orderStatus = orderStatus;
+    }
+
     public int getOrder_id() {
         return order_id;
     }

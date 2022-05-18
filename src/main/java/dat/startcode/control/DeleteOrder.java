@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "DeleteOrder", value = "/DeleteOrder")
+@WebServlet(name = "deleteOrder", value = "/deleteOrder")
 public class DeleteOrder extends HttpServlet {
     private HttpSession session;
     private ConnectionPool connectionPool;
@@ -30,19 +30,18 @@ public class DeleteOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try {
+        try{
             connectionPool.getConnection();
             session = request.getSession();
             User user = (User)session.getAttribute("user");
             OrderMapper orderMapper = new OrderMapper(connectionPool);
             CarportMapper carportMapper = new CarportMapper(connectionPool);
             ArrayList<Carport> carportDataList = null;
-
+            int userid = user.getUser_id();
 
 
             try {
-                int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
-                carportDataList = carportMapper.getCarportData(order_id);
+                carportDataList = carportMapper.getCarportData(userid);
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
@@ -56,21 +55,22 @@ public class DeleteOrder extends HttpServlet {
             System.out.println(e);
         }
 
-
     }
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         OrderMapper orderMapper = new OrderMapper(connectionPool);
-        User user = (User)session.getAttribute("user");
+        int order_id = Integer.parseInt(request.getParameter("delete"));
+
         try {
-            int order_id = orderMapper.getOrderIDFromUserID(user.getUser_id());
             orderMapper.deleteOrder(order_id);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("carportInfoCustomer.jsp").forward(request, response);
+        doGet(request,response);
 
     }
 }
