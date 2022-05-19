@@ -26,7 +26,8 @@ public class SVGServlet extends HttpServlet {
         int toolshedLength = 210;
         int toolshedWidth = 600;
         int spærAmount = (int) Math.ceil((float)carportLength/55)+1;
-        int stolpeAmount = 3;
+        int stolpeAmount = (int) Math.ceil((float)carportLength/310)+1;
+
 
         SVG svg = new SVG(0, 0, "0 0 800 600", 100, 50);
 
