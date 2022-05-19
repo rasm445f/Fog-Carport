@@ -65,7 +65,8 @@ public class Calculator extends HttpServlet {
         try {
             ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
             billOfMaterialsMapper.createBOM(bomList);
-            context.setAttribute("bomList",bomList);
+           int bom_id = bomList.get(0).getBom_id();
+            context.setAttribute("bomID",bom_id);
 
         } catch (DatabaseException e) {
             e.printStackTrace();

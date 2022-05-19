@@ -26,9 +26,9 @@ public class ShowBOM extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext context = getServletContext();
         ArrayList<BillOfMaterials> bomSpecification = new ArrayList<>();
-        ArrayList<BillOfMaterials> bomList = new ArrayList<>();
+        int bomID = 0;
         try {
-             bomList = (ArrayList<BillOfMaterials>) context.getAttribute("bomList");
+             bomID = (int) context.getAttribute("bomID");
         }
         catch (NullPointerException e){
         }
@@ -36,7 +36,7 @@ public class ShowBOM extends HttpServlet {
         try {
             connectionPool.getConnection();
             session = request.getSession();
-            bomSpecification = billOfMaterialsMapper.selectSpecificBOM(bomList.get(0).getBom_id());
+            bomSpecification = billOfMaterialsMapper.selectSpecificBOM(bomID);
             session.setAttribute("bomSpecification",bomSpecification);
 
         }
