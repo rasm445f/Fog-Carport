@@ -1,5 +1,6 @@
 package dat.startcode.model.config;
 
+import dat.startcode.control.SVGServlet;
 import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
@@ -17,6 +18,8 @@ public class Main {
         List<Object> objects = new ArrayList<>();
         int one = 600;
         int two = 780;
+//        SVGServlet svgServlet = new SVGServlet();
+
         /*String three = "yes";
         objects.add(one);
         objects.add(two);

@@ -49,6 +49,7 @@ public class SVG {
         this.width = width;
         this.height = height;
         svg.append(String.format(headerTemplate, height, width, viewBox, x, y ));
+        svg.append(arrowTemplate);
     }
     public void addRect(int x, int y, int height, int width) {
         svg.append(String.format(rectTemplate, x, y, height, width));
