@@ -69,7 +69,7 @@
                                 <input class="updatePriceInput" type="number" id="orderPrice" name="order_price"/>
                         </form>
 
-                        <form action="deleteOrderAdmin" method="post">
+                        <form action="" method="post">
                             <td><button type="submit" formaction="deleteOrderAdmin" name="delete" value="${items.order_id}">Delete order</button></td>
                         </form>
 

@@ -48,6 +48,9 @@ public class ShowBOM extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        int bomID = Integer.parseInt(request.getParameter("bom"));
+        ServletContext context = getServletContext();
+        context.setAttribute("bomID",bomID);
+        doGet(request,response);
     }
 }

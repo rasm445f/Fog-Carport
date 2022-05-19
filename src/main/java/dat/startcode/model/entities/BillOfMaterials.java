@@ -2,7 +2,7 @@ package dat.startcode.model.entities;
 
 public class BillOfMaterials {
 
-    int bom_id;
+    int bom_id = 0;
     int materialAmount = 0;
     int materialID = 0;
     String materialGuidance = "";

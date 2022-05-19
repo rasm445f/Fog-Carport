@@ -45,7 +45,9 @@ public class CalculatorService {
         BOMList.add(calculateVandbraetForFront());
         BOMList.add(calculateSpaer());
         BOMList.add(calculateRoofPlates());
-        BOMList.add(calculateRoofPlatesSmall());
+        if(clength > 600) {
+            BOMList.add(calculateRoofPlatesSmall());
+        }
         return BOMList;
     }
 

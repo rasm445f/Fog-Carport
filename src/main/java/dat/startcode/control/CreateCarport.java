@@ -4,6 +4,7 @@ import dat.startcode.model.config.ApplicationStart;
 import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
+import dat.startcode.model.services.CalculatorService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -94,6 +95,8 @@ public class CreateCarport extends HttpServlet {
             orderMapper.createOrder(user.getUser_id(), 1);
             Order order = orderMapper.getNewestOrderID();
             int order_id = order.getOrder_id();
+            CalculatorService calculatorService = new CalculatorService(connectionPool,carportWidth.getCarportWidth(),carportLength.getCarportLength(),order_id);
+
             session.setAttribute("order_id",order_id);
             session.setAttribute("currentCarportWidth",carportWidth);
             session.setAttribute("currentCarportLength",carportLength);

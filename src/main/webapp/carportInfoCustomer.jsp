@@ -29,6 +29,7 @@
                 <th> Toolshed Length:</th>
                 <th> Toolshed Width:</th>
                 <th> Delete order:</th>
+                <th> See BOM list:</th>
 
             </tr>
             </thead>
@@ -55,6 +56,9 @@
                     <form action="deleteOrder" method="post">
                     <td><button type="submit" formaction="deleteOrder" name="delete" value="${items.order_id}">Delete order</button></td>
                     </form>
+                    <form action="ShowBom" method="post">
+                        <td><button type="submit" formaction="ShowBom" name="bom" value="${items.order_id}">Show BOM</button></td>
+                    </form>
                 </tr>
 
             </c:forEach>
@@ -65,13 +69,6 @@
 
 
         </table>
-             <br>
-             <input type="submit"  value="See sketch"/>
-             <br>
-             <br>
-             <input type="submit"  value="See bill of materials"/>
-        <br>
-        <br>
             
 
 
