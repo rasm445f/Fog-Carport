@@ -82,8 +82,22 @@ public class CreateCarport extends HttpServlet {
         int carport_width_id = Integer.parseInt(request.getParameter("CarportWidthID"));
         int carport_length_id = Integer.parseInt(request.getParameter("CarportLengthID"));
         int rooftype_id = Integer.parseInt(request.getParameter("RooftypeID"));
-        int toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
-        int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
+        int toolshed_width_id = 0;
+        String lackofToolshedWidth_id;
+        try{
+            toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
+        }
+        catch (NumberFormatException e){
+            lackofToolshedWidth_id = request.getParameter("ToolshedWidthID");
+        }
+        String lackofToolshedLength_id;
+        int toolshed_length_id = 0;
+        try{
+             toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
+        }
+        catch (NumberFormatException e){
+            lackofToolshedLength_id = request.getParameter("ToolshedWidthID");
+        }
         CarportWidth carportWidth = carportWidthMapper.getSpecificCarportwidth(carport_width_id);
         CarportLength carportLength = carportLengthMapper.getSpecificCarportLength(carport_length_id);
         BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
@@ -102,7 +116,9 @@ public class CreateCarport extends HttpServlet {
             session.setAttribute("currentCarportWidth",carportWidth);
             session.setAttribute("currentCarportLength",carportLength);
             // TODO: 12-05-2022: make it so rooftypes actually gets inserted here;
-            toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
+            if(toolshed_width_id != 0 && toolshed_length_id != 0){
+                toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
+            }
             carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
 
 
