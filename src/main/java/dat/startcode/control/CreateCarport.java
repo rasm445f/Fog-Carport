@@ -86,7 +86,7 @@ public class CreateCarport extends HttpServlet {
         int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
         CarportWidth carportWidth = carportWidthMapper.getSpecificCarportwidth(carport_width_id);
         CarportLength carportLength = carportLengthMapper.getSpecificCarportLength(carport_length_id);
-
+        BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
 
         try {
 
@@ -96,7 +96,8 @@ public class CreateCarport extends HttpServlet {
             Order order = orderMapper.getNewestOrderID();
             int order_id = order.getOrder_id();
             CalculatorService calculatorService = new CalculatorService(connectionPool,carportWidth.getCarportWidth(),carportLength.getCarportLength(),order_id);
-
+            ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
+            billOfMaterialsMapper.createBOM(bomList);
             session.setAttribute("order_id",order_id);
             session.setAttribute("currentCarportWidth",carportWidth);
             session.setAttribute("currentCarportLength",carportLength);
