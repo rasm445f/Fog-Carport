@@ -17,8 +17,8 @@
 
         <h2>Bill of materials: </h2> <br>
 
-        <table>
-
+        <table class="content-table">
+            <thead>
             <tr>
                 <th> Træ og Tagplader:</th>
                 <th> Længde:</th>
@@ -27,6 +27,7 @@
                 <th> Beskrivelse:</th>
 
             </tr>
+            </thead>
 
             <c:forEach items="${sessionScope.bomSpecification}" var="items">
                 <tr>

@@ -57,7 +57,15 @@
                     <td><button type="submit" formaction="deleteOrder" name="delete" value="${items.order_id}">Delete order</button></td>
                     </form>
                     <form action="ShowBom" method="post">
-                        <td><button type="submit" formaction="ShowBom" name="bom" value="${items.order_id}">Show BOM</button></td>
+                        <td>
+                            <c:if test="${items.order_status == 1}">
+                            <button type="submit" formaction="ShowBom" name="bom" value="${items.order_id}">Show BOM</button>
+                            </c:if>
+                            <c:if test="${items.order_status == 0}">
+                                <c:out value="Pending"/>
+                            </c:if>
+
+                        </td>
                     </form>
                 </tr>
 
