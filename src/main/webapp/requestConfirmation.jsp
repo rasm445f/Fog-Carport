@@ -18,7 +18,7 @@
         <h2>Don't hesitate to contact us if you have any questions about your carport!</h2>
         <br> <br>
         <h2>Click here to view the status of your carport, when the sketch and bill of materials are made, you can also pay here to gain access to them <br> <a
-                href="carportInfoCustomer.jsp">Your carport</a></h2>
+                href="carportCustomer">Your carport</a></h2>
 
 
 
