@@ -41,10 +41,10 @@
 
 
                     <c:if test="${items.order_status == 0}">
-                        <td> <c:out value="Not autherized"/></td>
+                        <td> <c:out value="Not authorized"/></td>
                     </c:if>
                     <c:if test="${items.order_status == 1}">
-                        <td> <c:out value="Autherized"/></td>
+                        <td> <c:out value="Authorized"/></td>
                     </c:if>
 
                     <td> <c:out value="${items.carportLengthCM}"/></td>

@@ -42,10 +42,10 @@
                     <td> <c:out value="${items.customerName}"/></td>
                         <td> <c:out value="${items.order_price}"/></td>
                         <c:if test="${items.order_status == 0}">
-                            <td> <c:out value="Not autherized"/></td>
+                            <td> <c:out value="Not authorized"/></td>
                         </c:if>
                         <c:if test="${items.order_status == 1}">
-                            <td> <c:out value="Autherized"/></td>
+                            <td> <c:out value="Authorized"/></td>
                         </c:if>
 
                     <td> <c:out value="${items.carportLengthCM}"/></td>
@@ -57,8 +57,8 @@
                         <td>
                             <button type="submit" formaction="updateStatus" name="update_status" value="${items.order_id}">Update Status</button>
                             <select name="order_status" id="status">
-                                <option value="0">Not Authorised</option>
-                                <option value="1">Authorised</option>
+                                <option value="0">Not Authorized</option>
+                                <option value="1">Authorized</option>
 
                             </select>
                         </form>
@@ -66,7 +66,7 @@
                         <form action="updatePrice" method="post">
                             <td>
                                 <button type="submit" formaction="updatePrice" name="order_id" value="${items.order_id}">Update price</button>
-                                <input type="number" id="orderPrice" name="order_price"/>
+                                <input class="updatePriceInput" type="number" id="orderPrice" name="order_price"/>
                         </form>
 
                         <form action="deleteOrderAdmin" method="post">
