@@ -29,6 +29,9 @@
                 <th> Rooftype:</th>
                 <th> Toolshed Length:</th>
                 <th> Toolshed Width:</th>
+                <th> Update status:</th>
+                <th> Update Price:</th>
+                <th> Delete Order:</th>
 
             </tr>
             </thead>
@@ -50,27 +53,34 @@
                     <td> <c:out value="${items.roofName}"/></td>
                     <td> <c:out value="${items.toolshedLengthCM}"/></td>
                     <td> <c:out value="${items.toolshedWidthCM}"/></td>
+                        <form action="updateStatus" method="post">
+                        <td>
+                            <button type="submit" formaction="updateStatus" name="update_status" value="${items.order_id}">Update Status</button>
+                            <select name="order_status" id="status">
+                                <option value="0">Not Authorised</option>
+                                <option value="1">Authorised</option>
+
+                            </select>
+                        </form>
+
+                        <form action="updatePrice" method="post">
+                            <td>
+                                <button type="submit" formaction="updatePrice" name="order_id" value="${items.order_id}">Update price</button>
+                                <input type="number" id="orderPrice" name="order_price"/>
+                        </form>
+
+                        <form action="deleteOrderAdmin" method="post">
+                            <td><button type="submit" formaction="deleteOrderAdmin" name="delete" value="${items.order_id}">Delete order</button></td>
+                        </form>
+
+
+                        </td>
             </tr>
                 </c:forEach>
 
         </table>
 
-        <form action="carportAdmin" method="post">
 
-            <label for="order_id">Order ID: </label>
-            <input type="number" id="order_id" name="order_id"/>
-            <br>
-            <br>
-            <label for="order_price">Order Price: </label>
-            <input type="number" id="order_price" name="order_price"/>
-            <br>
-            <br>
-            <label for="order_status">Order Status: </label>
-            <input type="number" id="order_status" name="order_status"/>
-            <br>
-            <br>
-            <input type="submit"  value="Update order"/>
-        </form>
 
 
     </jsp:body>
