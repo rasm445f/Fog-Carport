@@ -19,11 +19,11 @@
 </head>
 <body>
 <div id="page-container">
-<header>
+<header >
     <a href="${pageContext.request.contextPath}/index.jsp">
     <img class="logo" src="images/fog-logo.png" width="200px;" alt="logo">
     </a>
-    <nav>
+    <nav >
         <ul class="nav_links">
             <li><a href="${pageContext.request.contextPath}/SVGServlet">See sketch</a></li>
             <c:if test="${sessionScope.user != null }">

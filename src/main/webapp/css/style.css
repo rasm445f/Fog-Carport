@@ -47,7 +47,11 @@ button:active{
 .content-table tbody tr:last-of-type{
     border-bottom: 2px solid #009879;
 }
-
+.content-table input       {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
 input{
     width: 100%;
     padding: 12px 20px;
@@ -120,6 +124,7 @@ header{
 
 }
 .nav_links li a{
+
     color: white;
     transition: all 0.3s ease 0s;
 
