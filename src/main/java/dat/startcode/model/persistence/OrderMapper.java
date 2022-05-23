@@ -1,5 +1,6 @@
 package dat.startcode.model.persistence;
 
+import dat.startcode.model.entities.Materials;
 import dat.startcode.model.entities.Order;
 import dat.startcode.model.entities.ToolshedWidth;
 import dat.startcode.model.entities.User;
@@ -53,7 +54,7 @@ public class OrderMapper {
         return order;
     }
 
-    public Order getNewestOrderID () throws DatabaseException{
+    public Order getNewestOrderID() throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT MAX(order_id) FROM fogcarport.order";
@@ -77,11 +78,11 @@ public class OrderMapper {
         return order;
     }
 
-    public int getOrderIDFromUserID(int user_id) throws DatabaseException{
+    public int getOrderIDFromUserID(int user_id) throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
         int order_id = 0;
-        String sql ="SELECT order_id FROM fogcarport.order WHERE user_id ="+user_id;
+        String sql = "SELECT order_id FROM fogcarport.order WHERE user_id =" + user_id;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -101,16 +102,16 @@ public class OrderMapper {
         return order_id;
     }
 
-    public void deleteOrder(int order_id) throws DatabaseException{
+    public void deleteOrder(int order_id) throws DatabaseException {
 
         Logger.getLogger("web").log(Level.INFO, "");
-        String sqlone ="delete from `order` where order_id = ?;";
-        String sqltwo ="delete from `bill_of_materials` where order_id = ?;";
-        String sqlthree ="delete from `carport` where order_id = ?;";
+        String sqlone = "delete from `order` where order_id = ?;";
+        String sqltwo = "delete from `bill_of_materials` where order_id = ?;";
+        String sqlthree = "delete from `carport` where order_id = ?;";
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sqlone)) {
-                ps.setInt(1,order_id);
+                ps.setInt(1, order_id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -118,7 +119,7 @@ public class OrderMapper {
         }
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sqltwo)) {
-                ps.setInt(1,order_id);
+                ps.setInt(1, order_id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -126,7 +127,7 @@ public class OrderMapper {
         }
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sqlthree)) {
-                ps.setInt(1,order_id);
+                ps.setInt(1, order_id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -134,9 +135,9 @@ public class OrderMapper {
         }
     }
 
-    public void updateOrderStatus (int order_id, int order_status) throws DatabaseException {
+    public void updateOrderStatus(int order_id, int order_status) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        String sql = "UPDATE fogcarport.order SET order_status ="+order_status+" WHERE order_id =" + order_id;
+        String sql = "UPDATE fogcarport.order SET order_status =" + order_status + " WHERE order_id =" + order_id;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -147,9 +148,9 @@ public class OrderMapper {
         }
     }
 
-    public void updateOrderPrice (int order_id, int order_price) throws DatabaseException{
+    public void updateOrderPrice(int order_id, int order_price) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
-        String sql = "UPDATE fogcarport.order SET order_price ="+order_price+" WHERE order_id =" + order_id;
+        String sql = "UPDATE fogcarport.order SET order_price =" + order_price + " WHERE order_id =" + order_id;
 
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -159,4 +160,40 @@ public class OrderMapper {
             e.printStackTrace();
         }
     }
+
+    public int calculateOrderPrice(int order_id) throws DatabaseException {
+        int order_price =0;
+        ArrayList<Materials> priceList = new ArrayList<>();
+        Materials materials;
+        Logger.getLogger("web").log(Level.INFO, "");
+        String sql = "SELECT * FROM bill_of_materials b\n" +
+                "inner join materials m on b.material_id = m.material_id\n" +
+                "WHERE order_id ="+order_id;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+
+                    int material_amount = rs.getInt("material_amount");
+                    int material_price = rs.getInt("material_price");
+                    materials = new Materials(material_amount,material_price);
+                    priceList.add(materials);
+
+                }
+                for (Materials materials1 : priceList) {
+                    order_price = order_price + materials1.getMaterialAmount()*materials1.getMaterialPrice();
+
+                }
+            }
+
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Material amount or price could not be found");
+        }
+
+        return order_price;
+    }
+
 }
