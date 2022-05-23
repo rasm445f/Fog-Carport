@@ -29,6 +29,7 @@
                 <th> Toolshed Length:</th>
                 <th> Toolshed Width:</th>
                 <th> Delete order:</th>
+                <th> See Sketch:</th>
                 <th> See BOM list:</th>
 
             </tr>
@@ -56,6 +57,14 @@
                     <form action="deleteOrder" method="post">
                     <td><button type="submit" formaction="deleteOrder" name="delete" value="${items.order_id}">Delete order</button></td>
                     </form>
+
+                    <form action="SVGServlet" method="post">
+                        <td>
+                        <button type="submit" formaction="SVGServlet" name="svg" value="${items.carportLengthCM}#${items.carportWidthCM}"  > See Sketch</button>
+
+                        </td>
+                    </form>
+
                     <form action="ShowBom" method="post">
                         <td>
                             <c:if test="${items.order_status == 1}">
