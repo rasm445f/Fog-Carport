@@ -27,6 +27,9 @@ public class CreateCarport extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try {
 
             Connection connection = connectionPool.getConnection();
@@ -73,6 +76,8 @@ public class CreateCarport extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
         OrderMapper orderMapper = new OrderMapper(connectionPool);
@@ -102,6 +107,7 @@ public class CreateCarport extends HttpServlet {
         CarportLength carportLength = carportLengthMapper.getSpecificCarportLength(carport_length_id);
         BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
 
+
         try {
 
             Connection connection = connectionPool.getConnection();
@@ -112,6 +118,8 @@ public class CreateCarport extends HttpServlet {
             CalculatorService calculatorService = new CalculatorService(connectionPool,carportWidth.getCarportWidth(),carportLength.getCarportLength(),order_id);
             ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
             billOfMaterialsMapper.createBOM(bomList);
+            int order_price =orderMapper.calculateOrderPrice(order_id);
+            orderMapper.updateOrderPrice(order_id,order_price);
             session.setAttribute("order_id",order_id);
             session.setAttribute("currentCarportWidth",carportWidth);
             session.setAttribute("currentCarportLength",carportLength);
@@ -126,7 +134,7 @@ public class CreateCarport extends HttpServlet {
         }
         catch (SQLException e){
 
-        } catch (DatabaseException e) {
+            } catch (DatabaseException e) {
             e.printStackTrace();
         }
             request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);

@@ -31,6 +31,9 @@ public class CreateUser extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         try {
             Connection connection = connectionPool.getConnection();
             request.getRequestDispatcher("createUser.jsp").forward(request, response);
@@ -43,8 +46,9 @@ public class CreateUser extends HttpServlet {
 
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
         response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         user = null;

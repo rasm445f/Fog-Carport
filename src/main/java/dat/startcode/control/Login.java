@@ -36,6 +36,8 @@ public class Login extends HttpServlet
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         response.setContentType("text/html");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         session.setAttribute("user", null); // adding empty user object to session scope
         UserMapper userMapper = new UserMapper(connectionPool);

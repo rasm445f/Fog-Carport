@@ -1,6 +1,5 @@
 package dat.startcode.model.config;
 
-import dat.startcode.control.SVGServlet;
 import dat.startcode.model.entities.*;
 import dat.startcode.model.exceptions.DatabaseException;
 import dat.startcode.model.persistence.*;
@@ -14,26 +13,9 @@ public class Main {
 
     public static void main(String[] args) throws DatabaseException {
         ConnectionPool connectionPool = new ConnectionPool();
-        List<Object> objects = new ArrayList<>();
-        int one = 600;
-        int two = 780;
-//        SVGServlet svgServlet = new SVGServlet();
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
+        System.out.println(orderMapper.calculateOrderPrice(2));
 
-        /*String three = "yes";
-        objects.add(one);
-        objects.add(two);
-        objects.add(three);
-        Calculator calculator = new Calculator(objects,1);
-        ArrayList<BillOfMaterials> Bomlist = calculator.calculateEverything();
-        System.out.println(Bomlist.size());
-        for (BillOfMaterials bill : Bomlist){
-            System.out.println(bill.getMaterialGuidance()); */
-
-        CarportMapper carportMapper = new CarportMapper(connectionPool);
-        ArrayList<Carport> listAdmin = carportMapper.getCarportDataAdmin();
-        for (Carport carport : listAdmin) {
-            System.out.println(carport.getCustomerName());
-        }
-        }
     }
+}
 

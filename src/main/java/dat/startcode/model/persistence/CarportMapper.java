@@ -53,6 +53,7 @@ public class CarportMapper {
 
     public ArrayList<Carport> getCarportData(int user_id) throws DatabaseException {
 
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
         Logger.getLogger("web").log(Level.INFO, "");
 
         String sql = "SELECT * FROM carport c\n" +
@@ -78,6 +79,7 @@ public class CarportMapper {
                     String roofName = rs.getString("roof_name");
                     int toolshedLengthCM = rs.getInt("toolshed_length_cm");
                     int toolshedWidthCM = rs.getInt("toolshed_width_cm");
+
 
                     Carport carport = new Carport(carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM,order_id,order_price,order_status);
                     carportsList.add(carport);
