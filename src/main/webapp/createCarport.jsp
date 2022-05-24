@@ -65,9 +65,11 @@
             <label for="ToolshedLengthID"><h5>Toolshed length</h5></label>
             <br>
             <select name="ToolshedLengthID" id="ToolshedLengthID">
-                <option>I don't want a toolshed</option>
+                <option value="0">I don't want a toolshed</option>
                 <c:forEach items="${sessionScope.toolshedLengthList}" var="items">
+                    <c:if test="${items.toolshedLengthID != 0}">
                     <option value="${items.toolshedLengthID}"> ${items.toolshedLength} cm </option>
+                    </c:if>
                 </c:forEach>
             </select><br><br>
 
