@@ -1,4 +1,4 @@
-/* package dat.startcode.persistence;
+/*package dat.startcode.persistence;
 
 import dat.startcode.model.entities.User;
 import dat.startcode.model.exceptions.DatabaseException;
@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserMapperTest
 {
-    private final static String USER = "root";
-    private final static String PASSWORD = "root";
-    private final static String URL = "jdbc:mysql://localhost:3306/startcode_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
+    private final static String USER = "cphbusiness";
+    private final static String PASSWORD = "cph";
+    private final static String URL = "jdbc:mysql://localhost:3306/fogcarport_test?serverTimezone=CET&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static ConnectionPool connectionPool;
     private static UserMapper userMapper;
@@ -37,8 +37,8 @@ class UserMapperTest
                 // Remove all rows from all tables
                 stmt.execute("delete from user");
                 // Indsæt et par brugere
-                stmt.execute("insert into user (username, password, role) " +
-                        "values ('user','1234','user'),('admin','1234','admin'), ('ben','1234','user')");
+                stmt.execute("insert into user (email, password, name, address, city, zipcode, phone_number ) " +
+                        "values ('user@user.dk','user','user','Testvej 123','Testby','2750','20414121'),('admin@admin.dk','admin','admin','Testvej 123','Testby','2750','20414121')");
             }
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -60,8 +60,8 @@ class UserMapperTest
     @Test
     void login() throws DatabaseException
     {
-        User expectedUser = new User ("test@test.dk","1234","customer",50000,"user","cph 58","Lyngby",2800,40319412);
-        User actualUser = userMapper.login("user","1234");
+        User expectedUser = new User (1,"user@user.dk","user","customer",50000,"user","Testvej 123","Testby",2750,20414121);
+        User actualUser = userMapper.login("user@user.dk","user");
         assertEquals(expectedUser, actualUser);
     }
 
@@ -80,13 +80,12 @@ class UserMapperTest
     @Test
     void createUser() throws DatabaseException
     {
-        User newUser = userMapper.createUser("test@test.dk","1234","customer",50000,"user","cph 58","Lyngby",2800,40319412);
-        User logInUser = userMapper.login("jill","1234");
-        User expectedUser = new User ("test@test.dk","1234","customer",50000,"user","cph 58","Lyngby",2800,40319412);
+        User newUser = userMapper.createUser("user@user.dk","user","user","Sankt Jacobsvej","Ballerup",2750,20231155);
+        User logInUser = userMapper.login("user@user.dk","user");
+        User expectedUser = new User (1,"user@user.dk","user","customer",50000,"user","Testvej 123","Testby",2750,20414121);
         assertEquals(expectedUser, newUser);
         assertEquals(expectedUser, logInUser);
 
     }
 }
-
- */
+*/

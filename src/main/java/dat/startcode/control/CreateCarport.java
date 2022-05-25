@@ -65,7 +65,7 @@ public class CreateCarport extends HttpServlet {
             session.setAttribute("toolshedWidthList", toolshedWidthList);
             session.setAttribute("toolshedLengthList", toolshedLengthList);
             session.setAttribute("rooftypeList", rooftypeList);
-            request.getRequestDispatcher("createCarport.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/createCarport.jsp").forward(request, response);
             connection.close();
         }
         catch (SQLException e){

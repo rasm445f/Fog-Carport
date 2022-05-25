@@ -2,11 +2,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page errorPage="error.jsp" isErrorPage="false" %>
+<%@page errorPage="../error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Carport:
+
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -14,6 +14,8 @@
     </jsp:attribute>
 
     <jsp:body>
+        <c:if test="${sessionScope.user != null}">
+            <h1>Carport:</h1>
         <br>
         <h3>Quick-build offer - Carport with a flat roof</h3>
         <br>
@@ -75,6 +77,12 @@
             <h6>Important info: if you have chosen a carport with the dimensions 240x360 cm, the toolshed can measure a maximum of 210x330 cm.</h6>
         </form>
 
-        <h4>${sessionScope.error}</h4>
+        </c:if>
+        <c:if test="${requestScope.errormessage  == null}">
+            <p>Abandon ship. We have no idea how you ended up here!</p>
+        </c:if>
     </jsp:body>
+
+
+
 </t:pagetemplate>
