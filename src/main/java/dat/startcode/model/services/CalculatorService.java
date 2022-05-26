@@ -81,20 +81,14 @@ public class CalculatorService {
         String prerequesitOne = "97x97 mm. trykimp. Stolpe";
         int length = clength;
         int materialLength = 300;
-        int amountOfStolper = 1;
+        int amountOfStolper = 2;
         int spaceFromBeginningToFirstStolpe;
         while (length > 310) {
             amountOfStolper++;
             length = length - 310;
         }
-        if (amountOfStolper == 1) {
-            amountOfStolper++;
-            amountOfStolper = amountOfStolper * 2;
-            spaceFromBeginningToFirstStolpe = 0;
-        } else {
             amountOfStolper = amountOfStolper * 2;
             spaceFromBeginningToFirstStolpe = length / 2;
-        }
         for (Materials materials : materialList) {
             if (materials.getMaterialDescription().equals(prerequesitOne) && materials.getMaterialLength() == materialLength) {
                 BillOfMaterials billOfMaterials = new BillOfMaterials(bom_id,amountOfStolper, materials.getMaterialID(), "Stolper nedgraves 90cm. i jord",orderID);

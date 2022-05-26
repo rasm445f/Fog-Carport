@@ -103,7 +103,8 @@ public class CarportMapper {
                 "inner join toolshed_width tw on c.rooftype_id = tw.toolshed_width_id\n" +
                 "inner join fogcarport.order o on c.order_id = o.order_id\n" +
                 "inner join user u on o.user_id = u.user_id;\n";
-
+        String sqlTwo = "SELECT * FROM fogcarport.toolshed_length WHERE toolshed_length_id = ?;";
+        String sqlThree = "SELECT * FROM fogcarport.toolshed_width WHERE toolshed_width_id = ?;";
         ArrayList<Carport> carportsListAdmin = new ArrayList<>();
         try {
             Connection connection = connectionPool.getConnection();
@@ -117,11 +118,28 @@ public class CarportMapper {
                     int carportLengthCM = rs.getInt("carport_length_cm");
                     int carportWidthCM = rs.getInt("carport_width_cm");
                     String roofName = rs.getString("roof_name");
-                    int toolshedLengthCM = rs.getInt("toolshed_length_cm");
-                    int toolshedWidthCM = rs.getInt("toolshed_width_cm");
+                    int toolshedLengthID = rs.getInt("toolshed_length_id");
+                    int toolshedLengthCM = 0;
+                    int toolshedWidthID = rs.getInt("toolshed_width_id");
+                    int toolshedWidthCM = 0;
+                    try(PreparedStatement psTwo = connection.prepareStatement(sqlTwo)) {
+                        psTwo.setInt(1, toolshedLengthID);
+                        ResultSet rsTwo = psTwo.executeQuery();
+                        while (rsTwo.next()) {
+                            toolshedLengthCM = rs.getInt("toolshed_length_cm");
+                        }
+                    }
+                    try(PreparedStatement psThree = connection.prepareStatement(sqlThree)){
+                        psThree.setInt(1, toolshedWidthID);
+                        ResultSet rsThree = psThree.executeQuery();
+                        while (rsThree.next()) {
+                            toolshedWidthCM = rs.getInt("toolshed_width_cm");
+                        }
+                    }
 
                     Carport carport = new Carport(order_id,customerName,order_price,order_status,carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM);
                     carportsListAdmin.add(carport);
+
                 }
             }
         } catch (SQLException e) {
