@@ -2,28 +2,52 @@
 skinparam style strictuml
 
 
-class User
-class Order
-class Carport
-class CarportLength
-class CarportWidth
-class ToolShed
-class ToolshedLength
-class ToolshedWidth
-class Materials
-class RoofType
-class BillofMaterials
+class User{
+email
+password
+name
+address
+city
+zipcode
+phone number
+balance
+role
+}
+class Order{
+price
+status
+}
+class Carport{
+carport length
+carport width
+}
 
-User "1" -- "1.."Order
+class ToolShed{
+toolshed length
+toolshed width
+}
+
+class Materials{
+description
+category
+unit
+length
+price
+}
+class RoofType{
+rooftype name
+}
+class BillofMaterials{
+material amount
+material guidance
+
+}
+
+
+User "1" -- "1..*"Order
 Order"1" -- "1"BillofMaterials
-Order"1" -- "1..*"Carport
-CarportLength"1" -- "1"Carport
-CarportWidth"1" -- "1"Carport
+Order"1" -- "1"Carport
 Carport"1" -- "0..1"ToolShed
-
-ToolshedLength"1" -- "1"ToolShed
-ToolshedWidth"1" -- "1"ToolShed
-
 BillofMaterials"1" -- "1..*"Materials
 Carport"1" -- "1"RoofType
 
