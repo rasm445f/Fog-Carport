@@ -22,11 +22,13 @@ import java.util.List;
 public class Calculator extends HttpServlet {
     private HttpSession session;
     private ConnectionPool connectionPool;
+
     @Override
     public void init() throws ServletException {
         this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -37,7 +39,6 @@ public class Calculator extends HttpServlet {
             ArrayList<Carport> carportDataListAdmin = null;
 
 
-
             try {
                 carportDataListAdmin = carportMapper.getCarportDataAdmin();
 
@@ -45,7 +46,7 @@ public class Calculator extends HttpServlet {
                 e.printStackTrace();
             }
 
-            session.setAttribute("carportDataListAdmin",carportDataListAdmin);
+            session.setAttribute("carportDataListAdmin", carportDataListAdmin);
             request.getRequestDispatcher("bomlist.jsp").forward(request, response);
         } catch (SQLException e) {
             System.out.println(e);
@@ -60,18 +61,18 @@ public class Calculator extends HttpServlet {
         int carport_length = Integer.parseInt(request.getParameter("carportLengthCM"));
         int carport_width = Integer.parseInt(request.getParameter("carportWidthCM"));
         int order_id = Integer.parseInt(request.getParameter("order_id"));
-        CalculatorService calculatorService = new CalculatorService(connectionPool,carport_width,carport_length,order_id);
+        CalculatorService calculatorService = new CalculatorService(connectionPool, carport_width, carport_length, order_id);
         BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
         try {
             ArrayList<BillOfMaterials> bomList = calculatorService.calculateEverything();
             billOfMaterialsMapper.createBOM(bomList);
-           int bom_id = bomList.get(0).getBom_id();
-            context.setAttribute("bomID",bom_id);
+            int bom_id = bomList.get(0).getBom_id();
+            context.setAttribute("bomID", bom_id);
 
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
-        doGet(request,response);
+        doGet(request, response);
 
 
     }
