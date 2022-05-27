@@ -13,16 +13,24 @@ start
 
 |System|
 :Register request;
+:Create BOM;
+:Create SVG sketch of carport;
+:Calculate estimed price;
+|User|
+:Customer gains access to a sketch and an estimated price;
 |Admin|
 :Read request;
-|Admin|
-:Make bill of materials;
+:Contact customer if needed;
+:Set final price for the order;
 |User|
 :Pay for carport;
 |System|
 :Recieve payment;
+|Admin|
+:Update status;
+
 |System|
-:Send "bom" to user;
+:Makes BOM visible to the customer;
 
 
 |User|
