@@ -43,6 +43,7 @@ CREATE TABLE `bill_of_materials` (
 
 LOCK TABLES `bill_of_materials` WRITE;
 /*!40000 ALTER TABLE `bill_of_materials` DISABLE KEYS */;
+INSERT INTO `bill_of_materials` VALUES (92,6,'Stolper nedgraves 90cm. i jord',11,92),(92,4,'understernbrædder til for og bag ende',1,92),(92,4,'understernbrædder til siderne',2,92),(92,2,'toversternsbrædder til forende',3,92),(92,4,'oversternbrædder til siderne',4,92),(92,4,'vandbræt på stern i sider',13,92),(92,2,'vandbræt på stern i forende',14,92),(92,10,'Spær,monteres på rem',8,92),(92,5,'tagplader monteres på spær',15,92),(93,8,'Stolper nedgraves 90cm. i jord',11,93),(93,4,'understernbrædder til for og bag ende',1,93),(93,4,'understernbrædder til siderne',2,93),(93,2,'toversternsbrædder til forende',3,93),(93,4,'oversternbrædder til siderne',4,93),(93,4,'vandbræt på stern i sider',13,93),(93,2,'vandbræt på stern i forende',14,93),(93,14,'Spær,monteres på rem',8,93),(93,6,'tagplader monteres på spær',15,93),(93,6,'tagplader monteres på spær',16,93);
 /*!40000 ALTER TABLE `bill_of_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +60,7 @@ CREATE TABLE `carport` (
                            `length_id` int NOT NULL,
                            `rooftype_id` int NOT NULL,
                            `toolshed_id` int DEFAULT NULL,
-                           `order_id` int DEFAULT NULL,
+                           `order_id` int NOT NULL,
                            PRIMARY KEY (`carport_id`),
                            KEY `fk_carport_carport_width1_idx` (`width_id`),
                            KEY `fk_carport_carport_length1_idx` (`length_id`),
@@ -71,7 +72,7 @@ CREATE TABLE `carport` (
                            CONSTRAINT `fk_carport_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
                            CONSTRAINT `fk_carport_rooftype1` FOREIGN KEY (`rooftype_id`) REFERENCES `rooftype` (`rooftype_id`),
                            CONSTRAINT `fk_carport_toolshed1` FOREIGN KEY (`toolshed_id`) REFERENCES `toolshed` (`toolshed_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,6 +81,7 @@ CREATE TABLE `carport` (
 
 LOCK TABLES `carport` WRITE;
 /*!40000 ALTER TABLE `carport` DISABLE KEYS */;
+INSERT INTO `carport` VALUES (109,8,13,1,1,92),(110,13,19,1,80,93);
 /*!40000 ALTER TABLE `carport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +176,7 @@ CREATE TABLE `order` (
                          PRIMARY KEY (`order_id`),
                          KEY `fk_order_user_idx` (`user_id`),
                          CONSTRAINT `fk_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +185,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (92,1,10958,0),(93,1,14168,0);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,14 +222,14 @@ DROP TABLE IF EXISTS `toolshed`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `toolshed` (
                             `toolshed_id` int NOT NULL AUTO_INCREMENT,
-                            `toolshed_width_id` int NOT NULL,
-                            `toolshed_length_id` int NOT NULL,
+                            `toolshed_width_id` int DEFAULT NULL,
+                            `toolshed_length_id` int DEFAULT NULL,
                             PRIMARY KEY (`toolshed_id`),
                             KEY `fk_toolshed_toolshed_length1_idx` (`toolshed_length_id`),
                             KEY `fk_toolshed_toolshed_width1_idx` (`toolshed_width_id`),
                             CONSTRAINT `fk_toolshed_toolshed_length1` FOREIGN KEY (`toolshed_length_id`) REFERENCES `toolshed_length` (`toolshed_length_id`),
                             CONSTRAINT `fk_toolshed_toolshed_width1` FOREIGN KEY (`toolshed_width_id`) REFERENCES `toolshed_width` (`toolshed_width_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,6 +238,7 @@ CREATE TABLE `toolshed` (
 
 LOCK TABLES `toolshed` WRITE;
 /*!40000 ALTER TABLE `toolshed` DISABLE KEYS */;
+INSERT INTO `toolshed` VALUES (1,NULL,NULL),(74,13,12),(75,14,15),(76,14,15),(77,13,12),(78,14,13),(79,14,14),(80,14,7);
 /*!40000 ALTER TABLE `toolshed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +253,7 @@ CREATE TABLE `toolshed_length` (
                                    `toolshed_length_id` int NOT NULL AUTO_INCREMENT,
                                    `toolshed_length_cm` int NOT NULL,
                                    PRIMARY KEY (`toolshed_length_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,4 +331,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-23 14:04:18
+-- Dump completed on 2022-05-29 21:20:21
