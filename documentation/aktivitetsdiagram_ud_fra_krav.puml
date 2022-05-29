@@ -1,0 +1,46 @@
+@startuml
+|User|
+start
+
+
+
+
+|#AntiqueWhite|System|
+|User|
+:Customize carport and fill out information about user;
+:Request carport;
+
+|System|
+:Register request;
+
+|Admin|
+
+:Read request;
+:Fill out the info about the carport in a program;
+|System|
+:Generate sketch and bill of materials ;
+|Admin|
+:Send the sketch to the customer;
+|User|
+:Checks the sketch;
+|Admin|
+:Contact customer;
+:Set final price for the order;
+
+
+|User|
+:Pay for carport;
+|System|
+:Recieve payment;
+|Admin|
+:Confirm that the payment went through;
+:Send the bill of materials and a pdf that explains how you build the carport;
+
+|System|
+
+
+
+|User|
+:Retrieve carport;
+stop
+@enduml
