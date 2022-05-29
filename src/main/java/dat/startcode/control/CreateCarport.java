@@ -65,7 +65,7 @@ public class CreateCarport extends HttpServlet {
             session.setAttribute("toolshedWidthList", toolshedWidthList);
             session.setAttribute("toolshedLengthList", toolshedLengthList);
             session.setAttribute("rooftypeList", rooftypeList);
-            request.getRequestDispatcher("createCarport.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/createCarport.jsp").forward(request, response);
             connection.close();
         }
         catch (SQLException e){
@@ -78,6 +78,8 @@ public class CreateCarport extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        int toolshed_width_id = 0;
+        int toolshed_length_id = 0;
         CarportMapper carportMapper = new CarportMapper(connectionPool);
         ToolshedMapper toolshedMapper = new ToolshedMapper(connectionPool);
         OrderMapper orderMapper = new OrderMapper(connectionPool);
@@ -87,8 +89,12 @@ public class CreateCarport extends HttpServlet {
         int carport_width_id = Integer.parseInt(request.getParameter("CarportWidthID"));
         int carport_length_id = Integer.parseInt(request.getParameter("CarportLengthID"));
         int rooftype_id = Integer.parseInt(request.getParameter("RooftypeID"));
-        int toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
-        int toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
+        try {
+            toolshed_width_id = Integer.parseInt(request.getParameter("ToolshedWidthID"));
+            toolshed_length_id = Integer.parseInt(request.getParameter("ToolshedLengthID"));
+        } catch(NumberFormatException e){
+
+           }
         CarportWidth carportWidth = carportWidthMapper.getSpecificCarportwidth(carport_width_id);
         CarportLength carportLength = carportLengthMapper.getSpecificCarportLength(carport_length_id);
         BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
@@ -109,9 +115,13 @@ public class CreateCarport extends HttpServlet {
             session.setAttribute("order_id",order_id);
             session.setAttribute("currentCarportWidth",carportWidth);
             session.setAttribute("currentCarportLength",carportLength);
-            // TODO: 12-05-2022: make it so rooftypes actually gets inserted here;
-                toolshedMapper.insertToolshed(toolshed_width_id,toolshed_length_id);
-            carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
+            if((toolshed_length_id & toolshed_width_id) != 0) {
+                toolshedMapper.insertToolshed(toolshed_width_id, toolshed_length_id);
+                carportMapper.createCarport(carport_width_id,carport_length_id,rooftype_id,order_id);
+            }
+            if((toolshed_length_id & toolshed_width_id) == 0) {
+                carportMapper.createCarportWithoutToolshed(carport_width_id,carport_length_id,rooftype_id,order_id);
+            }
 
 
 
@@ -121,7 +131,7 @@ public class CreateCarport extends HttpServlet {
             } catch (DatabaseException e) {
             e.printStackTrace();
         }
-            request.getRequestDispatcher("requestConfirmation.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/requestConfirmation.jsp").forward(request,response);
 
     }
 

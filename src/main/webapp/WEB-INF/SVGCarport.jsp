@@ -13,12 +13,15 @@
     </jsp:attribute>
 
     <jsp:body>
-
+        <c:if test="${sessionScope.user != null}">
         <div class="svg_img">
 
                 ${requestScope.svgdrawing}
 
         </div>
-
+        </c:if>
+        <c:if test="${sessionScope.user == null}">
+            <p>Abandon ship. We have no idea how you ended up here!</p>
+        </c:if>
     </jsp:body>
 </t:pagetemplate>

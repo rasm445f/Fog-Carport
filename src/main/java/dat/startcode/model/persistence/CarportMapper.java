@@ -50,19 +50,51 @@ public class CarportMapper {
         }
         return carport;
     }
+    public Carport createCarportWithoutToolshed (int width_id, int length_id, int rooftype_id, int order_id) throws DatabaseException{
+        Logger.getLogger("web").log(Level.INFO, "");
+        Carport carport;
+        int toolshed_id = 1;
+        String sql = "INSERT INTO carport (`width_id`, `length_id`, `rooftype_id`,`toolshed_id`,`order_id` ) VALUES (?,?,?,?,?)";
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+                ps.setInt(1, width_id);
+                ps.setInt(2, length_id);
+                ps.setInt(3, rooftype_id);
+                ps.setInt(4,toolshed_id);
+                ps.setInt(5,order_id);
+
+
+
+                int rowsAffected = ps.executeUpdate();
+                if (rowsAffected == 1) {
+
+                    carport = new Carport(width_id, length_id, rooftype_id);
+
+                } else {
+                    throw new DatabaseException("The carport couldn't be inserted into the database");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseException(ex, "Could not insert carport into database");
+        }
+        return carport;
+    }
+
 
     public ArrayList<Carport> getCarportData(int user_id) throws DatabaseException {
 
         OrderMapper orderMapper = new OrderMapper(connectionPool);
         Logger.getLogger("web").log(Level.INFO, "");
 
+
         String sql = "SELECT * FROM carport c\n" +
                 "inner join carport_length cl on c.length_id = cl.carport_length_id\n" +
                 "inner join carport_width cw on c.width_id = cw.carport_width_id\n" +
                 "inner join rooftype rt on c.rooftype_id = rt.rooftype_id\n" +
-                "inner join toolshed ts on c.toolshed_id = ts.toolshed_id\n" +
-                "inner join toolshed_length tl on c.rooftype_id = tl.toolshed_length_id\n" +
-                "inner join toolshed_width tw on c.rooftype_id = tw.toolshed_width_id\n" +
+                "left join toolshed ts on c.toolshed_id = ts.toolshed_id\n" +
+                "left join toolshed_length tl on ts.toolshed_length_id = tl.toolshed_length_id\n" +
+                "left join toolshed_width tw on ts.toolshed_width_id= tw.toolshed_width_id\n" +
                 "inner join fogcarport.order o on c.order_id = o.order_id\n" +
                 "WHERE user_id ="+user_id;
         ArrayList<Carport> carportsList = new ArrayList<>();
@@ -77,12 +109,19 @@ public class CarportMapper {
                     int carportLengthCM = rs.getInt("carport_length_cm");
                     int carportWidthCM = rs.getInt("carport_width_cm");
                     String roofName = rs.getString("roof_name");
+                    int nullChecker = rs.getInt("toolshed_id");
                     int toolshedLengthCM = rs.getInt("toolshed_length_cm");
                     int toolshedWidthCM = rs.getInt("toolshed_width_cm");
 
+                    if(nullChecker == 1){
+                        Carport carport = new Carport(carportLengthCM,carportWidthCM,roofName,order_id,order_price,order_status);
+                        carportsList.add(carport);
+                    }
+                    if(nullChecker != 1){
+                        Carport carport = new Carport(carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM,order_id,order_price,order_status);
+                        carportsList.add(carport);
+                    }
 
-                    Carport carport = new Carport(carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM,order_id,order_price,order_status);
-                    carportsList.add(carport);
                 }
             }
         } catch (SQLException e) {
@@ -98,13 +137,12 @@ public class CarportMapper {
                 "inner join carport_length cl on c.length_id = cl.carport_length_id\n" +
                 "inner join carport_width cw on c.width_id = cw.carport_width_id\n" +
                 "inner join rooftype rt on c.rooftype_id = rt.rooftype_id\n" +
-                "inner join toolshed ts on c.toolshed_id = ts.toolshed_id\n" +
-                "inner join toolshed_length tl on c.rooftype_id = tl.toolshed_length_id\n" +
-                "inner join toolshed_width tw on c.rooftype_id = tw.toolshed_width_id\n" +
+                "left join toolshed ts on c.toolshed_id = ts.toolshed_id\n" +
+                "left join toolshed_length tl on ts.toolshed_length_id = tl.toolshed_length_id\t\n" +
+                "left join toolshed_width tw on ts.toolshed_width_id= tw.toolshed_width_id\n" +
                 "inner join fogcarport.order o on c.order_id = o.order_id\n" +
-                "inner join user u on o.user_id = u.user_id;\n";
-        String sqlTwo = "SELECT * FROM fogcarport.toolshed_length WHERE toolshed_length_id = ?;";
-        String sqlThree = "SELECT * FROM fogcarport.toolshed_width WHERE toolshed_width_id = ?;";
+                "inner join user u on o.user_id = u.user_id;";
+
         ArrayList<Carport> carportsListAdmin = new ArrayList<>();
         try {
             Connection connection = connectionPool.getConnection();
@@ -118,27 +156,18 @@ public class CarportMapper {
                     int carportLengthCM = rs.getInt("carport_length_cm");
                     int carportWidthCM = rs.getInt("carport_width_cm");
                     String roofName = rs.getString("roof_name");
-                    int toolshedLengthID = rs.getInt("toolshed_length_id");
-                    int toolshedLengthCM = 0;
-                    int toolshedWidthID = rs.getInt("toolshed_width_id");
-                    int toolshedWidthCM = 0;
-                    try(PreparedStatement psTwo = connection.prepareStatement(sqlTwo)) {
-                        psTwo.setInt(1, toolshedLengthID);
-                        ResultSet rsTwo = psTwo.executeQuery();
-                        while (rsTwo.next()) {
-                            toolshedLengthCM = rs.getInt("toolshed_length_cm");
-                        }
-                    }
-                    try(PreparedStatement psThree = connection.prepareStatement(sqlThree)){
-                        psThree.setInt(1, toolshedWidthID);
-                        ResultSet rsThree = psThree.executeQuery();
-                        while (rsThree.next()) {
-                            toolshedWidthCM = rs.getInt("toolshed_width_cm");
-                        }
-                    }
+                    int nullChecker = rs.getInt("toolshed_id");
+                    int toolshedLengthCM = rs.getInt("toolshed_length_cm");
+                    int toolshedWidthCM = rs.getInt("toolshed_width_cm");
 
-                    Carport carport = new Carport(order_id,customerName,order_price,order_status,carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM);
-                    carportsListAdmin.add(carport);
+                    if(nullChecker == 1){
+                        Carport carport = new Carport(order_id,customerName,order_price,order_status,carportLengthCM, carportWidthCM, roofName);
+                        carportsListAdmin.add(carport);
+                    }
+                    if(nullChecker != 1){
+                        Carport carport = new Carport(order_id,customerName,order_price,order_status,carportLengthCM,carportWidthCM,roofName,toolshedLengthCM,toolshedWidthCM);
+                        carportsListAdmin.add(carport);
+                    }
 
                 }
             }

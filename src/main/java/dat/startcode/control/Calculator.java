@@ -47,7 +47,7 @@ public class Calculator extends HttpServlet {
             }
 
             session.setAttribute("carportDataListAdmin", carportDataListAdmin);
-            request.getRequestDispatcher("bomlist.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
         } catch (SQLException e) {
             System.out.println(e);
         }

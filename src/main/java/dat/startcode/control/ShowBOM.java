@@ -43,7 +43,7 @@ public class ShowBOM extends HttpServlet {
         catch (SQLException e){
             System.out.println("oh no");
         }
-        request.getRequestDispatcher("showBOM.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/showBOM.jsp").forward(request, response);
     }
 
     @Override

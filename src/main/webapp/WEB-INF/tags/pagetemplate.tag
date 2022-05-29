@@ -25,7 +25,6 @@
     </a>
     <nav >
         <ul class="nav_links">
-            <li><a href="${pageContext.request.contextPath}/SVGServlet">See sketch</a></li>
             <c:if test="${sessionScope.user != null }">
                 <li><a href="${pageContext.request.contextPath}/createCarport">Create carport</a></li>
             <li><a href="${pageContext.request.contextPath}/carportCustomer">Your carport</a></li>
@@ -41,6 +40,7 @@
             <c:if test="${sessionScope.user.role == 'admin' }">
                 <li><a href="${pageContext.request.contextPath}/carportAdmin">Admin</a></li>
             </c:if>
+            <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
 
             <c:if test="${sessionScope.user != null }">
                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>

@@ -53,6 +53,25 @@ public class Carport {
         this.toolshedWidthCM = toolshedWidthCM;
     }
 
+    public Carport(int carportLengthCM, int carportWidthCM, String roofName, int order_id, int order_price, int order_status) {
+        this.carportLengthCM = carportLengthCM;
+        this.carportWidthCM = carportWidthCM;
+        this.roofName = roofName;
+        this.order_id = order_id;
+        this.order_price = order_price;
+        this.order_status = order_status;
+    }
+
+    public Carport(int order_id, String customerName, int order_price, int order_status, int carportLengthCM, int carportWidthCM, String roofName) {
+        this.carportLengthCM = carportLengthCM;
+        this.carportWidthCM = carportWidthCM;
+        this.roofName = roofName;
+        this.order_id = order_id;
+        this.customerName = customerName;
+        this.order_price = order_price;
+        this.order_status = order_status;
+    }
+
     public int getCarportWidthID() {
         return carportWidthID;
     }

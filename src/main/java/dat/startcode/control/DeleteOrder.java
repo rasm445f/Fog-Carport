@@ -48,7 +48,7 @@ public class DeleteOrder extends HttpServlet {
             }
 
             session.setAttribute("carportDataList",carportDataList);
-            request.getRequestDispatcher("carportInfoCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
 
 
         } catch (SQLException e) {

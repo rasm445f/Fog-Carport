@@ -44,7 +44,7 @@ public class UpdateStatus extends HttpServlet {
             }
 
             session.setAttribute("carportDataListAdmin",carportDataListAdmin);
-            request.getRequestDispatcher("carportInfoAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/carportInfoAdmin.jsp").forward(request, response);
 
 
         } catch (SQLException e) {

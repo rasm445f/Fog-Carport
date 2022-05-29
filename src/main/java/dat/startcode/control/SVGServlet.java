@@ -49,7 +49,7 @@ public class SVGServlet extends HttpServlet {
             }
 
             session.setAttribute("carportDataList",carportDataList);
-            request.getRequestDispatcher("carportInfoCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
 
 
         } catch (SQLException e) {
@@ -163,7 +163,7 @@ public class SVGServlet extends HttpServlet {
             svg.addSvg(carportSVG);
             request.setAttribute("svgdrawing", svg.toString());
 
-            request.getRequestDispatcher("SVGCarport.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/SVGCarport.jsp").forward(request, response);
         }
 
 }

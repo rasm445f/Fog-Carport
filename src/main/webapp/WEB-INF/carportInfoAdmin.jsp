@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page errorPage="error.jsp" isErrorPage="false" %>
+<%@page errorPage="../error.jsp" isErrorPage="false" %>
 
 <t:pagetemplate>
     <jsp:attribute name="header">
@@ -14,6 +14,7 @@
 
     <jsp:body>
 
+        <c:if test="${sessionScope.user.role == 'admin'}">
 
         <h2>List of orders: </h2> <br>
 
@@ -51,8 +52,19 @@
                     <td> <c:out value="${items.carportLengthCM}"/></td>
                     <td> <c:out value="${items.carportWidthCM}"/></td>
                     <td> <c:out value="${items.roofName}"/></td>
-                    <td> <c:out value="${items.toolshedLengthCM}"/></td>
-                    <td> <c:out value="${items.toolshedWidthCM}"/></td>
+                        <c:if test="${items.toolshedLengthCM != 0}">
+                            <td> <c:out value="${items.toolshedLengthCM}"/></td>
+                        </c:if>
+                        <c:if test="${items.toolshedLengthCM == 0}">
+                            <td>No toolshed</td>
+                        </c:if>
+
+                        <c:if test="${items.toolshedWidthCM != 0}">
+                            <td> <c:out value="${items.toolshedWidthCM}"/></td>
+                        </c:if>
+                        <c:if test="${items.toolshedWidthCM == 0}">
+                            <td>No toolshed</td>
+                        </c:if>
                         <form action="updateStatus" method="post">
                         <td>
                             <button type="submit" formaction="updateStatus" name="update_status" value="${items.order_id}">Update Status</button>
@@ -79,7 +91,13 @@
                 </c:forEach>
 
         </table>
-
+        </c:if>
+        <c:if test="${sessionScope.user.role == 'customer'}">
+            <p>Abandon ship. We have no idea how you ended up here!</p>
+        </c:if>
+        <c:if test="${sessionScope.user == null}">
+            <p>Abandon ship. We have no idea how you ended up here!</p>
+        </c:if>
 
 
 
