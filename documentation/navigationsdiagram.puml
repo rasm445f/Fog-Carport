@@ -1,24 +1,33 @@
 @startuml
-'https://plantuml.com/state-diagram
+title FOG : State diagram
 
-scale 350 width
-[*] --> NotShooting
+state logout
+note left: always in the navbar when logged in
+state index.jsp
+state carportinfoCustomer.jsp
+state createCarport.jsp
+state login.jsp
+state requestConfirmation.jsp
+state showBOM.jsp
+state SVGCarport.jsp
+state createUser.jsp
+state carportinfoAdmin.jsp
 
-state NotShooting {
-  [*] --> Idle
-  Idle --> Configuring : EvConfig
-  Configuring --> Idle : EvConfig
-}
 
-state Configuring {
-  [*] --> NewValueSelection
-  NewValueSelection --> NewValuePreview : EvNewValue
-  NewValuePreview --> NewValueSelection : EvNewValueRejected
-  NewValuePreview --> NewValueSelection : EvNewValueSaved
+[*] --> index.jsp
+index.jsp --> login.jsp : login
+index.jsp --> createUser.jsp : if you dont have an account
+createUser.jsp --> login.jsp
+login.jsp --> index.jsp : if login OK
 
-  state NewValuePreview {
-     State1 -> State2
-  }
+index.jsp --> createCarport.jsp
+createCarport.jsp --> requestConfirmation.jsp : if request sent
 
-}
+index.jsp --> carportinfoCustomer.jsp : view your carport
+carportinfoCustomer.jsp --> showBOM.jsp : if the order is confirmed
+carportinfoCustomer.jsp --> SVGCarport.jsp : show sketch
+
+index.jsp --> carportinfoAdmin.jsp : if logged in to an admin account
+logout --> [*]
+
 @enduml
