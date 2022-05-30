@@ -22,8 +22,7 @@ public class MaterialsMapper {
         String sql = "SELECT * FROM fogcarport.materials;";
         ArrayList<Materials> materialList = new ArrayList<>();
 
-        try{
-            Connection connection = connectionPool.getConnection();
+        try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sql)){
 
                 ResultSet rs = ps.executeQuery();

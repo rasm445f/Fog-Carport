@@ -28,8 +28,7 @@ public class BillOfMaterialsMapper {
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM fogcarport.bill_of_materials;";
         ArrayList<BillOfMaterials> billOfMaterialsList = new ArrayList<>();
-        try{
-            Connection connection = connectionPool.getConnection();
+        try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sql)){
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
@@ -97,8 +96,7 @@ public class BillOfMaterialsMapper {
         String materialDescription;
         String materialUnit;
         int materialLength;
-        try {
-           Connection connection = connectionPool.getConnection();
+        try(Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)){
                 ps.setInt(1,bomID);
                 ResultSet rs = ps.executeQuery();

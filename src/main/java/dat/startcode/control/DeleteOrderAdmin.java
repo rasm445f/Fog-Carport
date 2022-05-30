@@ -27,28 +27,23 @@ public class DeleteOrderAdmin extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        session = request.getSession();
+        CarportMapper carportMapper = new CarportMapper(connectionPool);
+        ArrayList<Carport> carportDataListAdmin = null;
+
+
         try {
-            connectionPool.getConnection();
-            session = request.getSession();
-            CarportMapper carportMapper = new CarportMapper(connectionPool);
-            ArrayList<Carport> carportDataListAdmin = null;
+            carportDataListAdmin = carportMapper.getCarportDataAdmin();
 
-
-
-            try {
-                carportDataListAdmin = carportMapper.getCarportDataAdmin();
-
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-            }
-
-            session.setAttribute("carportDataListAdmin",carportDataListAdmin);
-            request.getRequestDispatcher("/WEB-INF/carportInfoAdmin.jsp").forward(request, response);
-
-
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
         }
+
+        session.setAttribute("carportDataListAdmin",carportDataListAdmin);
+        request.getRequestDispatcher("/WEB-INF/carportInfoAdmin.jsp").forward(request, response);
+
+
     }
 
     @Override

@@ -26,30 +26,25 @@ public class CarportAdmin extends HttpServlet {
         this.connectionPool = ApplicationStart.getConnectionPool();
 
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        session = request.getSession();
+        CarportMapper carportMapper = new CarportMapper(connectionPool);
+        ArrayList<Carport> carportDataListAdmin = null;
+
+
         try {
-            connectionPool.getConnection();
-            session = request.getSession();
-            CarportMapper carportMapper = new CarportMapper(connectionPool);
-            ArrayList<Carport> carportDataListAdmin = null;
+            carportDataListAdmin = carportMapper.getCarportDataAdmin();
 
-
-
-            try {
-                carportDataListAdmin = carportMapper.getCarportDataAdmin();
-
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-            }
-
-            session.setAttribute("carportDataListAdmin",carportDataListAdmin);
-            request.getRequestDispatcher("/WEB-INF/carportInfoAdmin.jsp").forward(request, response);
-
-
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
         }
+
+        session.setAttribute("carportDataListAdmin", carportDataListAdmin);
+        request.getRequestDispatcher("/WEB-INF/carportInfoAdmin.jsp").forward(request, response);
+
 
     }
 
@@ -65,18 +60,18 @@ public class CarportAdmin extends HttpServlet {
         try {
 
 
-        if(order_id_String != null|order_price_String != null|order_status_String != null) {
-            int order_id = Integer.parseInt(order_id_String);
-            int order_price = Integer.parseInt(order_price_String);
-            int order_status = Integer.parseInt(order_status_String);
-            orderMapper.updateOrderPrice(order_id,order_price);
-            orderMapper.updateOrderStatus(order_id,order_status);
-        }
+            if (order_id_String != null | order_price_String != null | order_status_String != null) {
+                int order_id = Integer.parseInt(order_id_String);
+                int order_price = Integer.parseInt(order_price_String);
+                int order_status = Integer.parseInt(order_status_String);
+                orderMapper.updateOrderPrice(order_id, order_price);
+                orderMapper.updateOrderStatus(order_id, order_status);
+            }
 
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
-        doGet(request,response);
+        doGet(request, response);
     }
 }
 

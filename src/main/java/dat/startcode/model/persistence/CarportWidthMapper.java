@@ -24,8 +24,7 @@ public class CarportWidthMapper {
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM carport_width;";
         ArrayList<CarportWidth> carportWidthsList = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -44,10 +43,9 @@ public class CarportWidthMapper {
     public CarportWidth getSpecificCarportwidth(int id){
         Logger.getLogger("web").log(Level.INFO, "");
         String sql = "SELECT * FROM carport_width WHERE carport_width_id = " + id;
-        try {
-            Connection connection = connectionPool.getConnection();
-            try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+        try (Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 int carport_width_id = rs.getInt("carport_width_id");

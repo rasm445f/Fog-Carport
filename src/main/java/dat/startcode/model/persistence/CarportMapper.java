@@ -98,8 +98,7 @@ public class CarportMapper {
                 "inner join fogcarport.order o on c.order_id = o.order_id\n" +
                 "WHERE user_id ="+user_id;
         ArrayList<Carport> carportsList = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -144,8 +143,7 @@ public class CarportMapper {
                 "inner join user u on o.user_id = u.user_id;";
 
         ArrayList<Carport> carportsListAdmin = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {

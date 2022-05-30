@@ -34,14 +34,9 @@ public class CreateUser extends HttpServlet {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        try {
-            Connection connection = connectionPool.getConnection();
-            request.getRequestDispatcher("createUser.jsp").forward(request, response);
-            connection.close();
-        }  catch (SQLException e){
 
-        }
-          
+        request.getRequestDispatcher("createUser.jsp").forward(request, response);
+
     }
 
 
@@ -63,7 +58,7 @@ public class CreateUser extends HttpServlet {
         int phone_number = Integer.parseInt(request.getParameter("phone_number"));
 
         try {
-            Connection connection = connectionPool.getConnection();
+
             user = userMapper.createUser(email, password, name, address, city, zipcode, phone_number);
             session.setAttribute("email", email);
             session.setAttribute("password", password);
@@ -72,20 +67,16 @@ public class CreateUser extends HttpServlet {
             session.setAttribute("city", city);
             session.setAttribute("zipcode", zipcode);
             session.setAttribute("phone_number", phone_number);
-            session.setAttribute("role",role);
-            
+            session.setAttribute("role", role);
+
 
             request.getRequestDispatcher("login.jsp").forward(request, response);
-            connection.close();
 
 
         } catch (DatabaseException e) {
             Logger.getLogger("web").log(Level.SEVERE, e.getMessage());
             request.setAttribute("errormessage", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-        catch (SQLException e){
-            System.out.println(e);
         }
 
 

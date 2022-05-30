@@ -33,16 +33,11 @@ public class ShowBOM extends HttpServlet {
         catch (NullPointerException e){
         }
         BillOfMaterialsMapper billOfMaterialsMapper = new BillOfMaterialsMapper(connectionPool);
-        try {
-            connectionPool.getConnection();
-            session = request.getSession();
-            bomSpecification = billOfMaterialsMapper.selectSpecificBOM(bomID);
-            session.setAttribute("bomSpecification",bomSpecification);
 
-        }
-        catch (SQLException e){
-            System.out.println("oh no");
-        }
+        session = request.getSession();
+        bomSpecification = billOfMaterialsMapper.selectSpecificBOM(bomID);
+        session.setAttribute("bomSpecification",bomSpecification);
+
         request.getRequestDispatcher("/WEB-INF/showBOM.jsp").forward(request, response);
     }
 

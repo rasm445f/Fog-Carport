@@ -30,30 +30,24 @@ public class CarportCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        try{
-            connectionPool.getConnection();
-            session = request.getSession();
-            User user = (User)session.getAttribute("user");
-            OrderMapper orderMapper = new OrderMapper(connectionPool);
-            CarportMapper carportMapper = new CarportMapper(connectionPool);
-            ArrayList<Carport> carportDataList = null;
-            int userid = user.getUser_id();
+        session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        OrderMapper orderMapper = new OrderMapper(connectionPool);
+        CarportMapper carportMapper = new CarportMapper(connectionPool);
+        ArrayList<Carport> carportDataList = null;
+        int userid = user.getUser_id();
 
 
-            try {
-                 carportDataList = carportMapper.getCarportData(userid);
+        try {
+            carportDataList = carportMapper.getCarportData(userid);
 
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-            }
-
-            session.setAttribute("carportDataList",carportDataList);
-            request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
-
-
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
         }
+
+        session.setAttribute("carportDataList", carportDataList);
+        request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
+
 
     }
 
