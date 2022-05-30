@@ -16,7 +16,7 @@
 
     <jsp:body>
 
-        <h4>Please fill out the information below.</h4>
+        <h4>Please fill out the information below. </h4>
 
         <form action="createUser" method="post" class="form">
 
