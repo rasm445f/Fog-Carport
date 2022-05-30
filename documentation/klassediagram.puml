@@ -1,0 +1,212 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class BillOfMaterials{
+int bom_id
+int material_amount
+int material_id
+String material_guidance
+int order_id
+}
+class Carport{
+int carportLengthID
+int carportLengthCM
+int carportWidthID
+int carportWidthCM
+int rooftypeID
+String roofName
+int toolshedLengthCM
+int toolshedWidthCM
+int order_id
+int order_status
+int order_price
+String customerName
+}
+class Materials{
+int materialID
+String materialDescription
+String materialCategory
+int materialLength
+String materialUnit
+int materialPrice
+int materialAmount
+}
+class Order{
+int order_id
+int userID
+int orderPrice
+int orderStatus
+}
+class Rooftype{
+int rooftypeID
+String roofName
+}
+class Toolshed{
+int toolshedID
+int toolshedWidth
+int toolshedLength
+}
+class User{
+int user_id
+String email
+String password
+String role
+int balance
+String name
+String address
+String city
+int zipcode
+int phoneNumber
+}
+class SVG{
+int x
+int y
+String viewBox
+String width
+String height
+templates
+addRect()
+addArrow()
+addDashedLine()
+addSvg()
+}
+class CalculatorService{
+int orderID
+int carportWidth
+int carportLength
+int bom_id
+calculateEverything()
+getNextBOMID()
+calculateStolper()
+calculateUndersternBraederForBackAndFront()
+calculateUndersternbraederforSides()
+calculateOversternBraederForFront()
+calculateOversternbraederforSides()
+calculateVandbraetForSides()
+calculateVandbraetForFront()
+calculateSpaer()
+calculateRoofPlates()
+}
+
+class CreateCarport
+class CarportAdmin
+class CarportCustomer
+class ShowBOM
+class SVGServlet
+class Calculator
+class UpdatePrice
+class UpdateStatus
+class DeleteOrder
+
+class BillOfMaterialsMapper{
+connectionpool
+getBOM()
+createBOM()
+selectSpecificBOM()
+}
+class CarportMapper{
+connectionpool
+createCarport()
+createCarportWithoutToolshed()
+getCarportData()
+getCarportDataAdmin()
+}
+class MaterialsMapper{
+connectionpool
+createMaterials()
+}
+class OrderMapper{
+connectionpool
+createOrder()
+getNewestOrderID()
+getOrderIDFromUserID()
+deleteOrder()
+updateOrderStatus()
+updateOrderPrice()
+calculateOrderPrice()
+}
+class UserMapper{
+connectionpool
+createUser()
+login()
+}
+class RooftypeMapper{
+connectionpool
+getRooftype()
+}
+class ToolshedMapper{
+connectionpool
+insertToolshed()
+}
+
+
+BillOfMaterialsMapper <-- CalculatorService
+ToolshedMapper <-- CreateCarport
+Toolshed <-- ToolshedMapper
+RooftypeMapper <-- CreateCarport
+Rooftype <-- RooftypeMapper
+BillOfMaterialsMapper <-- ShowBOM
+BillOfMaterials <-- BillOfMaterialsMapper
+BillOfMaterials <-- CalculatorService
+BillOfMaterials <-- CreateCarport
+Rooftype <-- CreateCarport
+MaterialsMapper <-- CalculatorService
+Materials <-- CalculatorService
+Materials <-- MaterialsMapper
+Materials <-- OrderMapper
+Order <-- OrderMapper
+Order <-- CreateCarport
+OrderMapper <-- UpdatePrice
+OrderMapper <-- UpdateStatus
+OrderMapper <-- CreateCarport
+OrderMapper <-- CarportMapper
+Carport <-- CarportMapper
+Carport <-- DeleteOrder
+CarportMapper <-- UpdatePrice
+CarportMapper <-- UpdateStatus
+Carport <-- CarportAdmin
+Carport <-- CarportCustomer
+Carport <-- UpdatePrice
+Carport <-- UpdateStatus
+Carport <-- SVGServlet
+BillOfMaterials <-- ShowBOM
+BillOfMaterials <-- Calculator
+CalculatorService <-- Calculator
+CalculatorService <-- CreateCarport
+SVG <-- SVGServlet
+User <-- SVGServlet
+OrderMapper <-- SVGServlet
+CarportMapper <-- SVGServlet
+User <-- UserMapper
+User <-- CarportCustomer
+User <-- CarportAdmin
+User <-- DeleteOrder
+OrderMapper <-- DeleteOrder
+CarportMapper <-- DeleteOrder
+BillOfMaterialsMapper <-- Calculator
+CarportMapper <-- Calculator
+BillOfMaterialsMapper <-- ShowBOM
+OrderMapper <-- CarportAdmin
+OrderMapper <-- CarportCustomer
+CarportMapper <-- CarportAdmin
+CarportMapper <-- CarportCustomer
+User <-- CreateCarport
+CarportMapper <-- CreateCarport
+BillOfMaterialsMapper <-- CreateCarport
+OrderMapper <-- CarportMapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml

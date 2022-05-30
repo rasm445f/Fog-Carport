@@ -21,7 +21,7 @@ public class CarportLengthMapper {
     }
 
     public ArrayList<CarportLength> createCarportLength(){
-        String sql = "SELECT * FROM carport_Length;";
+        String sql = "SELECT * FROM carport_length;";
         ArrayList<CarportLength> carportLengthsList = new ArrayList<>();
         try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sql)){
@@ -41,7 +41,7 @@ public class CarportLengthMapper {
     }
     public CarportLength getSpecificCarportLength(int id){
         Logger.getLogger("web").log(Level.INFO, "");
-        String sql = "SELECT * FROM carport_Length WHERE carport_Length_id = " + id;
+        String sql = "SELECT * FROM carport_length WHERE carport_length_id = " + id;
         try (Connection connection = connectionPool.getConnection()){
             try (PreparedStatement ps = connection.prepareStatement(sql)){
                 ResultSet rs = ps.executeQuery();
