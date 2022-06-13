@@ -32,25 +32,6 @@ public class SVGServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        OrderMapper orderMapper = new OrderMapper(connectionPool);
-        CarportMapper carportMapper = new CarportMapper(connectionPool);
-        ArrayList<Carport> carportDataList = null;
-        int userid = user.getUser_id();
-
-
-        try {
-            carportDataList = carportMapper.getCarportData(userid);
-
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
-
-        session.setAttribute("carportDataList",carportDataList);
-        request.getRequestDispatcher("/WEB-INF/carportInfoCustomer.jsp").forward(request, response);
-
-
     }
 
 
@@ -133,26 +114,13 @@ public class SVGServlet extends HttpServlet {
 
             //bottom arrow
             svg.addArrow(lengthOffset, carportWidth - widthOffset / 3, carportLength - 2, carportWidth - widthOffset / 3, carportLength - (carportLength - lengthOffset) / 2, carportWidth - widthOffset / 2, 0, "" + carportLength);
-//
-//            svg.addArrow(100,padding, 100+carportLength,padding,(carportLength)/2,padding,"200"); //arrow top
-            svg.addArrow(lengthOffset / 3, widthOffset, lengthOffset / 3, carportWidth - widthOffset, lengthOffset / 3 - 5, carportWidth - (carportWidth - widthOffset) / 2, -90, "" + carportWidth); // arrow side
-            svg.addArrow(lengthOffset / 2 + 20, widthOffset + carportWidth / 16, lengthOffset / 2 + 20, carportWidth - (widthOffset + carportWidth / 16) + widthOffset / 6, lengthOffset / 2 + 20, (carportWidth - (widthOffset + carportWidth / 16) + widthOffset / 6) / 2 + widthOffset, -90, "" + spærOffset); // inner arrow side
-//
+            // arrow side
+            svg.addArrow(lengthOffset / 3, widthOffset, lengthOffset / 3, carportWidth - widthOffset, lengthOffset / 3 - 5, carportWidth - (carportWidth - widthOffset) / 2, -90, "" + carportWidth);
+            // inner arrow side
+            svg.addArrow(lengthOffset / 2 + 20, widthOffset + carportWidth / 16, lengthOffset / 2 + 20, carportWidth - (widthOffset + carportWidth / 16) + widthOffset / 6, lengthOffset / 2 + 20, (carportWidth - (widthOffset + carportWidth / 16) + widthOffset / 6) / 2 + widthOffset, -90, "" + spærOffset);
+
             carportSVG.addDashedLine(carportLength / 10, carportWidth / 16, carportLength - carportLength / 10, carportWidth - carportWidth / 16);
             carportSVG.addDashedLine(carportLength / 10, carportWidth - carportWidth / 16, carportLength - carportLength / 10, carportWidth / 16);
-
-            //lodret spær arrows
-//        for (int x = 0; x < spærAmount; x++)
-//            if (x == 0)// første spær
-//            {
-//                svg.addArrow(lengthOffset,);
-//            }
-//            else if (x == spærAmount-1)// sidste spær
-//            {
-//                carportSVG.addRect(carportLength-4,0,carportWidth,4);
-//            }
-//            else {
-//                carportSVG.addRect(55 * x-1,0,carportWidth,4);}
 
 
             svg.addSvg(carportSVG);

@@ -12,13 +12,12 @@ public class SVG {
 
     private final String headerTemplate = "<svg height=\"%s\" " +
             "width=\"%s\" " +
-            "viewBox=\"%s\" "+
+            "viewBox=\"%s\" " +
             "x=\"%d\"   " +
             "y=\"%d\"   " +
             " preserveAspectRatio=\"xMinYMin\">";
 
-    private final String dashedLineTemplate ="<line x1=\" %d \"y1=\" %d \" x2=\"%d\" y2=\" %d \" style=\"stroke: black; stroke-dasharray:10,5\" />\n";
-//    "<path stroke-dasharray=\\\"5,5\\\" d=\\\"M%d %d l%d %d\\\" />\"";
+    private final String dashedLineTemplate = "<line x1=\" %d \"y1=\" %d \" x2=\"%d\" y2=\" %d \" style=\"stroke: black; stroke-dasharray:10,5\" />\n";
     private final String rectTemplate = "<rect x=\"%d\" y=\"%d\" height=\"%d\" width=\"%d\" style=\"stroke:#000000; fill: #ffffff\" />";
     private final String lineTemplate = "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" style=\"stroke:#000000;stroke-width:2\" />";
     private final String arrowTemplate = "<defs>\n" +
@@ -48,7 +47,6 @@ public class SVG {
             "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(%d)\">%s cm</text>";
 
 
-
     private final String messurementTemplate = "";
 
 
@@ -58,23 +56,23 @@ public class SVG {
         this.viewBox = viewBox;
         this.width = width;
         this.height = height;
-        svgBuilder.append(String.format(headerTemplate, height, width, viewBox, x, y ));
-        //svgBuilder.append(arrowTemplate);
+        svgBuilder.append(String.format(headerTemplate, height, width, viewBox, x, y));
     }
+
     public void addRect(int x, int y, int height, int width) {
         svgBuilder.append(String.format(rectTemplate, x, y, height, width));
     }
 
-    public void addLine(int x1, int y1, int x2, int y2 ) {
-       svgBuilder.append(String.format(lineTemplate,x1,y1,x2,y2));
+    public void addLine(int x1, int y1, int x2, int y2) {
+        svgBuilder.append(String.format(lineTemplate, x1, y1, x2, y2));
     }
 
-    public void addArrow (int x1, int y1, int x2, int y2,int x3, int y3,int rotate,String messurment){
-        svgBuilder.append(String.format(arrowTemplate,x1,y1,x2,y2,x3,y3,rotate,messurment));
+    public void addArrow(int x1, int y1, int x2, int y2, int x3, int y3, int rotate, String messurment) {
+        svgBuilder.append(String.format(arrowTemplate, x1, y1, x2, y2, x3, y3, rotate, messurment));
     }
 
-    public void addDashedLine (int x1,int y1 ,int x2,int y2){
-        svgBuilder.append(String.format(dashedLineTemplate,x1,y1,x2,y2));
+    public void addDashedLine(int x1, int y1, int x2, int y2) {
+        svgBuilder.append(String.format(dashedLineTemplate, x1, y1, x2, y2));
     }
 
 
@@ -84,7 +82,7 @@ public class SVG {
 
     @Override
     public String toString() {
-        return svgBuilder.toString() + "</svg>" ;
+        return svgBuilder.toString() + "</svg>";
     }
 
 }
